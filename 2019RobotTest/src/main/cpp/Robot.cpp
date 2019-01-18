@@ -11,12 +11,12 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 
 ExampleSubsystem Robot::m_subsystem;
-OI Robot::m_oi;
+OI Robot::oi;
 
 void Robot::RobotInit() {
-  m_chooser.SetDefaultOption("Default Auto", &m_defaultAuto);
-  m_chooser.AddOption("My Auto", &m_myAuto);
-  frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+  AutonomousChooser.SetDefaultOption("Default Auto", &defaultAuto);
+  AutonomousChooser.AddOption("My Auto", &myAuto);
+  frc::SmartDashboard::PutData("Auto Modes", &AutonomousChooser);
 }
 
 /**
@@ -58,10 +58,10 @@ void Robot::AutonomousInit() {
   //   m_autonomousCommand = &m_defaultAuto;
   // }
 
-  m_autonomousCommand = m_chooser.GetSelected();
+  autonomousCommand = AutonomousChooser.GetSelected();
 
-  if (m_autonomousCommand != nullptr) {
-    m_autonomousCommand->Start();
+  if (autonomousCommand != nullptr) {
+    autonomousCommand->Start();
   }
 }
 
@@ -72,9 +72,9 @@ void Robot::TeleopInit() {
   // teleop starts running. If you want the autonomous to
   // continue until interrupted by another command, remove
   // this line or comment it out.
-  if (m_autonomousCommand != nullptr) {
-    m_autonomousCommand->Cancel();
-    m_autonomousCommand = nullptr;
+  if (autonomousCommand != nullptr) {
+    autonomousCommand->Cancel();
+    autonomousCommand = nullptr;
   }
 }
 

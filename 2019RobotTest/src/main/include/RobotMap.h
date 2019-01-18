@@ -13,6 +13,21 @@
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
  */
+//PWM
+
+//CAN
+constexpr int DRIVE_RIGHT1 = 2;//motor controller type
+constexpr int DRIVE_RIGHT2 = 3;//motor controller type
+constexpr int DRIVE_RIGHT3 = 4;//motor controller type
+constexpr int DRIVE_LEFT1 = 1;//motor controller type
+constexpr int DRIVE_LEFT2 = 1;//motor controller type
+constexpr int DRIVE_LEFT3 = 2;//motor controller type
+//PCM
+
+//DIGITAL INPUT
+
+//ANALOG INPUT
+
 
 // For example to map the left and right motors, you could define the
 // following variables to use with your drivetrain subsystem.
