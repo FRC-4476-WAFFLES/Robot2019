@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/DriveSubsystem.h"
-#include <SmartDashboard/SmartDashboard.h>
+#include <frc/SmartDashboard/SmartDashboard.h>
 
 #include "RobotMap.h"
 
@@ -53,11 +53,11 @@ void DriveSubsystem::Drive(float Left, float Right) {
 }
 
 float DriveSubsystem::Right() {
-  return right1.GetSelectetSelectedSensorPosition(0)*2;
+  return right1.GetSelectedSensorPosition(0)*2;
 }
 
 float DriveSubsystem::Left() {
-  return left1.GetSelectetSelectedSensorPosition(0)*2;
+  return left1.GetSelectedSensorPosition(0)*2;
 }
 
 float DriveSubsystem::Gyro() {
