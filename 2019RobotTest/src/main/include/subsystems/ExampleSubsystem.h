@@ -8,6 +8,7 @@
 #pragma once
 
 #include <frc/commands/Subsystem.h>
+using namespace frc;
 
 class ExampleSubsystem : public frc::Subsystem {
  public:

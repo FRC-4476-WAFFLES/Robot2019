@@ -8,6 +8,7 @@
 #pragma once
 
 #include <frc/commands/Command.h>
+using namespace frc;
 
 class ExampleCommand : public frc::Command {
  public:

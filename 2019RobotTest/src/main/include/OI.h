@@ -6,8 +6,25 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
+#include <frc/Joystick.h>
+using namespace frc;
 
 class OI {
  public:
   OI();
+  	enum OperatorButton {
+		X=3,
+		A=1,
+		B=2,
+		Y=4,
+		BumperTopLeft=5,
+		BumperTopRight=6,
+		Back=7,
+		Start=8,
+		LeftJoystickCenterButton=9, 
+		RightJoystickCenterButton=10,
+	};
+	Joystick left;
+	Joystick right;
+	Joystick operate;
 };

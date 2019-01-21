@@ -15,6 +15,7 @@
 #include <frc/WPILib.h>
 #include <frc/PowerDistributionPanel.h>
 #include <frc/ADXRS450_Gyro.h>
+using namespace frc;
 
 class DriveSubsystem : public frc::Subsystem {
  public:
@@ -33,6 +34,20 @@ class DriveSubsystem : public frc::Subsystem {
 	WPI_VictorSPX right2;
 	WPI_VictorSPX right3;
   ADXRS450_Gyro gyro;
+  constexpr static float MAX_SPEED = 1.0; // feet/s
+	constexpr static float MAX_ACCEL = 1.0; // feet/s/s
+	constexpr static float MAX_JERK = 10.0; // feet/s/s/s
+	constexpr static float ANGLE_P = 0.8;
+	PowerDistributionPanel PDP;
+
+
+	bool drive_toggle = true;
+
+	//void special_turn(float direction);
+
+	double target_distance;
+	double target_angle;
+	double drive_speed_FPS = 0.0;
 
  private:
 

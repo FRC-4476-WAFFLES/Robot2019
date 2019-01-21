@@ -7,15 +7,10 @@
 
 #pragma once
 
-#include <frc/commands/Command.h>
-using namespace frc;
+#include <frc/commands/CommandGroup.h>
 
-class MyAutoCommand : public frc::Command {
+class GeneralTestAuto : public frc::CommandGroup {
  public:
-  MyAutoCommand();
-  void Initialize() override;
-  void Execute() override;
-  bool IsFinished() override;
-  void End() override;
-  void Interrupted() override;
+  explicit GeneralTestAuto();
+
 };

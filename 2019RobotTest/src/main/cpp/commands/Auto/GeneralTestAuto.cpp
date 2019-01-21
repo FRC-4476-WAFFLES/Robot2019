@@ -5,17 +5,11 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#pragma once
+#include "commands/Auto/GeneralTestAuto.h"
 
-#include <frc/commands/Command.h>
-using namespace frc;
-
-class MyAutoCommand : public frc::Command {
- public:
-  MyAutoCommand();
-  void Initialize() override;
-  void Execute() override;
-  bool IsFinished() override;
-  void End() override;
-  void Interrupted() override;
-};
+GeneralTestAuto::GeneralTestAuto() :
+ CommandGroup("GeneralTestAuto") 
+{
+  // Use Requires() here to declare subsystem dependencies
+  // eg. Requires(Robot::chassis.get());
+}

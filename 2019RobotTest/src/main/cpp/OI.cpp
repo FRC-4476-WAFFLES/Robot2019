@@ -9,6 +9,11 @@
 
 #include <frc/WPILib.h>
 
-OI::OI() {
+OI::OI() :
+  left(0),
+  right(1),
+  operate(2)
+{
   // Process operator interface input here.
+  
 }

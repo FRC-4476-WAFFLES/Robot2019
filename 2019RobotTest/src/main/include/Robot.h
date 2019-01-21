@@ -16,6 +16,7 @@
 #include "commands/MyAutoCommand.h"
 #include "subsystems/ExampleSubsystem.h"
 #include "subsystems/DriveSubsystem.h"
+using namespace frc;
 
 class Robot : public frc::TimedRobot {
  public:

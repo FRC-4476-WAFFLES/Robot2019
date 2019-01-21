@@ -12,6 +12,7 @@
 
 ExampleSubsystem Robot::m_subsystem;
 OI Robot::oi;
+DriveSubsystem Robot::Drive;
 
 void Robot::RobotInit() {
   AutonomousChooser.SetDefaultOption("Default Auto", &defaultAuto);
