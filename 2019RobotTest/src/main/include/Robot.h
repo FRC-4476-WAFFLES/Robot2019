@@ -12,17 +12,30 @@
 #include <frc/smartdashboard/SendableChooser.h>
 
 #include "OI.h"
+
 #include "commands/ExampleCommand.h"
 #include "commands/MyAutoCommand.h"
-#include "subsystems/ExampleSubsystem.h"
+
+#include "subsystems/ClimbSubsystem.h"
 #include "subsystems/DriveSubsystem.h"
+#include "subsystems/ElevatorSubsystem.h"
+#include "subsystems/ExampleSubsystem.h"
+#include "subsystems/HatchSubsystem.h"
+#include "subsystems/IntakeSubsystem.h"
+#include "subsystems/LightSubsystem.h"
 using namespace frc;
 
 class Robot : public frc::TimedRobot {
  public:
-  static ExampleSubsystem m_subsystem;
   static OI oi;
+  static ClimbSubsystem Climb;
   static DriveSubsystem Drive;
+  static ElevatorSubsystem Elevator;
+  static ExampleSubsystem m_subsystem;
+  static HatchSubsystem Hatch;
+  static IntakeSubsystem Intake;
+  static LightSubsystem Lights;
+
 
   void RobotInit() override;
   void RobotPeriodic() override;

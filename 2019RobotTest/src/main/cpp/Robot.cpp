@@ -10,9 +10,14 @@
 #include <frc/commands/Scheduler.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 
-ExampleSubsystem Robot::m_subsystem;
 OI Robot::oi;
+ClimbSubsystem Robot::Climb;
 DriveSubsystem Robot::Drive;
+ElevatorSubsystem Robot::Elevator;
+ExampleSubsystem Robot::m_subsystem;
+HatchSubsystem Robot::Hatch;
+IntakeSubsystem Robot::Intake;
+LightSubsystem Robot::Lights;
 
 void Robot::RobotInit() {
   AutonomousChooser.SetDefaultOption("Default Auto", &defaultAuto);
