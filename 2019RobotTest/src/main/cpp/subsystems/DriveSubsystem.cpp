@@ -19,6 +19,7 @@ DriveSubsystem::DriveSubsystem() :
 		right2(DRIVE_RIGHT2),
 		right3(DRIVE_RIGHT3)
 {
+	//sensors are quadratic (greyhills)
   left1.ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 10);
 	right1.ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 10);
 

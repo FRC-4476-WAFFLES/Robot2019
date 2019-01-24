@@ -10,7 +10,29 @@
 #include "RobotMap.h"
 
 
-ElevatorSubsystem::ElevatorSubsystem() : frc::Subsystem("ElevatorSubsystem") {}
+ElevatorSubsystem::ElevatorSubsystem() : 
+  frc::Subsystem("ElevatorSubsystem"),
+  elevatorMaster(ELEVATOR_MASTER),
+  elevatorFollower(ELEVATOR_FOLLOWER) 
+  {
+    //encoder stuff goes here
+
+    //current limiting, magic numbers currently
+    elevatorMaster.ConfigPeakCurrentDuration(30, 10);
+    elevatorMaster.ConfigPeakCurrentLimit(22, 10);
+    elevatorMaster.ConfigContinuousCurrentLimit(15, 10);
+    elevatorMaster.EnableCurrentLimit(true);
+
+    elevatorFollower.ConfigPeakCurrentDuration(30, 10);
+    elevatorFollower.ConfigPeakCurrentLimit(22, 10);
+    elevatorFollower.ConfigContinuousCurrentLimit(15, 10);
+    elevatorFollower.EnableCurrentLimit(true);
+    
+    //follow code
+    elevatorFollower.Follow(elevatorMaster);
+    //elevatorFollower.SetInverted(FollowMaster) //if necessary 
+
+  }
 
 void ElevatorSubsystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.
