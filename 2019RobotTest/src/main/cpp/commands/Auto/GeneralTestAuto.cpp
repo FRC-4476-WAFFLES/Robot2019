@@ -6,12 +6,12 @@
 /*----------------------------------------------------------------------------*/
 
 #include "commands/Auto/GeneralTestAuto.h"
-#include "../commands/Drive/DriveAutoLines.h"
+#include "commands/Drive/DriveAutoLines.h"
 
 GeneralTestAuto::GeneralTestAuto() :
  CommandGroup("GeneralTestAuto") 
 {
-  AddSequential(new DriveAutoLines(10, 0))
-  AddSequential(new DriveAutoLines(0, 90))
+  AddSequential(new DriveAutoLines(10, 0));
+  AddSequential(new DriveAutoLines(0, 90));
 
 }

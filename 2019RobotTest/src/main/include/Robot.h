@@ -15,7 +15,7 @@
 
 #include "commands/ExampleCommand.h"
 #include "commands/MyAutoCommand.h"
-#include "commands/GeneralTestAuto.h"
+#include "commands/Auto/GeneralTestAuto.h"
 
 #include "subsystems/ClimbSubsystem.h"
 #include "subsystems/DriveSubsystem.h"
