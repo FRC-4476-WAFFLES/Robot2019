@@ -16,13 +16,30 @@
 //PWM
 
 //CAN
-constexpr int DRIVE_RIGHT1 = 2;//motor controller type
-constexpr int DRIVE_RIGHT2 = 3;//motor controller type
-constexpr int DRIVE_RIGHT3 = 4;//motor controller type
-constexpr int DRIVE_LEFT1 = 1;//motor controller type
-constexpr int DRIVE_LEFT2 = 1;//motor controller type
-constexpr int DRIVE_LEFT3 = 2;//motor controller type
+constexpr int DRIVE_RIGHT1 = 1;//SRX
+constexpr int DRIVE_RIGHT2 = 2;//SPX
+constexpr int DRIVE_RIGHT3 = 3;//SPX
+constexpr int DRIVE_LEFT1 = 4;//SRX
+constexpr int DRIVE_LEFT2 = 5;//SPX
+constexpr int DRIVE_LEFT3 = 6;//SPX
+
+constexpr int ELEVATOR_MASTER = 7;//SRX
+constexpr int ELEVATOR_FOLLOWER = 8;//SRX
+
+constexpr int CARGO_EXTEND = 9;//SRX
+constexpr int CARGO_INTAKE = 10;//SPX
+
+constexpr int LEFT_CARGO_CARRIAGE = 11;//SPX
+constexpr int RIGHT_CARGO_CARRIAGE = 12;//SPX
+
+constexpr int CLIMB_MASTER = 13;//SPARK MAX
+constexpr int CLIMB_FOLLOWER = 14//SPARK MAX
+
 //PCM
+constexpr int HATCH_CLAMP = 0;//double solonoid
+constexpr int HATCH_UNCLAMP = 1;//double solenoid
+constexpr int HATCH_EXTEND = 2;//double Solenoid
+constexpr int HATCH_UNEXTEND = 3;//double Solenoid
 
 //DIGITAL INPUT
 
