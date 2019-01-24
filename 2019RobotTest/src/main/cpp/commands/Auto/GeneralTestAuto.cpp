@@ -6,10 +6,12 @@
 /*----------------------------------------------------------------------------*/
 
 #include "commands/Auto/GeneralTestAuto.h"
+#include "../commands/Drive/DriveAutoLines.h"
 
 GeneralTestAuto::GeneralTestAuto() :
  CommandGroup("GeneralTestAuto") 
 {
-  // Use Requires() here to declare subsystem dependencies
-  // eg. Requires(Robot::chassis.get());
+  AddSequential(new DriveAutoLines(10, 0))
+  AddSequential(new DriveAutoLines(0, 90))
+
 }

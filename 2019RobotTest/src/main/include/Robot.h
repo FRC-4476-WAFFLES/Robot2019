@@ -15,6 +15,7 @@
 
 #include "commands/ExampleCommand.h"
 #include "commands/MyAutoCommand.h"
+#include "commands/GeneralTestAuto.h"
 
 #include "subsystems/ClimbSubsystem.h"
 #include "subsystems/DriveSubsystem.h"
@@ -53,5 +54,6 @@ class Robot : public frc::TimedRobot {
   frc::Command* autonomousCommand = nullptr;
   ExampleCommand defaultAuto;
   MyAutoCommand myAuto;
+  GeneralTestAuto TestAuto;
   frc::SendableChooser<frc::Command*> AutonomousChooser;
 };

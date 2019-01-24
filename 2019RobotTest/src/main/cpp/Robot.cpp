@@ -9,6 +9,7 @@
 
 #include <frc/commands/Scheduler.h>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include "commands/Auto/GeneralTestAuto.h"
 
 OI Robot::oi;
 ClimbSubsystem Robot::Climb;
@@ -22,6 +23,7 @@ LightSubsystem Robot::Lights;
 void Robot::RobotInit() {
   AutonomousChooser.SetDefaultOption("Default Auto", &defaultAuto);
   AutonomousChooser.AddOption("My Auto", &myAuto);
+  AutonomousChooser.AddOption("Test", &TestAuto);
   frc::SmartDashboard::PutData("Auto Modes", &AutonomousChooser);
 }
 
