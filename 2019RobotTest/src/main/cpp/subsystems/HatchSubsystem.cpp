@@ -10,7 +10,14 @@
 #include "RobotMap.h"
 
 
-HatchSubsystem::HatchSubsystem() : frc::Subsystem("HatchSubsystem") {}
+HatchSubsystem::HatchSubsystem() :
+ frc::Subsystem("HatchSubsystem"),
+ //     true            false
+ extend(HATCH_EXTEND, HATCH_UNEXTEND),
+ clamp(HATCH_CLAMP, HATCH_UNCLAMP) 
+ {
+
+ }
 
 void HatchSubsystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.

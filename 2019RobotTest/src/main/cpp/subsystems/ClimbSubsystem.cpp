@@ -10,7 +10,13 @@
 #include "RobotMap.h"
 
 
-ClimbSubsystem::ClimbSubsystem() : frc::Subsystem("ClimbSubsystem") {}
+ClimbSubsystem::ClimbSubsystem() :
+ frc::Subsystem("ClimbSubsystem"),
+ climbMaster(CLIMB_MASTER, CANSparkMax::MotorType::kBrushless),
+ climbFollower(CLIMB_FOLLOWER, CANSparkMax::MotorType::kBrushless) 
+ {
+
+ }
 
 void ClimbSubsystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.

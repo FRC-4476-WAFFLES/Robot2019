@@ -8,6 +8,7 @@
 #pragma once
 
 #include <frc/commands/Subsystem.h>
+#include <frc/DoubleSolenoid.h>
 using namespace frc;
 
 class HatchSubsystem : public frc::Subsystem {
@@ -18,4 +19,6 @@ class HatchSubsystem : public frc::Subsystem {
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
+  DoubleSolenoid extend;
+  DoubleSolenoid clamp;
 };

@@ -10,7 +10,14 @@
 #include "RobotMap.h"
 
 
-IntakeSubsystem::IntakeSubsystem() : frc::Subsystem("IntakeSubsystem") {}
+IntakeSubsystem::IntakeSubsystem() :
+ frc::Subsystem("IntakeSubsystem"),
+ cargoCarriageLeft(LEFT_CARGO_CARRIAGE),
+ cargoCarriageRight(RIGHT_CARGO_CARRIAGE),
+ cargoIntake(CARGO_INTAKE)
+ {
+
+ }
 
 void IntakeSubsystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.

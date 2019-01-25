@@ -8,6 +8,9 @@
 #pragma once
 
 #include <frc/commands/Subsystem.h>
+#include <ctre/Phoenix.h>
+#include <ctre/phoenix/MotorControl/CAN/WPI_VictorSPX.h>
+#include <ctre/phoenix/MotorControl/CAN/TalonSRX.h>
 using namespace frc;
 
 class IntakeSubsystem : public frc::Subsystem {
@@ -18,4 +21,7 @@ class IntakeSubsystem : public frc::Subsystem {
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
+  WPI_VictorSPX cargoCarriageLeft;
+  WPI_VictorSPX cargoCarriageRight;
+  WPI_VictorSPX cargoIntake;
 };

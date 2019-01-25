@@ -8,7 +8,9 @@
 #pragma once
 
 #include <frc/commands/Subsystem.h>
+#include <rev/CANSparkMax.h>
 using namespace frc;
+using namespace rev;
 
 class ClimbSubsystem : public frc::Subsystem {
  public:
@@ -18,4 +20,6 @@ class ClimbSubsystem : public frc::Subsystem {
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
+  CANSparkMax climbMaster;
+  CANSparkMax climbFollower;
 };
