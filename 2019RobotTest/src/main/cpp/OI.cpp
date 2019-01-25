@@ -8,6 +8,9 @@
 #include "OI.h"
 
 #include <frc/WPILib.h>
+#include "frc/Buttons/Button.h"
+#include "frc/Buttons/JoystickButton.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 
 OI::OI() :
   left(0),
@@ -15,5 +18,15 @@ OI::OI() :
   operate(2)
 {
   // Process operator interface input here.
-  
+  //definitions
+  Button* OpSwitch = new JoystickButton(&operate, OperatorButton::Back);
+  //switch logic
+  if(ClimberSwitch){
+    OpSwitch->WhenReleased(ClimberSwitch = false);
+
+  }else{
+    OpSwitch->WhenReleased(ClimberSwitch = true);
+
+  }
+  frc::SmartDashboard::PutBoolean("Opreator Controll Mode", ClimberSwitch);
 }

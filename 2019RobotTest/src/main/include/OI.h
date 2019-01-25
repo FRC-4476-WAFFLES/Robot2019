@@ -27,4 +27,5 @@ class OI {
 	Joystick left;
 	Joystick right;
 	Joystick operate;
+	bool ClimberSwitch = false;
 };
