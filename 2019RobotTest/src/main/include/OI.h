@@ -12,6 +12,7 @@ using namespace frc;
 class OI {
  public:
   OI();
+  void ElevatorFudge();
   	enum OperatorButton {
 		X=3,
 		A=1,

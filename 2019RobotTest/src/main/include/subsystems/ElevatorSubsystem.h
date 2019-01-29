@@ -11,16 +11,66 @@
 #include <ctre/Phoenix.h>
 #include <ctre/phoenix/MotorControl/CAN/WPI_TalonSRX.h>
 #include <ctre/phoenix/MotorControl/CAN/TalonSRX.h>
+#include <frc/Timer.h>
+
 using namespace frc;
 
 class ElevatorSubsystem : public frc::Subsystem {
  public:
   ElevatorSubsystem();
   void InitDefaultCommand() override;
+  void Periodic() override;
+  void SeekTo(int next_rough_position, extend = false);
+  void SetExtend(bool extend);
+  void SetCurrentGamepiece(int gamepiece);
+  void AutoDetectCurrentGamepiece();
 
+  //elevator
+  //HATCH
+  constexpr static float GROUND_PICKUP_HATCH = 0.0;
+  constexpr static float BOTTOM_HATCH_POSITION = 0.0;
+  constexpr static float MIDDLE_HATCH_POSITION = 0.0;
+  constexpr static float TOP_HATCH_POSITION = 0.0;
+
+  //CARGO
+  constexpr static float GROUND_PICKUP_CARGO = 0.0;
+  constexpr static float HUMAN_PLAYER_PICKUP_CARGO = 0.0;
+  constexpr static float BOTTOM_CARGO_POSITION = 0.0;
+  constexpr static float MIDDLE_CARGO_POSITION = 0.0;
+  constexpr static float TOP_CARGO_POSITION = 0.0;
+  constexpr static float LIMIT_OF_EFFECTED_BY_CARGO_INTAKE = 0.0;
+
+  //CARGO EXTEND OUT
+  constexpr static float CARGO_EXTEND_OUT = 0.0;
+  constexpr static float CARGO_EXTEND_IN = 0.0;
+
+  enum Positions {
+    Top = 1,
+    Middle = 2,
+    Bottom = 3,
+    HPPickup = 4,
+    Ground = 5
+  };
+  enum Gamepiece  {
+    Hatch = 1,
+    Cargo = 2;
+  }
+  
+  //logic variables
+  bool PID_joystick_switch = false;
+  int elevator_state_machine_state = 0;
+
+  bool pull_in_cargo_exend = false;
+  float next_elevator_position = 0.0;
+  float next_cargo_extend_position = 0.0;
+  float position_when_seek_to_set = 0;
+  int current_gamepiece = 1;//default to Hatch
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
   WPI_TalonSRX elevatorMaster;
   WPI_TalonSRX elevatorFollower;
+  WPI_TalonSRX cargoIntakeExtend;
+  Timer t;
+  bool fudging = false;
 };

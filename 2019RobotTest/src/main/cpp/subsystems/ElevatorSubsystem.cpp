@@ -6,14 +6,16 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/ElevatorSubsystem.h"
-
+#include "Utils/PIDPrefrences.h"
+#include "Robot.h"
 #include "RobotMap.h"
 
 
 ElevatorSubsystem::ElevatorSubsystem() : 
   frc::Subsystem("ElevatorSubsystem"),
   elevatorMaster(ELEVATOR_MASTER),
-  elevatorFollower(ELEVATOR_FOLLOWER) 
+  elevatorFollower(ELEVATOR_FOLLOWER),
+  cargoIntakeExtend(CARGO_EXTEND)
   {
     //encoder stuff goes here
 
@@ -32,6 +34,10 @@ ElevatorSubsystem::ElevatorSubsystem() :
     elevatorFollower.Follow(elevatorMaster);
     //elevatorFollower.SetInverted(FollowMaster) //if necessary 
 
+    //variable setup
+    next_elevator_position = 0;
+    pull_in_cargo_exend = true;
+
   }
 
 void ElevatorSubsystem::InitDefaultCommand() {
@@ -39,5 +45,141 @@ void ElevatorSubsystem::InitDefaultCommand() {
   // SetDefaultCommand(new MySpecialCommand());
 }
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
+
+void ElevatorSubsystem::Periodic(){
+  //         name          srx(lead)     p    i    d    f
+  UpdatePID("elevator", elevatorMaster, 0.0, 0.0, 0.0, 0.0);
+  UpdatePID("cargo_extend" cargoIntakeExtend, 0.0, 0.0, 0.0, 0.0);
+
+  if(Robot::oi().left.GetRawButton(10)) {
+    elevatorMaster.SetSelectedSensorPosition(0, 0, 0);
+    elevatorMaster.SetSelectedSensorPosition(0, 0, 0);
+	}
+
+  double elevatorjoy = Robot::oi.ElevatorFudge();
+
+  double elevator_position = fabs(elevatorMaster.GetSelectedSensorPosition(0));
+  double extend_position = fabs(cargoIntakeExtend.GetSelectedSensorPosition(0)
+
+  if(t.Get() < 0.0){
+    elevatorMaster.Set(ControlMode::PercentOutput, 0.0);
+    cargoIntakeExtend.Set(ControlMode::PercentOutput, 0.0);
+  }else if(elevator_state_machine_state == 0){
+    fudging = false;
+  }else if(elevator_state_machine_state == 1){//pull the extend out
+    elevatorMaster.Set(ControlMode::Position, position_when_seek_to_set);
+    cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_OUT);
+    if((extend_position - CARGO_EXTEND_OUT) < 0.0){
+      elevator_state_machine_state = 2;
+    }
+  }else if(elevator_state_machine_state == 2){//move the elevator
+    elevatorMaster.Set(ControlMode::Position, next_elevator_position);
+    cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_OUT);
+    if((elevator_position - next_elevator_position) < 0.0 ||
+    elevator_position > LIMIT_OF_EFFECTED_BY_CARGO_INTAKE+0.0){
+      elevator_state_machine_state = 3;
+    }
+
+  }else if(elevator_state_machine_state == 3){//pull the extend back in, unless we're fudging
+    if(fudging){
+      elevator_state_machine_state = 4;
+    }else{
+      elevatorMaster.Set(ControlMode::Position, next_elevator_position)
+      if(pull_in_cargo_exend){
+        cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN)
+        elevator_state_machine_state = 4;
+      }else{
+        cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_OUT);
+        elevator_state_machine_state = 4;
+      }
+    }
+
+  }else{
+    //Elevator Fudge
+    if(fabs(elevatorjoy) > 0.1){
+      next_elevator_position = elevator_position + elevatorjoy * 50.0;
+    }
+    //set the motor to the fudge position using the encoder
+    elevatorMaster.Set(ControlMode::Position, next_elevator_position);
+    if(pull_in_cargo_exend){
+      cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
+    }else{
+      cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_OUT);
+    }
+    //in manual mode, move the extend out of the way if neccessary
+    if(elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE-50){
+      elevator_state_machine_state = 1;
+      fudging = true;
+    }
+  }
+
+
+}
+
+void ElevatorSubsystem::SeekTo(int next_rough_position, bool extend = true){
+  /*Top = 1,
+    Middle = 2,
+    Bottom = 3,
+    HPPickup = 4
+    
+    Hatch = 1,
+    Cargo = 2;*/
+  
+  position_when_seek_to_set = elevatorMaster.GetSelectedSensorPosition(0);
+  int next_elevator_state = 1;
+  int gamepiece = current_gamepiece;
+
+  if(extend = false){
+    pull_in_cargo_exend = true;
+  }else if(next_rough_position >= 3){
+    pull_in_cargo_exend = false;
+  }else{
+    pull_in_cargo_exend = true;
+  }
+
+  if(next_rough_position == 1){//top
+    if(gamepiece == 1){//Hatch
+      next_elevator_position = TOP_HATCH_POSITION;
+    }else{//Cargo
+      next_elevator_position = TOP_CARGO_POSITION;
+    }
+  }else if(next_rough_position == 2){//middle
+    if(gamepiece == 1){//Hatch
+      next_elevator_position = MIDDLE_HATCH_POSITION;
+    }else{//Cargo
+      next_elevator_position = MIDDLE_CARGO_POSITION;
+    }
+  }else if(next_rough_position == 3){//bottom
+    if(gamepiece == 1){//Hatch
+      next_elevator_position = BOTTOM_HATCH_POSITION;
+    }else{//Cargo
+      next_elevator_position = BOTTOM_CARGO_POSITION;
+    }
+  }else if(next_rough_position == 4){//hppickup
+    if(gamepiece == 1){//Hatch
+      next_elevator_position = BOTTOM_HATCH_POSITION;
+    }else{//Cargo
+      next_elevator_position = HUMAN_PLAYER_PICKUP_CARGO;
+    }
+  }
+  
+  if(position_when_seek_to_set >= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && next_rough_position <= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE ||
+     position_when_seek_to_set <= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && next_rough_position >= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE){
+       elevator_state_machine_state = 1;
+     }else{
+       elevator_state_machine_state = 2;
+     }
+  Fudging = false;
+}
+
+void ElevatorSubsystem::SetExtend(bool extend){
+  pull_in_cargo_exend = !extend;
+}
+
+void ElevatorSubsystem::SetCurrentGamepiece(int gamepiece){
+  current_gamepiece = gamepiece;
+}
+
+void ElevatorSubsystem::AutoDetectCurrentGamepiece(){
+  CurrentGamepiece = 1;
+}

@@ -30,3 +30,7 @@ OI::OI() :
   }
   frc::SmartDashboard::PutBoolean("Opreator Controll Mode", ClimberSwitch);
 }
+
+void OI::ElevatorFudge(){
+  return operate.GetRawAxis(1);
+}
