@@ -12,7 +12,7 @@ using namespace frc;
 class OI {
  public:
   OI();
-  void ElevatorFudge();
+  float ElevatorFudge();
   	enum OperatorButton {
 		X=3,
 		A=1,
@@ -28,5 +28,6 @@ class OI {
 	Joystick left;
 	Joystick right;
 	Joystick operate;
-	bool ClimberSwitch = false;
+	bool climber_switch = false;
+	bool joystick_mode_toggle_limit = false;
 };

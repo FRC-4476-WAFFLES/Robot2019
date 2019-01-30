@@ -19,18 +19,29 @@ OI::OI() :
 {
   // Process operator interface input here.
   //definitions
-  Button* OpSwitch = new JoystickButton(&operate, OperatorButton::Back);
+  bool back_button = operate.GetRawButton(OperatorButton::Back);
+  if(back_button == true && joystick_mode_toggle_limit == false){
+    climber_switch = !climber_switch;
+    joystick_mode_toggle_limit = true;
+  }else if(back_button == false && joystick_mode_toggle_limit == true){
+    joystick_mode_toggle_limit = false;
+  }
   //switch logic
-  if(ClimberSwitch){
-    OpSwitch->WhenReleased(ClimberSwitch = false);
+  if(climber_switch){
+
+    
+
+
 
   }else{
-    OpSwitch->WhenReleased(ClimberSwitch = true);
+
+
+
 
   }
-  frc::SmartDashboard::PutBoolean("Opreator Controll Mode", ClimberSwitch);
+  frc::SmartDashboard::PutBoolean("Opreator Controll Mode", climber_switch);
 }
 
-void OI::ElevatorFudge(){
+float OI::ElevatorFudge(){
   return operate.GetRawAxis(1);
 }

@@ -20,7 +20,7 @@ class ElevatorSubsystem : public frc::Subsystem {
   ElevatorSubsystem();
   void InitDefaultCommand() override;
   void Periodic() override;
-  void SeekTo(int next_rough_position, extend = false);
+  void SeekTo(int next_rough_position, bool extend = false);
   void SetExtend(bool extend);
   void SetCurrentGamepiece(int gamepiece);
   void AutoDetectCurrentGamepiece();
@@ -49,12 +49,12 @@ class ElevatorSubsystem : public frc::Subsystem {
     Middle = 2,
     Bottom = 3,
     HPPickup = 4,
-    Ground = 5
+    Ground = 5,
   };
   enum Gamepiece  {
     Hatch = 1,
-    Cargo = 2;
-  }
+    Cargo = 2,
+  };
   
   //logic variables
   bool PID_joystick_switch = false;

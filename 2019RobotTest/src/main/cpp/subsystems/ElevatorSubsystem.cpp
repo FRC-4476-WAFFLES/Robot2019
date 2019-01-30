@@ -6,8 +6,8 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/ElevatorSubsystem.h"
-#include "Utils/PIDPrefrences.h"
-#include "Robot.h"
+#include "../include/Utils/PIDPreferences.h"
+#include "../include/Robot.h"
 #include "RobotMap.h"
 
 
@@ -49,9 +49,9 @@ void ElevatorSubsystem::InitDefaultCommand() {
 void ElevatorSubsystem::Periodic(){
   //         name          srx(lead)     p    i    d    f
   UpdatePID("elevator", elevatorMaster, 0.0, 0.0, 0.0, 0.0);
-  UpdatePID("cargo_extend" cargoIntakeExtend, 0.0, 0.0, 0.0, 0.0);
+  UpdatePID("cargo_extend", cargoIntakeExtend, 0.0, 0.0, 0.0, 0.0);
 
-  if(Robot::oi().left.GetRawButton(10)) {
+  if(Robot::oi.left.GetRawButton(10)) {
     elevatorMaster.SetSelectedSensorPosition(0, 0, 0);
     elevatorMaster.SetSelectedSensorPosition(0, 0, 0);
 	}
@@ -59,7 +59,7 @@ void ElevatorSubsystem::Periodic(){
   double elevatorjoy = Robot::oi.ElevatorFudge();
 
   double elevator_position = fabs(elevatorMaster.GetSelectedSensorPosition(0));
-  double extend_position = fabs(cargoIntakeExtend.GetSelectedSensorPosition(0)
+  double extend_position = fabs(cargoIntakeExtend.GetSelectedSensorPosition(0));
 
   if(t.Get() < 0.0){
     elevatorMaster.Set(ControlMode::PercentOutput, 0.0);
@@ -84,9 +84,9 @@ void ElevatorSubsystem::Periodic(){
     if(fudging){
       elevator_state_machine_state = 4;
     }else{
-      elevatorMaster.Set(ControlMode::Position, next_elevator_position)
+      elevatorMaster.Set(ControlMode::Position, next_elevator_position);
       if(pull_in_cargo_exend){
-        cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN)
+        cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
         elevator_state_machine_state = 4;
       }else{
         cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_OUT);
@@ -116,7 +116,7 @@ void ElevatorSubsystem::Periodic(){
 
 }
 
-void ElevatorSubsystem::SeekTo(int next_rough_position, bool extend = true){
+void ElevatorSubsystem::SeekTo(int next_rough_position, bool extend){
   /*Top = 1,
     Middle = 2,
     Bottom = 3,
@@ -169,7 +169,7 @@ void ElevatorSubsystem::SeekTo(int next_rough_position, bool extend = true){
      }else{
        elevator_state_machine_state = 2;
      }
-  Fudging = false;
+  fudging = false;
 }
 
 void ElevatorSubsystem::SetExtend(bool extend){
@@ -181,5 +181,5 @@ void ElevatorSubsystem::SetCurrentGamepiece(int gamepiece){
 }
 
 void ElevatorSubsystem::AutoDetectCurrentGamepiece(){
-  CurrentGamepiece = 1;
+  current_gamepiece = 1;
 }
