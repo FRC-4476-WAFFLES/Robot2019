@@ -11,6 +11,13 @@
 #include "frc/Buttons/Button.h"
 #include "frc/Buttons/JoystickButton.h"
 #include <frc/smartdashboard/SmartDashboard.h>
+//elevator
+#include "commands/Elevator/ElevatorGroundPickup.h"
+#include "commands/Elevator/ElevatorBottom.h"
+#include "commands/Elevator/ElevatorMiddle.h"
+#include "commands/Elevator/ElevatorHPPickup.h"
+#include "commands/Elevator/ElevatorTop.h"
+#include "commands/Elevator/ElevatorManualGampieceToggle.h"
 
 OI::OI() :
   left(0),
@@ -34,8 +41,24 @@ OI::OI() :
 
 
   }else{
+    //elevator
+    Button* Ground = new JoystickButton(&operate, OperatorButton::B);
+    Ground->WhenReleased(new ElevatorGroundPickup());
 
+    Button* Bottom = new JoystickButton(&operate, OperatorButton::A);
+    Bottom->WhenReleased(new ElevatorBottom());
 
+    Button* Middle = new JoystickButton(&operate, OperatorButton::X);
+    Middle->WhenReleased(new ElevatorMiddle());
+
+    Button* Top = new JoystickButton(&operate, OperatorButton::Y);
+    Top->WhenReleased(new ElevatorTop());
+
+    Button* HP = new JoystickButton(&operate, OperatorButton::RightJoystickCenterButton);
+    HP->WhenReleased(new ElevatorHPPickup());
+
+    Button* ManualSwap = new JoystickButton(&operate, OperatorButton::Start);
+    ManualSwap->WhenReleased(new ElevatorManualGampieceToggle());
 
 
   }

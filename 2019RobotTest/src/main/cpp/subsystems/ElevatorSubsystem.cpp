@@ -9,7 +9,7 @@
 #include "../include/Utils/PIDPreferences.h"
 #include "../include/Robot.h"
 #include "RobotMap.h"
-
+#include "commands/Elevator/ElevatorDefault.h"
 
 ElevatorSubsystem::ElevatorSubsystem() : 
   frc::Subsystem("ElevatorSubsystem"),
@@ -43,8 +43,21 @@ ElevatorSubsystem::ElevatorSubsystem() :
 void ElevatorSubsystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
+  SetDefaultCommand(new ElevatorDefault());
 }
 
+
+void ElevatorSubsystem::SetExtend(bool extend){
+  pull_in_cargo_exend = !extend;
+}
+
+void ElevatorSubsystem::SetCurrentGamepiece(int gamepiece){
+  current_gamepiece = gamepiece;
+}
+
+void ElevatorSubsystem::AutoDetectCurrentGamepiece(){
+  current_gamepiece = 1;
+}
 
 void ElevatorSubsystem::Periodic(){
   //         name          srx(lead)     p    i    d    f
@@ -60,6 +73,8 @@ void ElevatorSubsystem::Periodic(){
 
   double elevator_position = fabs(elevatorMaster.GetSelectedSensorPosition(0));
   double extend_position = fabs(cargoIntakeExtend.GetSelectedSensorPosition(0));
+
+  AutoDetectCurrentGamepiece();
 
   if(t.Get() < 0.0){
     elevatorMaster.Set(ControlMode::PercentOutput, 0.0);
@@ -172,14 +187,3 @@ void ElevatorSubsystem::SeekTo(int next_rough_position, bool extend){
   fudging = false;
 }
 
-void ElevatorSubsystem::SetExtend(bool extend){
-  pull_in_cargo_exend = !extend;
-}
-
-void ElevatorSubsystem::SetCurrentGamepiece(int gamepiece){
-  current_gamepiece = gamepiece;
-}
-
-void ElevatorSubsystem::AutoDetectCurrentGamepiece(){
-  current_gamepiece = 1;
-}

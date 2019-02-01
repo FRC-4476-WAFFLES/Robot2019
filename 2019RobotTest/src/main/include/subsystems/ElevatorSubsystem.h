@@ -19,11 +19,12 @@ class ElevatorSubsystem : public frc::Subsystem {
  public:
   ElevatorSubsystem();
   void InitDefaultCommand() override;
-  void Periodic() override;
-  void SeekTo(int next_rough_position, bool extend = false);
   void SetExtend(bool extend);
   void SetCurrentGamepiece(int gamepiece);
   void AutoDetectCurrentGamepiece();
+  void Periodic() override;
+  void SeekTo(int next_rough_position, bool extend = false);
+
 
   //elevator
   //HATCH
