@@ -15,6 +15,9 @@
 #include <frc/WPILib.h>
 #include <frc/PowerDistributionPanel.h>
 #include <frc/ADXRS450_Gyro.h>
+#include <frc/Talon.h>
+
+
 using namespace frc;
 
 class DriveSubsystem : public frc::Subsystem {
@@ -46,6 +49,13 @@ class DriveSubsystem : public frc::Subsystem {
 	WPI_VictorSPX right2;
 	WPI_VictorSPX right3;
   	ADXRS450_Gyro gyro;
+
+	Talon JasnoorLeft1;
+	Talon JasnoorLeft2;
+	Talon JasnoorLeft3;
+	Talon JasnoorRight1;
+	Talon JasnoorRight2;
+	Talon JasnoorRight3;
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
 };

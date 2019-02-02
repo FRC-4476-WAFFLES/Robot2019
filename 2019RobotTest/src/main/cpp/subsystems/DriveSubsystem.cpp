@@ -17,7 +17,13 @@ DriveSubsystem::DriveSubsystem() :
 		left3(DRIVE_LEFT3),
 		right1(DRIVE_RIGHT1),
 		right2(DRIVE_RIGHT2),
-		right3(DRIVE_RIGHT3)
+		right3(DRIVE_RIGHT3),
+		JasnoorLeft1(DRIVE_LEFT_JASNOOR_1),
+		JasnoorLeft2(DRIVE_LEFT_JASNOOR_2),
+		JasnoorLeft3(DRIVE_LEFT_JASNOOR_3),
+		JasnoorRight1(DRIVE_RIGHT_JASNOOR_1),
+		JasnoorRight2(DRIVE_RIGHT_JASNOOR_2),
+		JasnoorRight3(DRIVE_RIGHT_JASNOOR_3)
 {
 	//sensors are quadratic (greyhills)
   left1.ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 10);
@@ -50,7 +56,12 @@ void DriveSubsystem::InitDefaultCommand() {
 void DriveSubsystem::Drive(float Left, float Right) {
   left1.Set(ControlMode::PercentOutput, Left);
 	right1.Set(ControlMode::PercentOutput, Right);
-
+	JasnoorLeft1.Set(Left);
+	JasnoorLeft2.Set(Left);
+	JasnoorLeft3.Set(Left);
+	JasnoorRight1.Set(Right);
+	JasnoorRight2.Set(Right);
+	JasnoorRight3.Set(Right);
 }
 
 float DriveSubsystem::Right() {

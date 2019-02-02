@@ -14,7 +14,12 @@
  * floating around.
  */
 //PWM
-
+constexpr int DRIVE_LEFT_JASNOOR_1 = 0;
+constexpr int DRIVE_LEFT_JASNOOR_2 = 1;
+constexpr int DRIVE_LEFT_JASNOOR_3 = 2;
+constexpr int DRIVE_RIGHT_JASNOOR_1 = 3;
+constexpr int DRIVE_RIGHT_JASNOOR_2 = 4;
+constexpr int DRIVE_RIGHT_JASNOOR_3 = 5;
 //CAN
 constexpr int DRIVE_RIGHT1 = 1;//SRX
 constexpr int DRIVE_RIGHT2 = 2;//SPX
