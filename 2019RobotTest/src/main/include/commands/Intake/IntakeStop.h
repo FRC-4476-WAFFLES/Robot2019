@@ -6,30 +6,15 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
-#include <frc/Joystick.h>
-using namespace frc;
 
-class OI {
+#include <frc/commands/Command.h>
+
+class IntakeStop : public frc::Command {
  public:
-  OI();
-  float ElevatorFudge();
-  float OuttakeAngle();
-  float IntakeSpeed();
-  	enum OperatorButton {
-		X=3,
-		A=1,
-		B=2,
-		Y=4,
-		BumperTopLeft=5,
-		BumperTopRight=6,
-		Back=7,
-		Start=8,
-		LeftJoystickCenterButton=9, 
-		RightJoystickCenterButton=10,
-	};
-	Joystick left;
-	Joystick right;
-	Joystick operate;
-	bool climber_switch = false;
-	bool joystick_mode_toggle_limit = false;
+  IntakeStop();
+  void Initialize() override;
+  void Execute() override;
+  bool IsFinished() override;
+  void End() override;
+  void Interrupted() override;
 };

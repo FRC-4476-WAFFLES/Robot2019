@@ -17,7 +17,10 @@ class IntakeSubsystem : public frc::Subsystem {
  public:
   IntakeSubsystem();
   void InitDefaultCommand() override;
+  void Periodic() override;
+  void SetIntakeSpeed(double Speed);
 
+  double speed = 0.0;
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities

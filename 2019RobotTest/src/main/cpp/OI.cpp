@@ -68,3 +68,14 @@ OI::OI() :
 float OI::ElevatorFudge(){
   return operate.GetRawAxis(1);
 }
+
+float OI::OuttakeAngle(){
+  return operate.GetRawAxis(4);
+}
+
+float OI::IntakeSpeed() {
+
+	double in = operate.GetRawAxis(3);
+	double out =  operate.GetRawAxis(2);
+	return in * in - 1.0 * out * out ;//0.4->1.0
+}

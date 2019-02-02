@@ -187,3 +187,6 @@ void ElevatorSubsystem::SeekTo(int next_rough_position, bool extend){
   fudging = false;
 }
 
+float ElevatorSubsystem::ElevatorPosition(){
+  return elevatorMaster.GetSelectedSensorPosition(0);
+}

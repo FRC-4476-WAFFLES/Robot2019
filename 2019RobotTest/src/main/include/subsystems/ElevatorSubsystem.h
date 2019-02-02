@@ -24,6 +24,7 @@ class ElevatorSubsystem : public frc::Subsystem {
   void AutoDetectCurrentGamepiece();
   void Periodic() override;
   void SeekTo(int next_rough_position, bool extend = false);
+  float ElevatorPosition();
 
 
   //elevator

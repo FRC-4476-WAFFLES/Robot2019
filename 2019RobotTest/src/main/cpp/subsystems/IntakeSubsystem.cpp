@@ -6,9 +6,9 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/IntakeSubsystem.h"
-
+#include "Robot.h"
 #include "RobotMap.h"
-
+#include "commands/Intake/IntakeDefault.h"
 
 IntakeSubsystem::IntakeSubsystem() :
  frc::Subsystem("IntakeSubsystem"),
@@ -22,7 +22,23 @@ IntakeSubsystem::IntakeSubsystem() :
 void IntakeSubsystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
+  SetDefaultCommand(new IntakeDefault());
 }
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
+
+void IntakeSubsystem::Periodic(){
+  if(frc::DriverStation::GetInstance().IsOperatorControl()){
+    speed = Robot::oi.IntakeSpeed();
+  }
+  cargoCarriageLeft.Set(-speed - Robot::oi.OuttakeAngle());
+	cargoCarriageRight.Set(speed + Robot::oi.OuttakeAngle());
+  if(Robot::Elevator.ElevatorPosition() <= Robot::Elevator.LIMIT_OF_EFFECTED_BY_CARGO_INTAKE){
+    cargoIntake.Set(speed);
+  }else{
+    cargoIntake.Set(0.0);
+  }
+}
+
+void IntakeSubsystem::SetIntakeSpeed(double Speed){
+  this->speed = Speed;
+}
