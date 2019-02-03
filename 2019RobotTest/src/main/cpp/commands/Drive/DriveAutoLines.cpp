@@ -1,6 +1,6 @@
 #include "../include/commands/Drive/DriveAutoLines.h"
-#include "Subsystems/DriveSubsystem.h"
-#include <frc/SmartDashboard/SmartDashboard.h>
+#include "subsystems/DriveSubsystem.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 #include "../include/Utils/PIDPreferences.h"
 #include "Robot.h"
 

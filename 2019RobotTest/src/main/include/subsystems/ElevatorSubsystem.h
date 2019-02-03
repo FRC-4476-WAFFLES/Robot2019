@@ -9,8 +9,8 @@
 
 #include <frc/commands/Subsystem.h>
 #include <ctre/Phoenix.h>
-#include <ctre/phoenix/MotorControl/CAN/WPI_TalonSRX.h>
-#include <ctre/phoenix/MotorControl/CAN/TalonSRX.h>
+#include <ctre/phoenix/motorcontrol/can/WPI_TalonSRX.h>
+#include <ctre/phoenix/motorcontrol/can/TalonSRX.h>
 #include <frc/Timer.h>
 
 using namespace frc;

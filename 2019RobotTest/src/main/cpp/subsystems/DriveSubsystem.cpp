@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/DriveSubsystem.h"
-#include <frc/SmartDashboard/SmartDashboard.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 #include "Robot.h"
 #include "RobotMap.h"
 #include <networktables/NetworkTable.h>
