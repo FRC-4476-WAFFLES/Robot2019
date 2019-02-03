@@ -17,5 +17,4 @@ OperatorModeSwitch::OperatorModeSwitch() {
 // Called once when the command executes
 void OperatorModeSwitch::Initialize() {
   Robot::oi.climber_switch = !Robot::oi.climber_switch;
-  Robot::oi.Reassign(Robot::oi.climber_switch);
 }
