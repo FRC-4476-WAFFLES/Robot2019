@@ -79,3 +79,35 @@ float OI::IntakeSpeed() {
 	double out =  operate.GetRawAxis(2);
 	return in * in - 1.0 * out * out ;//0.4->1.0
 }
+
+void OI::Reassign(bool state){
+    //switch logic
+  if(state){
+
+    
+
+
+
+  }else{
+    //elevator
+    Button* Ground = new JoystickButton(&operate, OperatorButton::B);
+    Ground->WhenReleased(new ElevatorGroundPickup());
+
+    Button* Bottom = new JoystickButton(&operate, OperatorButton::A);
+    Bottom->WhenReleased(new ElevatorBottom());
+
+    Button* Middle = new JoystickButton(&operate, OperatorButton::X);
+    Middle->WhenReleased(new ElevatorMiddle());
+
+    Button* Top = new JoystickButton(&operate, OperatorButton::Y);
+    Top->WhenReleased(new ElevatorTop());
+
+    Button* HP = new JoystickButton(&operate, OperatorButton::RightJoystickCenterButton);
+    HP->WhenReleased(new ElevatorHPPickup());
+
+    Button* ManualSwap = new JoystickButton(&operate, OperatorButton::Start);
+    ManualSwap->WhenReleased(new ElevatorManualGampieceToggle());
+
+
+  }
+}
