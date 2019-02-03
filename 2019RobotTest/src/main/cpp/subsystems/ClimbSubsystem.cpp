@@ -15,7 +15,7 @@ ClimbSubsystem::ClimbSubsystem() :
  climbMaster(CLIMB_MASTER, CANSparkMax::MotorType::kBrushless),
  climbFollower(CLIMB_FOLLOWER, CANSparkMax::MotorType::kBrushless) 
  {
-
+   climbFollower.Follow(climbMaster, false);
  }
 
 void ClimbSubsystem::InitDefaultCommand() {

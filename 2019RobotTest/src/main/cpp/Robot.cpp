@@ -17,14 +17,12 @@ OI Robot::oi;
 ClimbSubsystem Robot::Climb;
 DriveSubsystem Robot::Drive;
 ElevatorSubsystem Robot::Elevator;
-ExampleSubsystem Robot::m_subsystem;
 HatchSubsystem Robot::Hatch;
 IntakeSubsystem Robot::Intake;
 LightSubsystem Robot::Lights;
 
 void Robot::RobotInit() {
-  AutonomousChooser.SetDefaultOption("Default Auto", &defaultAuto);
-  AutonomousChooser.AddOption("My Auto", &myAuto);
+  AutonomousChooser.SetDefaultOption("Default Auto", &TestAuto);
   AutonomousChooser.AddOption("Test", &TestAuto);
   frc::SmartDashboard::PutData("Auto Modes", &AutonomousChooser);
 }

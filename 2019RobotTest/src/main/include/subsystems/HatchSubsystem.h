@@ -9,6 +9,7 @@
 
 #include <frc/commands/Subsystem.h>
 #include <frc/DoubleSolenoid.h>
+
 using namespace frc;
 
 class HatchSubsystem : public frc::Subsystem {

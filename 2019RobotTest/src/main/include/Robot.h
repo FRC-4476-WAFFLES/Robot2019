@@ -15,14 +15,11 @@
 
 #include "OI.h"
 
-#include "commands/ExampleCommand.h"
-#include "commands/MyAutoCommand.h"
 #include "commands/Auto/GeneralTestAuto.h"
 
 #include "subsystems/ClimbSubsystem.h"
 #include "subsystems/DriveSubsystem.h"
 #include "subsystems/ElevatorSubsystem.h"
-#include "subsystems/ExampleSubsystem.h"
 #include "subsystems/HatchSubsystem.h"
 #include "subsystems/IntakeSubsystem.h"
 #include "subsystems/LightSubsystem.h"
@@ -37,7 +34,6 @@ class Robot : public frc::TimedRobot {
   static ClimbSubsystem Climb;
   static DriveSubsystem Drive;
   static ElevatorSubsystem Elevator;
-  static ExampleSubsystem m_subsystem;
   static HatchSubsystem Hatch;
   static IntakeSubsystem Intake;
   static LightSubsystem Lights;
@@ -57,8 +53,6 @@ class Robot : public frc::TimedRobot {
   // Have it null by default so that if testing teleop it
   // doesn't have undefined behavior and potentially crash.
   frc::Command* autonomousCommand = nullptr;
-  ExampleCommand defaultAuto;
-  MyAutoCommand myAuto;
   GeneralTestAuto TestAuto;
   frc::SendableChooser<frc::Command*> AutonomousChooser;
 
