@@ -8,7 +8,9 @@
 #include "commands/Intake/IntakeDefault.h"
 #include "Robot.h"
 
-IntakeDefault::IntakeDefault() {
+IntakeDefault::IntakeDefault() :
+  frc::Command("IntakeDefault")
+{
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(&Robot::Intake);

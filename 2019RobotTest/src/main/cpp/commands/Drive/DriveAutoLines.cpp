@@ -15,6 +15,7 @@ double clamp(double value, double min, double max) {
 }
 
 DriveAutoLines::DriveAutoLines(double distance, double angle, double epsilon, double speed_max, bool timed):
+		frc::Command("DriveAutoLines"),
 		distance(distance * 680),//TODO: find the distance in a foot
 		angle(angle),
 		epsilon(epsilon),

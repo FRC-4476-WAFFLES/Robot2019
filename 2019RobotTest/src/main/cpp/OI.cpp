@@ -18,6 +18,7 @@
 #include "commands/Elevator/ElevatorHPPickup.h"
 #include "commands/Elevator/ElevatorTop.h"
 #include "commands/Elevator/ElevatorManualGampieceToggle.h"
+//oi
 #include "commands/OI/WithOperatorMode.h"
 #include "commands/OI/OperatorModeSwitch.h"
 
@@ -61,4 +62,7 @@ float OI::IntakeSpeed() {
 	double in = operate.GetRawAxis(3);
 	double out =  operate.GetRawAxis(2);
 	return in * in - 1.0 * out * out ;//0.4->1.0
+}
+void OI::Prints(){
+  SmartDashboard::PutBoolean("climber switch", climber_switch);
 }

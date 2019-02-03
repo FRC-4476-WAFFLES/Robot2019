@@ -8,7 +8,9 @@
 #include "commands/Intake/IntakeSet.h"
 #include "Robot.h"
 
-IntakeSet::IntakeSet(float spd) {
+IntakeSet::IntakeSet(float spd) :
+  frc::Command("IntakeSet")
+{
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(&Robot::Intake);

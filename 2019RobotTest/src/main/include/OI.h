@@ -16,6 +16,7 @@ class OI {
   float OuttakeAngle();
   float IntakeSpeed();
   void Reassign(bool state);
+  void Prints();
   	enum OperatorButton {
 		X=3,
 		A=1,

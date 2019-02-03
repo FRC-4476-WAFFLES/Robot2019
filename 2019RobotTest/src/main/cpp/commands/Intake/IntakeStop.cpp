@@ -8,7 +8,9 @@
 #include "commands/Intake/IntakeStop.h"
 #include "Robot.h"
 
-IntakeStop::IntakeStop() {
+IntakeStop::IntakeStop() :
+  frc::Command("IntakeStop")
+{
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(&Robot::Intake);

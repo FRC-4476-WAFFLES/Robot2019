@@ -10,7 +10,9 @@
 #include "OI.h"
 #include "Robot.h"
 
-OperatorTankDrive::OperatorTankDrive() {
+OperatorTankDrive::OperatorTankDrive() :
+	frc::Command("OperatroTankDrive")
+{
   Requires(&Robot::Drive);
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
