@@ -2,7 +2,7 @@
 #include "Robot.h"
 
 WithOperatorMode::WithOperatorMode(Command* climberMode, Command* elevatorMode):
-    ConditionalCommand(climberMode, elevatorMode)
+    ConditionalCommand("WithOperatorMode", climberMode, elevatorMode)
 {
 }
 

@@ -8,7 +8,9 @@
 #include "commands/Elevator/ElevatorHPPickup.h"
 #include "Robot.h"
 
-ElevatorHPPickup::ElevatorHPPickup() {
+ElevatorHPPickup::ElevatorHPPickup():
+  frc::Command("ElevatorHPPickup")
+{
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(&Robot::Elevator);

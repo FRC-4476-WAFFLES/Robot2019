@@ -9,9 +9,9 @@
 
 #include <frc/commands/Command.h>
 
-class ElevatorManualGampieceToggle : public frc::Command {
+class ElevatorManualGamepieceToggle : public frc::Command {
  public:
-  ElevatorManualGampieceToggle();
+  ElevatorManualGamepieceToggle();
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;

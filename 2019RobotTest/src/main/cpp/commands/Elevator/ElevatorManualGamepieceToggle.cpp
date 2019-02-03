@@ -5,17 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/Elevator/ElevatorManualGampieceToggle.h"
+#include "commands/Elevator/ElevatorManualGamepieceToggle.h"
 #include "Robot.h"
 
-ElevatorManualGampieceToggle::ElevatorManualGampieceToggle() {
+ElevatorManualGamepieceToggle::ElevatorManualGamepieceToggle():
+  frc::Command("ElevatorManualGamepieceToggle")
+{
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(&Robot::Elevator);
 }
 
 // Called just before this Command runs the first time
-void ElevatorManualGampieceToggle::Initialize() {
+void ElevatorManualGamepieceToggle::Initialize() {
   if(Robot::Elevator.current_gamepiece == 1){
     Robot::Elevator.SetCurrentGamepiece(2);
   }else{
@@ -24,14 +26,14 @@ void ElevatorManualGampieceToggle::Initialize() {
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ElevatorManualGampieceToggle::Execute() {}
+void ElevatorManualGamepieceToggle::Execute() {}
 
 // Make this return true when this Command no longer needs to run execute()
-bool ElevatorManualGampieceToggle::IsFinished() { return true; }
+bool ElevatorManualGamepieceToggle::IsFinished() { return true; }
 
 // Called once after isFinished returns true
-void ElevatorManualGampieceToggle::End() {}
+void ElevatorManualGamepieceToggle::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ElevatorManualGampieceToggle::Interrupted() {}
+void ElevatorManualGamepieceToggle::Interrupted() {}

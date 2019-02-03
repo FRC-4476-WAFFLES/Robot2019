@@ -8,7 +8,9 @@
 #include "commands/Elevator/ElevatorGroundPickup.h"
 #include "Robot.h"
 
-ElevatorGroundPickup::ElevatorGroundPickup() {
+ElevatorGroundPickup::ElevatorGroundPickup():
+  frc::Command("ElevatorGroundPickup")
+{
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(&Robot::Elevator);

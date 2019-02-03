@@ -17,7 +17,7 @@
 #include "commands/Elevator/ElevatorMiddle.h"
 #include "commands/Elevator/ElevatorHPPickup.h"
 #include "commands/Elevator/ElevatorTop.h"
-#include "commands/Elevator/ElevatorManualGampieceToggle.h"
+#include "commands/Elevator/ElevatorManualGamepieceToggle.h"
 //oi
 #include "commands/OI/WithOperatorMode.h"
 #include "commands/OI/OperatorModeSwitch.h"
@@ -43,7 +43,7 @@ OI::OI() :
   HP->WhenReleased(new WithOperatorMode(nullptr, new ElevatorHPPickup()));
 
   Button* ManualSwap = new JoystickButton(&operate, OperatorButton::Start);
-  ManualSwap->WhenReleased(new WithOperatorMode(nullptr, new ElevatorManualGampieceToggle()));
+  ManualSwap->WhenReleased(new WithOperatorMode(nullptr, new ElevatorManualGamepieceToggle()));
 
   Button* ModeSwitch = new JoystickButton(&operate, OperatorButton::Back);
   ModeSwitch->WhenPressed(new OperatorModeSwitch());

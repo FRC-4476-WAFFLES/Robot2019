@@ -8,7 +8,9 @@
 #include "commands/OI/OperatorModeSwitch.h"
 #include "Robot.h"
 
-OperatorModeSwitch::OperatorModeSwitch() {
+OperatorModeSwitch::OperatorModeSwitch(): 
+  frc::InstantCommand("OperatorModeSwitch")
+{
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   

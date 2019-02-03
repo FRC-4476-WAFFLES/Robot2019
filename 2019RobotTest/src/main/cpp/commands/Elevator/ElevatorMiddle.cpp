@@ -8,7 +8,9 @@
 #include "commands/Elevator/ElevatorMiddle.h"
 #include "Robot.h"
 
-ElevatorMiddle::ElevatorMiddle() {
+ElevatorMiddle::ElevatorMiddle():
+  frc::Command("ElevatorMiddle")
+{
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(&Robot::Elevator);
