@@ -13,6 +13,8 @@
 #include <networktables/NetworkTableInstance.h>
 #include "commands/Drive/OperatorTankDrive.h"
 #include "Utils/PIDPreferences.h"
+#include "pathfinder-frc.h"
+
 
 DriveSubsystem::DriveSubsystem() : 
   frc::Subsystem("DriveSubsystem"),
@@ -48,6 +50,11 @@ DriveSubsystem::DriveSubsystem() :
 	right3.Follow(right1);
 	left2.Follow(left1);
 	left3.Follow(left1);
+	//pathfinder
+	follower_notifier = new Notifier(this->FollowDrivePath);
+	left_trajectory_segments = new Segment[1000];
+	right_trajectory_segments = new Segment[1000];
+
 }
 
 void DriveSubsystem::InitDefaultCommand() {
@@ -118,11 +125,11 @@ float DriveSubsystem::GetSkew(){
 }
 
 float DriveSubsystem::Right() {
-  return right1.GetSelectedSensorPosition(0)*2;
+  return right1.GetSelectedSensorPosition(0);
 }
 
 float DriveSubsystem::Left() {
-  return left1.GetSelectedSensorPosition(0)*2;
+  return left1.GetSelectedSensorPosition(0);
 }
 
 float DriveSubsystem::Gyro() {
@@ -137,3 +144,47 @@ void DriveSubsystem::Prints(){
 	SmartDashboard::PutNumber("Drive/RightOutput", right1.GetMotorOutputPercent());
 
 }
+
+  void DriveSubsystem::LoadPath(std::string name){
+		left_trajectory_length = PathfinderFRC::get_trajectory(name + ".left", left_trajectory_segments);
+    right_trajectory_length = PathfinderFRC::get_trajectory(name + ".right", right_trajectory_segments);
+
+		left_follower.last_error = 0; left_follower.segment = 0; left_follower.finished = 0;
+		right_follower.last_error = 0; right_follower.segment = 0; right_follower.finished = 0;
+		
+		encoder_config_left.initial_position = Left();
+		encoder_config_left.ticks_per_revolution = COUNTS_PER_REV;
+		encoder_config_left.wheel_circumference = WHEEL_CIRCUMFERENCE;
+		encoder_config_left.kp = KP;
+		encoder_config_left.ki = KI;
+		encoder_config_left.kd = KD;
+		encoder_config_left.kv = KV;
+		encoder_config_left.ka = KA;
+
+		encoder_config_right.initial_position = Right();
+		encoder_config_right.ticks_per_revolution = COUNTS_PER_REV;
+		encoder_config_right.wheel_circumference = WHEEL_CIRCUMFERENCE;
+		encoder_config_right.kp = KP;
+		encoder_config_right.ki = KI;
+		encoder_config_right.kd = KD;
+		encoder_config_right.kv = KV;
+		encoder_config_right.ka = KA;
+
+		follower_notifier->StartPeriodic(left_trajectory_segments[0].dt);
+	}
+
+	void DriveSubsystem::FollowDrivePath(){
+		DriveSubsystem *sub = &Robot::Drive;
+		double l = pathfinder_follow_encoder(sub->encoder_config_left, &sub->left_follower, sub->left_trajectory_segments, sub->left_trajectory_length, sub->Left());
+		double r = pathfinder_follow_encoder(sub->encoder_config_right, &sub->right_follower, sub->right_trajectory_segments, sub->right_trajectory_length, sub->Right());
+		// sub->Drive(l, r);
+	}
+
+  bool DriveSubsystem::IsPathFinished(){
+		return left_follower.finished && right_follower.finished;
+	}
+
+  void DriveSubsystem::ClosePath(){
+		follower_notifier->Stop();
+		Drive(0,0);
+	}

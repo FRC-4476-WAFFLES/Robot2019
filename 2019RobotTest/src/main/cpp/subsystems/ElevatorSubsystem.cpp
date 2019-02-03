@@ -144,7 +144,7 @@ void ElevatorSubsystem::SeekTo(int next_rough_position, bool extend){
   int next_elevator_state = 1;
   int gamepiece = current_gamepiece;
 
-  if(extend = false){
+  if(extend == false){
     pull_in_cargo_exend = true;
   }else if(next_rough_position >= 3){
     pull_in_cargo_exend = false;

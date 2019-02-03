@@ -21,6 +21,7 @@
 //oi
 #include "commands/OI/WithOperatorMode.h"
 #include "commands/OI/OperatorModeSwitch.h"
+#include "commands/Drive/PathFollower.h"
 
 OI::OI() :
   left(0),
@@ -47,6 +48,9 @@ OI::OI() :
 
   Button* ModeSwitch = new JoystickButton(&operate, OperatorButton::Back);
   ModeSwitch->WhenPressed(new OperatorModeSwitch());
+
+  Button* testthepathfindercode = new JoystickButton(&operate, OperatorButton::RightJoystickCenterButton);
+  testthepathfindercode->WhenReleased(new PathFollower("first"));
 }
 
 float OI::ElevatorFudge(){
