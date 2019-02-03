@@ -44,7 +44,7 @@ class ElevatorSubsystem : public frc::Subsystem {
 
   //CARGO EXTEND OUT
   constexpr static float CARGO_EXTEND_OUT = 0.0;
-  constexpr static float CARGO_EXTEND_IN = 0.0;
+  constexpr static float CARGO_EXTEND_IN = 0.0;//slightly out
 
   enum Positions {
     Top = 1,

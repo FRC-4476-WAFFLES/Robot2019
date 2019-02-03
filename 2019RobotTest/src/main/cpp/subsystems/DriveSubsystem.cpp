@@ -68,7 +68,7 @@ void DriveSubsystem::InitDefaultCommand() {
 void DriveSubsystem::Drive(float Left, float Right) {
 	nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("ledMode", 1);
 	left1.Set(ControlMode::PercentOutput, Left);
-	right1.Set(ControlMode::PercentOutput, Right);
+	right1.Set(ControlMode::PercentOutput, -Right);
 	JasnoorLeft1.Set(Left);
 	JasnoorLeft2.Set(Left);
 	JasnoorLeft3.Set(Left);
