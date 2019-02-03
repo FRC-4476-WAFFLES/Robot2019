@@ -19,6 +19,7 @@
 #include "commands/Elevator/ElevatorTop.h"
 #include "commands/Elevator/ElevatorManualGampieceToggle.h"
 #include "commands/OI/WithOperatorMode.h"
+#include "commands/OI/OperatorModeSwitch.h"
 
 OI::OI() :
   left(0),
@@ -42,6 +43,9 @@ OI::OI() :
 
   Button* ManualSwap = new JoystickButton(&operate, OperatorButton::Start);
   ManualSwap->WhenReleased(new WithOperatorMode(nullptr, new ElevatorManualGampieceToggle()));
+
+  Button* ModeSwitch = new JoystickButton(&operate, OperatorButton::Back);
+  ModeSwitch->WhenPressed(new OperatorModeSwitch());
 }
 
 float OI::ElevatorFudge(){
