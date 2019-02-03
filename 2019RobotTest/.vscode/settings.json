@@ -14,7 +14,8 @@
   "wpilib.online": true,
   "C_Cpp.intelliSenseEngineFallback": "Enabled",
   "files.associations": {
-    "*.inc": "cpp"
+    "*.inc": "cpp",
+    "memory": "cpp"
   },
   "C_Cpp.default.configurationProvider": "vscode-wpilib"
 }

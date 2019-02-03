@@ -40,5 +40,5 @@ void IntakeSubsystem::Periodic(){
 }
 
 void IntakeSubsystem::SetIntakeSpeed(double Speed){
-  this->speed = Speed;
+  speed = Speed;
 }

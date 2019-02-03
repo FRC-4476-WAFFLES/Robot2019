@@ -7,8 +7,12 @@
 
 #include "subsystems/DriveSubsystem.h"
 #include <frc/SmartDashboard/SmartDashboard.h>
-
+#include "Robot.h"
 #include "RobotMap.h"
+#include <networktables/NetworkTable.h>
+#include <networktables/NetworkTableInstance.h>
+#include "commands/Drive/OperatorTankDrive.h"
+#include "Utils/PIDPreferences.h"
 
 DriveSubsystem::DriveSubsystem() : 
   frc::Subsystem("DriveSubsystem"),
@@ -49,19 +53,68 @@ DriveSubsystem::DriveSubsystem() :
 void DriveSubsystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
+	SetDefaultCommand(new OperatorTankDrive());
 }
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void DriveSubsystem::Drive(float Left, float Right) {
-  left1.Set(ControlMode::PercentOutput, Left);
+	nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("ledMode", 1);
+	left1.Set(ControlMode::PercentOutput, Left);
 	right1.Set(ControlMode::PercentOutput, Right);
 	JasnoorLeft1.Set(Left);
 	JasnoorLeft2.Set(Left);
 	JasnoorLeft3.Set(Left);
-	JasnoorRight1.Set(Right);
-	JasnoorRight2.Set(Right);
-	JasnoorRight3.Set(Right);
+	JasnoorRight1.Set(-Right);
+	JasnoorRight2.Set(-Right);
+	JasnoorRight3.Set(-Right);
+}
+
+void DriveSubsystem::TrackingDrive(float Left, float Right){
+	double kp = UpdateSinglePreference("camera p", -0.017);
+	float otherkp = UpdateSinglePreference("skew kp", 0.004);
+	double tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx", 0.0);
+	float ts = GetSkew();
+	double skew_error = 1/(ts*otherkp);
+	if(skew_error > 7){
+		skew_error = 7;
+	}else if(skew_error < -7){
+		skew_error = -7;
+	}
+	tx = tx + skew_error;
+	double error = kp*tx;
+	nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("ledMode", 0);
+	int tv = 	nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tv", 0);
+	if(tv == 0){
+		Left = 0;
+		Right = 0;
+	}else if(error > -MIN_TRACKING_ERROR && error < 0){
+		Left+= -MIN_TRACKING_ERROR;
+		Right-= -MIN_TRACKING_ERROR;
+	}else if(error < MIN_TRACKING_ERROR && error > 0){
+		Left+= MIN_TRACKING_ERROR;
+	  Right-= MIN_TRACKING_ERROR;
+	}else{
+		Left+=error;
+		Right-=error;
+	}
+	left1.Set(ControlMode::PercentOutput, Left);
+	right1.Set(ControlMode::PercentOutput, Right);
+	JasnoorLeft1.Set(Left);
+	JasnoorLeft2.Set(Left);
+	JasnoorLeft3.Set(Left);
+	JasnoorRight1.Set(-Right);
+	JasnoorRight2.Set(-Right);
+	JasnoorRight3.Set(-Right);
+}
+
+float DriveSubsystem::GetSkew(){
+	float ts = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ts", 0.0);
+  if(ts < -45){
+		ts+=90;
+	}
+	SmartDashboard::PutNumber("Drive/Skew", ts);
+	return ts;
 }
 
 float DriveSubsystem::Right() {

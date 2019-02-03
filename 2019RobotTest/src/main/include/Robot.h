@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <memory>
+
 #include <frc/TimedRobot.h>
 #include <frc/commands/Command.h>
 #include <frc/smartdashboard/SendableChooser.h>
@@ -24,6 +26,9 @@
 #include "subsystems/HatchSubsystem.h"
 #include "subsystems/IntakeSubsystem.h"
 #include "subsystems/LightSubsystem.h"
+#include <networktables/NetworkTable.h>
+#include <networktables/NetworkTableInstance.h>
+
 using namespace frc;
 
 class Robot : public frc::TimedRobot {
@@ -56,4 +61,5 @@ class Robot : public frc::TimedRobot {
   MyAutoCommand myAuto;
   GeneralTestAuto TestAuto;
   frc::SendableChooser<frc::Command*> AutonomousChooser;
+
 };

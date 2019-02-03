@@ -10,6 +10,8 @@
 #include <frc/commands/Scheduler.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "commands/Auto/GeneralTestAuto.h"
+#include <networktables/NetworkTable.h>
+#include <networktables/NetworkTableInstance.h>
 
 OI Robot::oi;
 ClimbSubsystem Robot::Climb;

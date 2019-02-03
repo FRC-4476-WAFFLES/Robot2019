@@ -25,6 +25,8 @@ class DriveSubsystem : public frc::Subsystem {
   DriveSubsystem();
   void InitDefaultCommand() override;
   void Drive(float Left, float Right);
+  void TrackingDrive(float Left, float Right);
+  float GetSkew();
   void Prints();
   float Right();
   float Left();
@@ -40,6 +42,8 @@ class DriveSubsystem : public frc::Subsystem {
 	double target_distance;
 	double target_angle;
 	double drive_speed_FPS = 0.0;
+	static constexpr float MIN_TRACKING_ERROR = 0.05;
+	
 
  private:
 	WPI_TalonSRX left1;
