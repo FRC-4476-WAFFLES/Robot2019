@@ -18,51 +18,30 @@
 #include "commands/Elevator/ElevatorHPPickup.h"
 #include "commands/Elevator/ElevatorTop.h"
 #include "commands/Elevator/ElevatorManualGampieceToggle.h"
+#include "commands/OI/WithOperatorMode.h"
 
 OI::OI() :
   left(0),
   right(1),
   operate(2)
 {
-  // Process operator interface input here.
-  //definitions
-  bool back_button = operate.GetRawButton(OperatorButton::Back);
-  if(back_button == true && joystick_mode_toggle_limit == false){
-    climber_switch = !climber_switch;
-    joystick_mode_toggle_limit = true;
-  }else if(back_button == false && joystick_mode_toggle_limit == true){
-    joystick_mode_toggle_limit = false;
-  }
-  //switch logic
-  if(climber_switch){
+  Button* Ground = new JoystickButton(&operate, OperatorButton::B);
+  Ground->WhenReleased(new WithOperatorMode(nullptr, new ElevatorGroundPickup()));
 
-    
+  Button* Bottom = new JoystickButton(&operate, OperatorButton::A);
+  Bottom->WhenReleased(new WithOperatorMode(nullptr, new ElevatorBottom()));
 
+  Button* Middle = new JoystickButton(&operate, OperatorButton::X);
+  Middle->WhenReleased(new WithOperatorMode(nullptr, new ElevatorMiddle()));
 
+  Button* Top = new JoystickButton(&operate, OperatorButton::Y);
+  Top->WhenReleased(new WithOperatorMode(nullptr, new ElevatorTop()));
 
-  }else{
-    //elevator
-    Button* Ground = new JoystickButton(&operate, OperatorButton::B);
-    Ground->WhenReleased(new ElevatorGroundPickup());
+  Button* HP = new JoystickButton(&operate, OperatorButton::RightJoystickCenterButton);
+  HP->WhenReleased(new WithOperatorMode(nullptr, new ElevatorHPPickup()));
 
-    Button* Bottom = new JoystickButton(&operate, OperatorButton::A);
-    Bottom->WhenReleased(new ElevatorBottom());
-
-    Button* Middle = new JoystickButton(&operate, OperatorButton::X);
-    Middle->WhenReleased(new ElevatorMiddle());
-
-    Button* Top = new JoystickButton(&operate, OperatorButton::Y);
-    Top->WhenReleased(new ElevatorTop());
-
-    Button* HP = new JoystickButton(&operate, OperatorButton::RightJoystickCenterButton);
-    HP->WhenReleased(new ElevatorHPPickup());
-
-    Button* ManualSwap = new JoystickButton(&operate, OperatorButton::Start);
-    ManualSwap->WhenReleased(new ElevatorManualGampieceToggle());
-
-
-  }
-  frc::SmartDashboard::PutBoolean("Opreator Controll Mode", climber_switch);
+  Button* ManualSwap = new JoystickButton(&operate, OperatorButton::Start);
+  ManualSwap->WhenReleased(new WithOperatorMode(nullptr, new ElevatorManualGampieceToggle()));
 }
 
 float OI::ElevatorFudge(){
