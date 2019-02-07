@@ -19,6 +19,7 @@ class IntakeSubsystem : public frc::Subsystem {
   void InitDefaultCommand() override;
   void Periodic() override;
   void SetIntakeSpeed(double Speed);
+  bool hasCargo();
 
   double speed = 0.0;
  private:

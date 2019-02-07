@@ -22,6 +22,9 @@
 #include "commands/OI/WithOperatorMode.h"
 #include "commands/OI/OperatorModeSwitch.h"
 #include "commands/Drive/PathFollower.h"
+//Hatch
+#include "commands/Hatch/ToggleClamp.h"
+#include "commands/Hatch/ToggleDeploy.h"
 
 OI::OI() :
   left(0),
@@ -51,6 +54,12 @@ OI::OI() :
 
   Button* testthepathfindercode = new JoystickButton(&operate, OperatorButton::RightJoystickCenterButton);
   testthepathfindercode->WhenReleased(new PathFollower("first"));
+  
+  Button* ToggleHatchDeploy = new JoystickButton(&operate, OperatorButton::BumperTopLeft);
+  ToggleHatchDeploy->WhenPressed(new WithOperatorMode(nullptr, new ToggleDeploy()));
+
+  Button* ToggleHatchClamp = new JoystickButton(&operate, OperatorButton::BumperTopRight);
+  ToggleHatchClamp->WhenPressed(new WithOperatorMode(nullptr, new ToggleClamp()));
 }
 
 float OI::ElevatorFudge(){

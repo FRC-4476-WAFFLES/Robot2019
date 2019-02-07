@@ -25,6 +25,7 @@ class ElevatorSubsystem : public frc::Subsystem {
   void Periodic() override;
   void SeekTo(int next_rough_position, bool extend = false);
   float ElevatorPosition();
+  void ExtendPeriodic();
 
 
   //elevator

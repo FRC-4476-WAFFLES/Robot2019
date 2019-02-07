@@ -75,6 +75,7 @@ void ElevatorSubsystem::Periodic(){
   double extend_position = fabs(cargoIntakeExtend.GetSelectedSensorPosition(0));
 
   AutoDetectCurrentGamepiece();
+  ExtendPeriodic();
 
   if(t.Get() < 0.0){
     elevatorMaster.Set(ControlMode::PercentOutput, 0.0);
@@ -83,13 +84,13 @@ void ElevatorSubsystem::Periodic(){
     fudging = false;
   }else if(elevator_state_machine_state == 1){//pull the extend out
     elevatorMaster.Set(ControlMode::Position, position_when_seek_to_set);
-    cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_OUT);
+    pull_in_cargo_exend = false;
     if((extend_position - CARGO_EXTEND_OUT) < 0.0){
       elevator_state_machine_state = 2;
     }
   }else if(elevator_state_machine_state == 2){//move the elevator
     elevatorMaster.Set(ControlMode::Position, next_elevator_position);
-    cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_OUT);
+    pull_in_cargo_exend = false;
     if((elevator_position - next_elevator_position) < 0.0 ||
     elevator_position > LIMIT_OF_EFFECTED_BY_CARGO_INTAKE+0.0){
       elevator_state_machine_state = 3;
@@ -101,10 +102,10 @@ void ElevatorSubsystem::Periodic(){
     }else{
       elevatorMaster.Set(ControlMode::Position, next_elevator_position);
       if(pull_in_cargo_exend){
-        cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
+        pull_in_cargo_exend = true;
         elevator_state_machine_state = 4;
       }else{
-        cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_OUT);
+        pull_in_cargo_exend = false;
         elevator_state_machine_state = 4;
       }
     }
@@ -117,9 +118,9 @@ void ElevatorSubsystem::Periodic(){
     //set the motor to the fudge position using the encoder
     elevatorMaster.Set(ControlMode::Position, next_elevator_position);
     if(pull_in_cargo_exend){
-      cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
+      pull_in_cargo_exend = true;
     }else{
-      cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_OUT);
+      pull_in_cargo_exend = false;
     }
     //in manual mode, move the extend out of the way if neccessary
     if(elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE-50){
@@ -189,4 +190,12 @@ void ElevatorSubsystem::SeekTo(int next_rough_position, bool extend){
 
 float ElevatorSubsystem::ElevatorPosition(){
   return elevatorMaster.GetSelectedSensorPosition(0);
+}
+
+void ElevatorSubsystem::ExtendPeriodic(){
+  if(pull_in_cargo_exend){
+    cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
+  }else{
+    cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_OUT);
+  }
 }

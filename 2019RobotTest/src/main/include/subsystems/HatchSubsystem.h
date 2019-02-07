@@ -16,10 +16,17 @@ class HatchSubsystem : public frc::Subsystem {
  public:
   HatchSubsystem();
   void InitDefaultCommand() override;
+  void Periodic() override;
+  void UpdateHatch(bool clamp, bool deploy);
+  bool HasPannel();
+  bool current_clamp_state = false;
+  bool current_deploy_state = false;
+  bool next_clamp_state = false;
+  bool next_deploy_state = false;
 
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
-  DoubleSolenoid extend;
-  DoubleSolenoid clamp;
+  DoubleSolenoid hatchDeploy;
+  DoubleSolenoid hatchClamp;
 };

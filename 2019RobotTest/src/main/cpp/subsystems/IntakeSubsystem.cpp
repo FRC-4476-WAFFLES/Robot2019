@@ -42,3 +42,6 @@ void IntakeSubsystem::Periodic(){
 void IntakeSubsystem::SetIntakeSpeed(double Speed){
   speed = Speed;
 }
+bool IntakeSubsystem::hasCargo(){
+  return false;
+}
