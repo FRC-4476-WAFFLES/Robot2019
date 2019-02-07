@@ -5,32 +5,34 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/Elevator/ElevatorDefault.h"
+#include "commands/Hatch/HatchDefault.h"
 #include "Robot.h"
 
-ElevatorDefault::ElevatorDefault():
-  frc::Command("ElevatorDefault")
-{
+HatchDefault::HatchDefault() {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
+  Requires(&Robot::Hatch);
 }
 
 // Called just before this Command runs the first time
-void ElevatorDefault::Initialize() {}
+void HatchDefault::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ElevatorDefault::Execute() {
-  if(Robot::Hatch.current_deploy_state){
-    Robot::Elevator.pull_in_cargo_exend = true;
+void HatchDefault::Execute() {
+  if(Robot::Intake.is_intaking && Robot::Intake.HasCargo() && Robot::Hatch.current_clamp_state == false){
+    Robot::Hatch.UpdateHatch(Robot::Hatch.current_clamp_state, false);
+  }
+  if(Robot::Hatch.current_clamp_state == false){
+    Robot::Hatch.UpdateHatch(false, false);
   }
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ElevatorDefault::IsFinished() { return false; }
+bool HatchDefault::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-void ElevatorDefault::End() {}
+void HatchDefault::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ElevatorDefault::Interrupted() {}
+void HatchDefault::Interrupted() {}

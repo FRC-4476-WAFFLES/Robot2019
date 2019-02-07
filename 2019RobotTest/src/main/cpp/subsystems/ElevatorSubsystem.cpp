@@ -117,10 +117,11 @@ void ElevatorSubsystem::Periodic(){
     }
     //set the motor to the fudge position using the encoder
     elevatorMaster.Set(ControlMode::Position, next_elevator_position);
-    if(pull_in_cargo_exend){
-      pull_in_cargo_exend = true;
-    }else{
+    //if intaking, move the extend out
+    if(Robot::Intake.is_intaking){
       pull_in_cargo_exend = false;
+    }else{
+      pull_in_cargo_exend = true;
     }
     //in manual mode, move the extend out of the way if neccessary
     if(elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE-50){

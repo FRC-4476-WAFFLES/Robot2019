@@ -37,11 +37,16 @@ void IntakeSubsystem::Periodic(){
   }else{
     cargoIntake.Set(0.0);
   }
+  if(speed >= 0.1){
+    is_intaking = true;
+  }else{
+    is_intaking = false;
+  }
 }
 
 void IntakeSubsystem::SetIntakeSpeed(double Speed){
   speed = Speed;
 }
-bool IntakeSubsystem::hasCargo(){
+bool IntakeSubsystem::HasCargo(){
   return false;
 }
