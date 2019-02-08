@@ -25,7 +25,8 @@
 //Hatch
 #include "commands/Hatch/ToggleClamp.h"
 #include "commands/Hatch/ToggleDeploy.h"
-
+//lights
+#include "Commands/Lights/HPWontDropItem.h"
 OI::OI() :
   left(0),
   right(1),
@@ -60,6 +61,10 @@ OI::OI() :
 
   Button* ToggleHatchClamp = new JoystickButton(&operate, OperatorButton::BumperTopRight);
   ToggleHatchClamp->WhenPressed(new WithOperatorMode(nullptr, new ToggleClamp()));
+
+  Button* WhenUrHumanPlayerWontNoticeU = new JoystickButton(&left, 11);
+  WhenUrHumanPlayerWontNoticeU->WhileHeld(new HPWontDropItem());
+  
 }
 
 float OI::ElevatorFudge(){

@@ -9,13 +9,12 @@
 
 #include <frc/commands/Command.h>
 
-class LightGeneral : public frc::Command {
+class HPWontDropItem : public frc::Command {
  public:
-  LightGeneral();
+  HPWontDropItem();
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
-  
 };

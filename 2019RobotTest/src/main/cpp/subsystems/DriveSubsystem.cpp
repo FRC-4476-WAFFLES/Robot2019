@@ -66,7 +66,7 @@ void DriveSubsystem::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void DriveSubsystem::Drive(float Left, float Right) {
-	nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("ledMode", 1);
+	Robot::Camera.SetLedMode(Robot::Camera.CameraLEDMode::On);
 	left1.Set(ControlMode::PercentOutput, Left);
 	right1.Set(ControlMode::PercentOutput, -Right);
 	JasnoorLeft1.Set(Left);
@@ -75,12 +75,15 @@ void DriveSubsystem::Drive(float Left, float Right) {
 	JasnoorRight1.Set(-Right);
 	JasnoorRight2.Set(-Right);
 	JasnoorRight3.Set(-Right);
+	missing_vision_target = false;
+	is_tracking_drive = true;
 }
 
 void DriveSubsystem::TrackingDrive(float Left, float Right){
+	is_tracking_drive = true;
 	double kp = UpdateSinglePreference("camera p", -0.017);
 	float otherkp = UpdateSinglePreference("skew kp", 0.004);
-	double tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx", 0.0);
+	double tx = Robot::Camera.GetCameraTX();
 	float ts = GetSkew();
 	double skew_error = 1/(ts*otherkp);
 	if(skew_error > 7){
@@ -90,20 +93,24 @@ void DriveSubsystem::TrackingDrive(float Left, float Right){
 	}
 	tx = tx + skew_error;
 	double error = kp*tx;
-	nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("ledMode", 0);
-	int tv = 	nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tv", 0);
+	Robot::Camera.SetLedMode(Robot::Camera.CameraLEDMode::Default);
+	int tv = Robot::Camera.GetCameraTV();
 	if(tv == 0){
 		Left = 0;
 		Right = 0;
+		missing_vision_target = true;
 	}else if(error > -MIN_TRACKING_ERROR && error < 0){
 		Left+= -MIN_TRACKING_ERROR;
 		Right-= -MIN_TRACKING_ERROR;
+		missing_vision_target = false;
 	}else if(error < MIN_TRACKING_ERROR && error > 0){
 		Left+= MIN_TRACKING_ERROR;
 	  Right-= MIN_TRACKING_ERROR;
+		missing_vision_target = false;
 	}else{
 		Left+=error;
 		Right-=error;
+		missing_vision_target = false;
 	}
 	left1.Set(ControlMode::PercentOutput, Left);
 	right1.Set(ControlMode::PercentOutput, Right);
@@ -116,7 +123,7 @@ void DriveSubsystem::TrackingDrive(float Left, float Right){
 }
 
 float DriveSubsystem::GetSkew(){
-	float ts = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ts", 0.0);
+	float ts = Robot::Camera.GetCameraTS();
   if(ts < -45){
 		ts+=90;
 	}

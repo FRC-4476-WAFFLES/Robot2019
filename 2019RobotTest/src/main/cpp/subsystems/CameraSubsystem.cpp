@@ -16,3 +16,18 @@ void CameraSubsystem::InitDefaultCommand() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+void CameraSubsystem::SetLedMode(int mode){
+  camera->PutNumber("ledMode", mode);
+}
+double CameraSubsystem::GetCameraTX(){
+	return camera->GetNumber("tx", 0.0);
+}
+double CameraSubsystem::GetCameraTV(){
+  return camera->GetNumber("tv", 0);
+}
+double CameraSubsystem::GetCameraTS(){
+  return camera->GetNumber("ts", 0.0);
+}
+void CameraSubsystem::SetCameraProcessingMode(int mode){
+  camera->PutNumber("camMode", mode);
+}

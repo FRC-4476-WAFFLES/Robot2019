@@ -63,6 +63,8 @@ class DriveSubsystem : public frc::Subsystem {
 	double target_angle;
 	double drive_speed_FPS = 0.0;
 	static constexpr float MIN_TRACKING_ERROR = 0.05;
+	bool missing_vision_target = false;
+	bool is_tracking_drive = false;
 
 	
 

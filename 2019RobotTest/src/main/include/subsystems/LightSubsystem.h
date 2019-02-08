@@ -20,7 +20,7 @@ class LightSubsystem : public frc::Subsystem {
   void UpdateColour(int colour);
   void SendColour(int r, int g, int b);
   void Strobe(int r, int g, int b);
-
+  bool hp_strobe = false;
   enum ColourCodes {
     None = 0,
     HaveHatch = 1,

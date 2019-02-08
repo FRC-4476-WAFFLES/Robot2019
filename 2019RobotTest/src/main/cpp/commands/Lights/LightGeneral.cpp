@@ -7,6 +7,7 @@
 
 #include "commands/Lights/LightGeneral.h"
 #include "Robot.h"
+#include "frc/RobotState.h"
 
 LightGeneral::LightGeneral() {
   // Use Requires() here to declare subsystem dependencies
@@ -20,7 +21,25 @@ void LightGeneral::Initialize() {
 }
 // Called repeatedly when this Command is scheduled to run
 void LightGeneral::Execute() {
-  
+  if(!frc::RobotState::IsDisabled()){
+    if(Robot::Drive.is_tracking_drive){
+      if(Robot::Drive.missing_vision_target){
+        Robot::Lights.UpdateColour(Robot::Lights.ColourCodes::TrackingWithoutTarget);
+      }else{
+        Robot::Lights.UpdateColour(Robot::Lights.ColourCodes::TrackingWithTarget);
+      }
+    }else if(Robot::Hatch.HasPannel()){
+      Robot::Lights.UpdateColour(Robot::Lights.ColourCodes::HaveHatch);
+    }else if(Robot::Intake.HasCargo()){
+      Robot::Lights.UpdateColour(Robot::Lights.ColourCodes::HaveCargo);
+    }else if(Robot::Lights.hp_strobe){
+      Robot::Lights.UpdateColour(Robot::Lights.ColourCodes::WantCargoFromHP);
+    }else{
+      Robot::Lights.UpdateColour(Robot::Lights.ColourCodes::None);
+    }
+  }else{
+    Robot::Lights.UpdateColour(Robot::Lights.ColourCodes::Disabled);
+  }
 }
 
 // Make this return true when this Command no longer needs to run execute()
