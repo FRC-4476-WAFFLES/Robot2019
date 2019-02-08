@@ -20,6 +20,7 @@ ElevatorSubsystem Robot::Elevator;
 HatchSubsystem Robot::Hatch;
 IntakeSubsystem Robot::Intake;
 LightSubsystem Robot::Lights;
+CameraSubsystem Robot::Camera;
 
 void Robot::RobotInit() {
   AutonomousChooser.SetDefaultOption("Default Auto", &TestAuto);

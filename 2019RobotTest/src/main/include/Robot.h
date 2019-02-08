@@ -23,6 +23,7 @@
 #include "subsystems/HatchSubsystem.h"
 #include "subsystems/IntakeSubsystem.h"
 #include "subsystems/LightSubsystem.h"
+#include "subsystems/CameraSubsystem.h"
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableInstance.h>
 
@@ -37,6 +38,7 @@ class Robot : public frc::TimedRobot {
   static HatchSubsystem Hatch;
   static IntakeSubsystem Intake;
   static LightSubsystem Lights;
+  static CameraSubsystem Camera;
 
 
   void RobotInit() override;
