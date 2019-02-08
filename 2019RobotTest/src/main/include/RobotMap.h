@@ -40,6 +40,8 @@ constexpr int RIGHT_CARGO_CARRIAGE = 12;//SPX
 constexpr int CLIMB_MASTER = 13;//SPARK MAX
 constexpr int CLIMB_FOLLOWER = 14;//SPARK MAX
 
+constexpr int LIGHT_STRIP = 15;//canifier
+
 //PCM
 constexpr int HATCH_CLAMP = 0;//double solonoid
 constexpr int HATCH_UNCLAMP = 1;//double solenoid

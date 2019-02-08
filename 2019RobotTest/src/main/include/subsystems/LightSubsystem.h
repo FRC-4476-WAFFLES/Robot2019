@@ -8,14 +8,33 @@
 #pragma once
 
 #include <frc/commands/Subsystem.h>
+#include <ctre/Phoenix.h>
+#include <ctre/phoenix/CANifier.h>
+#include <frc/Timer.h>
 using namespace frc;
 
 class LightSubsystem : public frc::Subsystem {
  public:
   LightSubsystem();
   void InitDefaultCommand() override;
+  void UpdateColour(int colour);
+  void SendColour(int r, int g, int b);
+  void Strobe(int r, int g, int b);
+
+  enum ColourCodes {
+    None = 0,
+    HaveHatch = 1,
+    HaveCargo = 2,
+    TrackingWithTarget = 3,
+    TrackingWithoutTarget = 4,
+    WantCargoFromHP = 5,
+    Disabled = 6,
+  };
 
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
+  CANifier led;
+  Timer T;
+  bool strobe_index = false;
 };
