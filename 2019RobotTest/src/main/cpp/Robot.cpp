@@ -35,18 +35,18 @@ void Robot::RobotInit() {
   frc::SmartDashboard::PutData("Auto Modes", &AutonomousChooser);
 
 
-  taregetPosition->SetDefaultOption("Close", new int(0));
-  taregetPosition->AddOption("Middle", new int(1));
-  taregetPosition->AddOption("Far", new int(2));
-	taregetPosition->AddOption("Front Left", new int(3));
-	taregetPosition->AddOption("Front Right", new int(4));
-	SmartDashboard::PutData("Aim for ____ position", taregetPosition);
+  targetPosition.SetDefaultOption("Close", new int(0));
+  targetPosition.AddOption("Middle", new int(1));
+  targetPosition.AddOption("Far", new int(2));
+	targetPosition.AddOption("Front Left", new int(3));
+	targetPosition.AddOption("Front Right", new int(4));
+	SmartDashboard::PutData("Aim for ____ position", &targetPosition);
   
 
 
-  taregetSide->SetDefaultOption("Right", new int(0));
-  taregetSide->AddOption("Left", new int(1));
-	SmartDashboard::PutData("If Center, Target Side", taregetSide);
+  targetSide.SetDefaultOption("Right", new int(0));
+  targetSide.AddOption("Left", new int(1));
+	SmartDashboard::PutData("If Center, Target Side", &targetSide);
 }
 
 /**
