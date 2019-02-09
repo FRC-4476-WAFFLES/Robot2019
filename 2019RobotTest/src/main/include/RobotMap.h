@@ -14,12 +14,11 @@
  * floating around.
  */
 //PWM
-constexpr int DRIVE_LEFT_JASNOOR_1 = 0;
-constexpr int DRIVE_LEFT_JASNOOR_2 = 1;
-constexpr int DRIVE_LEFT_JASNOOR_3 = 2;
-constexpr int DRIVE_RIGHT_JASNOOR_1 = 3;
-constexpr int DRIVE_RIGHT_JASNOOR_2 = 4;
-constexpr int DRIVE_RIGHT_JASNOOR_3 = 5;
+constexpr int LEFT_CARGO_CARRIAGE = 0;//SPX
+constexpr int RIGHT_CARGO_CARRIAGE = 9;//SPX
+
+constexpr int SPARE_SP_1 = 8;
+constexpr int SPARE_SP_2 = 1;
 //CAN
 constexpr int DRIVE_RIGHT1 = 1;//SRX
 constexpr int DRIVE_RIGHT2 = 2;//SPX
@@ -31,11 +30,10 @@ constexpr int DRIVE_LEFT3 = 6;//SPX
 constexpr int ELEVATOR_MASTER = 7;//SRX
 constexpr int ELEVATOR_FOLLOWER = 8;//SRX
 
-constexpr int CARGO_EXTEND = 9;//SRX
+constexpr int CARGO_EXTEND = 9;//SPX
 constexpr int CARGO_INTAKE = 10;//SPX
 
-constexpr int LEFT_CARGO_CARRIAGE = 11;//SPX
-constexpr int RIGHT_CARGO_CARRIAGE = 12;//SPX
+
 
 constexpr int CLIMB_MASTER = 13;//SPARK MAX
 constexpr int CLIMB_FOLLOWER = 14;//SPARK MAX

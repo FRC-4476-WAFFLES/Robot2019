@@ -11,11 +11,11 @@
 
 
 ClimbSubsystem::ClimbSubsystem() :
- frc::Subsystem("ClimbSubsystem"),
- climbMaster(CLIMB_MASTER, CANSparkMax::MotorType::kBrushless),
- climbFollower(CLIMB_FOLLOWER, CANSparkMax::MotorType::kBrushless) 
+ frc::Subsystem("ClimbSubsystem")//,
+ //climbMaster(CLIMB_MASTER, CANSparkMax::MotorType::kBrushless),
+ //climbFollower(CLIMB_FOLLOWER, CANSparkMax::MotorType::kBrushless) 
  {
-   climbFollower.Follow(climbMaster, false);
+  //  climbFollower.Follow(climbMaster, false);
  }
 
 void ClimbSubsystem::InitDefaultCommand() {

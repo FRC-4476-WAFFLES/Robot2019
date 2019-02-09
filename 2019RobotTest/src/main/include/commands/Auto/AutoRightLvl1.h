@@ -7,19 +7,9 @@
 
 #pragma once
 
-#include <frc/commands/Subsystem.h>
-// #include <rev/CANSparkMax.h>
-using namespace frc;
-// using namespace rev;
+#include <frc/commands/CommandGroup.h>
 
-class ClimbSubsystem : public frc::Subsystem {
+class AutoRightLvl1 : public frc::CommandGroup {
  public:
-  ClimbSubsystem();
-  void InitDefaultCommand() override;
-
- private:
-  // It's desirable that everything possible under private except
-  // for methods that implement subsystem capabilities
-  // CANSparkMax climbMaster;
-  // CANSparkMax climbFollower;
+  AutoRightLvl1();
 };

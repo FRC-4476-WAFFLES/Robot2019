@@ -12,10 +12,17 @@
 #include <frc/TimedRobot.h>
 #include <frc/commands/Command.h>
 #include <frc/smartdashboard/SendableChooser.h>
+#include <frc/Compressor.h>
 
 #include "OI.h"
 
 #include "commands/Auto/GeneralTestAuto.h"
+#include "commands/Auto/AutoCenter.h"
+#include "commands/Auto/AutoLeftLvl1.h"
+#include "commands/Auto/AutoLeftLvl2.h"
+#include "commands/Auto/AutoRightLvl1.h"
+#include "commands/Auto/AutoRightLvl2.h"
+
 
 #include "subsystems/ClimbSubsystem.h"
 #include "subsystems/DriveSubsystem.h"
@@ -51,11 +58,22 @@ class Robot : public frc::TimedRobot {
   void TeleopPeriodic() override;
   void TestPeriodic() override;
 
+  SendableChooser<int*>* targetPosition;
+  SendableChooser<int*>* targetSide;
+
  private:
   // Have it null by default so that if testing teleop it
   // doesn't have undefined behavior and potentially crash.
+  Compressor compressor;
   frc::Command* autonomousCommand = nullptr;
   GeneralTestAuto TestAuto;
+  AutoCenter CenterAuto;
+  AutoLeftLvl1 LeftLvl1Auto;
+  AutoLeftLvl2 LeftLvl2Auto;
+  AutoRightLvl1 RightLvl1Auto;
+  AutoRightLvl2 RightLvl2Auto;
   frc::SendableChooser<frc::Command*> AutonomousChooser;
+  frc::SendableChooser<int*>* taregetSide;
+  frc::SendableChooser<int*>* taregetPosition;
 
 };

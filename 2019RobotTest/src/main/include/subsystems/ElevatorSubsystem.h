@@ -11,6 +11,8 @@
 #include <ctre/Phoenix.h>
 #include <ctre/phoenix/motorcontrol/can/WPI_TalonSRX.h>
 #include <ctre/phoenix/motorcontrol/can/TalonSRX.h>
+#include <ctre/phoenix/motorcontrol/can/VictorSPX.h>
+#include <ctre/phoenix/motorcontrol/can/WPI_VictorSPX.h>
 #include <frc/Timer.h>
 
 using namespace frc;
@@ -73,7 +75,7 @@ class ElevatorSubsystem : public frc::Subsystem {
   // for methods that implement subsystem capabilities
   WPI_TalonSRX elevatorMaster;
   WPI_TalonSRX elevatorFollower;
-  WPI_TalonSRX cargoIntakeExtend;
+  WPI_VictorSPX cargoIntakeExtend;
   Timer t;
   bool fudging = false;
 };

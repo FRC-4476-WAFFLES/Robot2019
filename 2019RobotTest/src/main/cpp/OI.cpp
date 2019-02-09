@@ -62,9 +62,11 @@ OI::OI() :
   Button* ToggleHatchClamp = new JoystickButton(&operate, OperatorButton::BumperTopRight);
   ToggleHatchClamp->WhenPressed(new WithOperatorMode(nullptr, new ToggleClamp()));
 
-  Button* WhenUrHumanPlayerWontNoticeU = new JoystickButton(&left, 11);
+  Button* WhenUrHumanPlayerWontNoticeU = new JoystickButton(&right, 11);
   WhenUrHumanPlayerWontNoticeU->WhileHeld(new HPWontDropItem());
   
+  Button* WhenUrHumanPlayerWontNoticeUAndUrAngry = new JoystickButton(&right, 10);
+  WhenUrHumanPlayerWontNoticeUAndUrAngry->WhileHeld(new HPWontDropItem());
 }
 
 float OI::ElevatorFudge(){

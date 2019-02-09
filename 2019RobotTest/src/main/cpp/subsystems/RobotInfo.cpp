@@ -5,21 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#pragma once
+#include "subsystems/RobotInfo.h"
 
-#include <frc/commands/Subsystem.h>
-// #include <rev/CANSparkMax.h>
-using namespace frc;
-// using namespace rev;
+RobotInfo::RobotInfo() : Subsystem("ExampleSubsystem") {}
 
-class ClimbSubsystem : public frc::Subsystem {
- public:
-  ClimbSubsystem();
-  void InitDefaultCommand() override;
+void RobotInfo::InitDefaultCommand() {
+  // Set the default command for a subsystem here.
+  // SetDefaultCommand(new MySpecialCommand());
+}
 
- private:
-  // It's desirable that everything possible under private except
-  // for methods that implement subsystem capabilities
-  // CANSparkMax climbMaster;
-  // CANSparkMax climbFollower;
-};
+// Put methods for controlling this subsystem
+// here. Call these from Commands.

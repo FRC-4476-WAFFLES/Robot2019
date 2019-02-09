@@ -23,6 +23,14 @@ void UpdatePID(std::string name, WPI_TalonSRX &talon) {
 	UpdatePID(name, talon, 0.0, 0.0, 0.0, 0.0);
 }
 
+void UpdateSP_PID(std::string name, WPI_VictorSPX &victor, double p, double i, double d, double f) {
+	victor.Config_kP(0, UpdateSinglePreference(name + " P", p), 0);
+	victor.Config_kI(0, UpdateSinglePreference(name + " I", i), 0);
+	victor.Config_kD(0, UpdateSinglePreference(name + " D", d), 0);
+	victor.Config_kF(0, UpdateSinglePreference(name + " F", f), 0);
+}
+
+
 double GetP(std::string name, double v) {
 	return UpdateSinglePreference(name + " P", v);
 }

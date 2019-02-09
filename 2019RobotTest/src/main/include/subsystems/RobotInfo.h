@@ -8,27 +8,13 @@
 #pragma once
 
 #include <frc/commands/Subsystem.h>
-#include <ctre/Phoenix.h>
-#include <ctre/phoenix/motorcontrol/can/WPI_VictorSPX.h>
-#include <ctre/phoenix/motorcontrol/can/TalonSRX.h>
-#include <ctre/phoenix/motorcontrol/can/VictorSPX.h>
-#include <frc/VictorSP.h>
-using namespace frc;
 
-class IntakeSubsystem : public frc::Subsystem {
- public:
-  IntakeSubsystem();
-  void InitDefaultCommand() override;
-  void Periodic() override;
-  void SetIntakeSpeed(double Speed);
-  bool HasCargo();
-
-  double speed = 0.0;
-  bool is_intaking = false;
+class RobotInfo : public frc::Subsystem {
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
-  VictorSP cargoCarriageLeft;
-  VictorSP cargoCarriageRight;
-  WPI_VictorSPX cargoIntake;
+
+ public:
+  RobotInfo();
+  void InitDefaultCommand() override;
 };

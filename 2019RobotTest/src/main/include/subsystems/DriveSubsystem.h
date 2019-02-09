@@ -78,13 +78,6 @@ class DriveSubsystem : public frc::Subsystem {
 	WPI_VictorSPX right3;
   	ADXRS450_Gyro gyro;
 
-	Talon JasnoorLeft1;
-	Talon JasnoorLeft2;
-	Talon JasnoorLeft3;
-	Talon JasnoorRight1;
-	Talon JasnoorRight2;
-	Talon JasnoorRight3;
-
 	Notifier* follower_notifier;
 	int left_trajectory_length;
 	int right_trajectory_length;

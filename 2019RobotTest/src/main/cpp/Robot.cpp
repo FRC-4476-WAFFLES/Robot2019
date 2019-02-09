@@ -23,9 +23,30 @@ LightSubsystem Robot::Lights;
 CameraSubsystem Robot::Camera;
 
 void Robot::RobotInit() {
-  AutonomousChooser.SetDefaultOption("Default Auto", &TestAuto);
+  compressor.SetClosedLoopControl(true);
+
+  AutonomousChooser.SetDefaultOption("Null", nullptr);
   AutonomousChooser.AddOption("Test", &TestAuto);
+  AutonomousChooser.AddOption("Center", &CenterAuto);
+  AutonomousChooser.AddOption("Left Level 1", &LeftLvl1Auto);
+  AutonomousChooser.AddOption("Left Level 2", &LeftLvl2Auto);
+  AutonomousChooser.AddOption("Right Level 1", &RightLvl1Auto);
+  AutonomousChooser.AddOption("Right Level 2", &RightLvl2Auto);
   frc::SmartDashboard::PutData("Auto Modes", &AutonomousChooser);
+
+
+  taregetPosition->SetDefaultOption("Close", new int(0));
+  taregetPosition->AddOption("Middle", new int(1));
+  taregetPosition->AddOption("Far", new int(2));
+	taregetPosition->AddOption("Front Left", new int(3));
+	taregetPosition->AddOption("Front Right", new int(4));
+	SmartDashboard::PutData("Aim for ____ position", taregetPosition);
+  
+
+
+  taregetSide->SetDefaultOption("Right", new int(0));
+  taregetSide->AddOption("Left", new int(1));
+	SmartDashboard::PutData("If Center, Target Side", taregetSide);
 }
 
 /**
