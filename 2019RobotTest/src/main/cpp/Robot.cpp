@@ -22,8 +22,8 @@ IntakeSubsystem Robot::Intake;
 LightSubsystem Robot::Lights;
 CameraSubsystem Robot::Camera;
 
-void Robot::RobotInit() {
-  compressor.SetClosedLoopControl(true);
+void Robot::RobotInit(){
+  compressor->SetClosedLoopControl(true);
 
   AutonomousChooser.SetDefaultOption("Null", nullptr);
   AutonomousChooser.AddOption("Test", &TestAuto);

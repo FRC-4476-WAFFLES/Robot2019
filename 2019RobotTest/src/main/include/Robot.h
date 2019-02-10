@@ -64,7 +64,7 @@ class Robot : public frc::TimedRobot {
  private:
   // Have it null by default so that if testing teleop it
   // doesn't have undefined behavior and potentially crash.
-  Compressor compressor;
+  Compressor *compressor = new Compressor(15);
   frc::Command* autonomousCommand = nullptr;
   GeneralTestAuto TestAuto;
   AutoCenter CenterAuto;

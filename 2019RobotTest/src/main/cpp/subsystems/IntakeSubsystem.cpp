@@ -33,7 +33,7 @@ void IntakeSubsystem::Periodic(){
   cargoCarriageLeft.Set(-speed - Robot::oi.OuttakeAngle());
 	cargoCarriageRight.Set(speed + Robot::oi.OuttakeAngle());
   if(Robot::Elevator.ElevatorPosition() <= Robot::Elevator.LIMIT_OF_EFFECTED_BY_CARGO_INTAKE){
-    cargoIntake.Set(speed);
+    cargoIntake.Set(-speed);
   }else{
     cargoIntake.Set(0.0);
   }

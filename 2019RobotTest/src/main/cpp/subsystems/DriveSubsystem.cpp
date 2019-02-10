@@ -61,8 +61,8 @@ void DriveSubsystem::InitDefaultCommand() {
 // here. Call these from Commands.
 void DriveSubsystem::Drive(float Left, float Right) {
 	Robot::Camera.SetLedMode(Robot::Camera.CameraLEDMode::On);
-	left1.Set(ControlMode::PercentOutput, Left);
-	right1.Set(ControlMode::PercentOutput, -Right);
+	left1.Set(ControlMode::PercentOutput, -Left);
+	right1.Set(ControlMode::PercentOutput, Right);
 	missing_vision_target = false;
 	is_tracking_drive = true;
 }
@@ -79,7 +79,7 @@ void DriveSubsystem::TrackingDrive(float Left, float Right){
 	}else if(skew_error < -7){
 		skew_error = -7;
 	}
-	tx = tx + skew_error;
+	tx = tx; //+ skew_error;
 	double error = kp*tx;
 	Robot::Camera.SetLedMode(Robot::Camera.CameraLEDMode::Default);
 	int tv = Robot::Camera.GetCameraTV();
@@ -100,7 +100,7 @@ void DriveSubsystem::TrackingDrive(float Left, float Right){
 		Right-=error;
 		missing_vision_target = false;
 	}
-	left1.Set(ControlMode::PercentOutput, Left);
+	left1.Set(ControlMode::PercentOutput, -Left);
 	right1.Set(ControlMode::PercentOutput, Right);
 }
 
