@@ -8,6 +8,7 @@
 #include "subsystems/HatchSubsystem.h"
 
 #include "RobotMap.h"
+#include "iostream"
 
 
 HatchSubsystem::HatchSubsystem() :
@@ -27,20 +28,25 @@ void HatchSubsystem::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void HatchSubsystem::Periodic(){
+  std::cout << "current clamp state" << std::endl;
+  std::cout << current_clamp_state << std::endl;
+  std::cout << next_clamp_state << std::endl;
+
   if(current_clamp_state != next_clamp_state){
     current_clamp_state = next_clamp_state;
     if(next_clamp_state){
-      hatchClamp.Set(DoubleSolenoid::kForward);
+      std::cout << "in clamp change periodic" << std::endl;
+      hatchClamp.Set(DoubleSolenoid::Value::kForward);
     }else{
-      hatchClamp.Set(DoubleSolenoid::kReverse);
+      hatchClamp.Set(DoubleSolenoid::Value::kReverse);
     }
   }
   if(current_deploy_state != next_deploy_state){
     current_deploy_state = next_deploy_state;
     if(next_deploy_state){
-      hatchDeploy.Set(DoubleSolenoid::kForward);
+      hatchDeploy.Set(DoubleSolenoid::Value::kForward);
     }else{
-      hatchDeploy.Set(DoubleSolenoid::kReverse);
+      hatchDeploy.Set(DoubleSolenoid::Value::kReverse);
     }
   }
 }

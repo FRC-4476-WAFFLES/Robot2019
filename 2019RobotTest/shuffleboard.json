@@ -110,6 +110,17 @@
               "_source0": "network_table:///Preferences/camera p",
               "_title": "/Preferences/camera p"
             }
+          },
+          "1,2": {
+            "size": [
+              9,
+              2
+            ],
+            "content": {
+              "_type": "Network Table Tree",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Scheduler",
+              "_title": "LiveWindow/Ungrouped/Scheduler"
+            }
           }
         }
       }
@@ -308,8 +319,8 @@
             ],
             "content": {
               "_type": "Subsystem Layout",
-              "_source0": "network_table:///LiveWindow/ExampleSubsystem",
-              "_title": "ExampleSubsystem",
+              "_source0": "network_table:///LiveWindow/HatchSubsystem",
+              "_title": "LiveWindow/HatchSubsystem",
               "Layout/Label position": "BOTTOM",
               "_children": []
             }

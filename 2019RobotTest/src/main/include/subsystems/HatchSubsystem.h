@@ -23,10 +23,10 @@ class HatchSubsystem : public frc::Subsystem {
   bool current_deploy_state = false;
   bool next_clamp_state = false;
   bool next_deploy_state = false;
+  DoubleSolenoid hatchDeploy;
+  DoubleSolenoid hatchClamp;
 
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
-  DoubleSolenoid hatchDeploy;
-  DoubleSolenoid hatchClamp;
 };

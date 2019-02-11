@@ -17,11 +17,13 @@ ToggleDeploy::ToggleDeploy() :
 }
 
 // Called just before this Command runs the first time
-void ToggleDeploy::Initialize() {}
+void ToggleDeploy::Initialize() {
+  Robot::Hatch.UpdateHatch(Robot::Hatch.current_clamp_state, !Robot::Hatch.current_deploy_state);
+}
 
 // Called repeatedly when this Command is scheduled to run
 void ToggleDeploy::Execute() {
-  Robot::Hatch.UpdateHatch(Robot::Hatch.current_clamp_state, !Robot::Hatch.current_deploy_state);
+  
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -57,10 +57,10 @@ OI::OI() :
   testthepathfindercode->WhenReleased(new PathFollower("first"));
   
   Button* ToggleHatchDeploy = new JoystickButton(&operate, OperatorButton::BumperTopLeft);
-  ToggleHatchDeploy->WhenPressed(new WithOperatorMode(nullptr, new ToggleDeploy()));
+  ToggleHatchDeploy->WhenPressed(new WithOperatorMode(new ToggleDeploy(), new ToggleDeploy()));
 
   Button* ToggleHatchClamp = new JoystickButton(&operate, OperatorButton::BumperTopRight);
-  ToggleHatchClamp->WhenPressed(new WithOperatorMode(nullptr, new ToggleClamp()));
+  ToggleHatchClamp->WhenPressed(new WithOperatorMode(new ToggleClamp(), new ToggleClamp()));
 
   Button* WhenUrHumanPlayerWontNoticeU = new JoystickButton(&right, 11);
   WhenUrHumanPlayerWontNoticeU->WhileHeld(new HPWontDropItem());

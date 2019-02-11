@@ -194,9 +194,10 @@ float ElevatorSubsystem::ElevatorPosition(){
 }
 
 void ElevatorSubsystem::ExtendPeriodic(){
-  if(pull_in_cargo_exend){
-    cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
-  }else{
-    cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_OUT);
-  }
+  // if(pull_in_cargo_exend){
+  //   cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
+  // }else{
+  //   cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_OUT);
+  // }
+  cargoIntakeExtend.Set(ControlMode::PercentOutput, -Robot::oi.ElevatorFudge()/5);
 }
