@@ -62,7 +62,7 @@ void ElevatorSubsystem::AutoDetectCurrentGamepiece(){
 void ElevatorSubsystem::Periodic(){
   //         name          srx(lead)     p    i    d    f
   UpdatePID("elevator", elevatorMaster, 0.0, 0.0, 0.0, 0.0);
-  UpdateSP_PID("cargo_extend", cargoIntakeExtend, 0.0, 0.0, 0.0, 0.0);
+  UpdatePID("cargo_extend", cargoIntakeExtend, 0.0, 0.0, 0.0, 0.0);
 
   if(Robot::oi.left.GetRawButton(10)) {
     elevatorMaster.SetSelectedSensorPosition(0, 0, 0);

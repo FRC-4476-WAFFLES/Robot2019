@@ -75,7 +75,7 @@ class ElevatorSubsystem : public frc::Subsystem {
   // for methods that implement subsystem capabilities
   WPI_TalonSRX elevatorMaster;
   WPI_TalonSRX elevatorFollower;
-  WPI_VictorSPX cargoIntakeExtend;
+  WPI_TalonSRX cargoIntakeExtend;
   Timer t;
   bool fudging = false;
 };
