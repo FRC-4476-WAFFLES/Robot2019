@@ -6,22 +6,30 @@
 /*----------------------------------------------------------------------------*/
 
 #include "commands/Auto/AutoLeftLvl2.h"
+#include "commands/Auto/AutoLeftLvl1.h"
+#include "Robot.h"
+
+#include "commands/Drive/TrackingDrive.h"
+#include "commands/Drive/DriveAutoLines.h"
+#include "commands/Drive/PathFollower.h"
+
+#include "commands/Auto/Switches/PositionFront.h"
+#include "commands/Auto/Switches/SideState.h"
+#include "commands/Auto/Switches/PositionClose.h"
+#include "commands/Auto/Switches/PositionMiddle.h"
+#include "commands/Auto/Switches/PositionFar.h"
+#include "commands/Auto/Switches/GamepieceState.h"
+
+#include "commands/Elevator/ElevatorBottom.h"
+#include "commands/Elevator/ElevatorMiddle.h"
+#include "commands/Elevator/ElevatorTop.h"
+
+#include "commands/Intake/IntakeSet.h"
+#include "commands/Intake/IntakeStop.h"
+
+#include "commands/Hatch/ToggleClamp.h"
+#include "commands/Hatch/ToggleDeploy.h"
 
 AutoLeftLvl2::AutoLeftLvl2() {
-  // Add Commands here:
-  // e.g. AddSequential(new Command1());
-  //      AddSequential(new Command2());
-  // these will run in order.
-
-  // To run multiple commands at the same time,
-  // use AddParallel()
-  // e.g. AddParallel(new Command1());
-  //      AddSequential(new Command2());
-  // Command1 and Command2 will run in parallel.
-
-  // A command group will require all of the subsystems that each member
-  // would require.
-  // e.g. if Command1 requires chassis, and Command2 requires arm,
-  // a CommandGroup containing them would require both the chassis and the
-  // arm.
+  AddSequential(new AutoLeftLvl1());
 }
