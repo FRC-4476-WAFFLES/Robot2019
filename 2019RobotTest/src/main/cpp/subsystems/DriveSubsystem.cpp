@@ -59,7 +59,7 @@ void DriveSubsystem::InitDefaultCommand() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
-void DriveSubsystem::Drive(float Left, float Right) {
+void DriveSubsystem::WafflesDrive(float Left, float Right) {
 	Robot::Camera.SetLedMode(Robot::Camera.CameraLEDMode::Off);
 	left1.Set(ControlMode::PercentOutput, -Left);
 	right1.Set(ControlMode::PercentOutput, Right);
@@ -175,5 +175,5 @@ void DriveSubsystem::Prints(){
 
   void DriveSubsystem::ClosePath(){
 		follower_notifier->Stop();
-		Drive(0,0);
+		WafflesDrive(0,0);
 	}

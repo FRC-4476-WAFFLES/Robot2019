@@ -34,7 +34,7 @@ void Robot::RobotInit(){
   AutonomousChooser.AddOption("Right Level 1", &RightLvl1Auto);
   AutonomousChooser.AddOption("Right Level 2", &RightLvl2Auto);
   frc::SmartDashboard::PutData("Auto Modes", &AutonomousChooser);
-
+  Camera.SetLedMode(Camera.CameraLEDMode::Off);
 }
 
 /**

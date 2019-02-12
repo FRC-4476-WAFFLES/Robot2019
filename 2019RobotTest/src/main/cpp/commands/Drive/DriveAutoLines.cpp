@@ -62,7 +62,7 @@ void DriveAutoLines::Execute() {
 	double distance_out = clamp(distance_p + distance_d, -max_speed, max_speed);
 	double angle_out = clamp(angle_p + angle_d, -0.45, 0.45);//TODO: Check Clamp For Max Output
 
-	Robot::Drive.Drive(-distance_out + angle_out, -distance_out - angle_out);
+	Robot::Drive.WafflesDrive(-distance_out + angle_out, -distance_out - angle_out);
 
 	last_angle_error = angle_error;
 	last_distance_error = distance_error;
@@ -87,11 +87,11 @@ bool DriveAutoLines::IsFinished() {
 
 // Called once after isFinished returns true
 void DriveAutoLines::End() {
-	Robot::Drive.Drive(0,0);
+	Robot::Drive.WafflesDrive(0,0);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DriveAutoLines::Interrupted() {
-	Robot::Drive.Drive(0,0);
+	Robot::Drive.WafflesDrive(0,0);
 }

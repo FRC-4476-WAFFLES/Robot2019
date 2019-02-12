@@ -27,7 +27,7 @@ class DriveSubsystem : public frc::Subsystem {
  public:
   DriveSubsystem();
   void InitDefaultCommand() override;
-  void Drive(float Left, float Right);
+  void WafflesDrive(float Left, float Right);
   void TrackingDrive(float Left, float Right);
   float GetSkew();
   void Prints();

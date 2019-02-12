@@ -22,4 +22,5 @@ class RobotInfo : public frc::Subsystem {
   void InitDefaultCommand() override;
   SendableChooser<int*> targetPosition;
   SendableChooser<int*> targetSide;
+  SendableChooser<int*> preload;
 };

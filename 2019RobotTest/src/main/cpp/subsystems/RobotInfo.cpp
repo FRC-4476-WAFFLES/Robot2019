@@ -19,7 +19,12 @@ RobotInfo::RobotInfo() : Subsystem("ExampleSubsystem") {
 
   targetSide.SetDefaultOption("Right", new int(0));
   targetSide.AddOption("Left", new int(1));
-	SmartDashboard::PutData("If Center, Target Side", &targetSide);
+	SmartDashboard::PutData("Target Side", &targetSide);
+
+
+  preload.SetDefaultOption("Hatch", new int(0));
+  preload.AddOption("Cargo", new int(1));
+	SmartDashboard::PutData("Preload Gamepiece", &preload);
 }
 
 void RobotInfo::InitDefaultCommand() {

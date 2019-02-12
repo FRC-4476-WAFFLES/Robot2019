@@ -15,6 +15,7 @@
 #include "commands/Auto/Switches/PositionClose.h"
 #include "commands/Auto/Switches/PositionMiddle.h"
 #include "commands/Auto/Switches/PositionFar.h"
+#include "commands/Drive/TrackingDrive.h"
 
 class FrontLeftDrive: public CommandGroup {
 public:
@@ -79,10 +80,19 @@ public:
 	}
 };
 
-class Approach: public CommandGroup {
+class ApproachLeft: public CommandGroup {
 public:
-	Approach():
-		CommandGroup("Approach")
+	ApproachLeft():
+		CommandGroup("ApproachLeft")
+	{
+		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+	}
+};
+
+class ApproachRight: public CommandGroup {
+public:
+	ApproachRight():
+		CommandGroup("ApproachRight")
 	{
 		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
 	}
@@ -97,12 +107,24 @@ public:
 	}
 };
 
+class BackOff: public CommandGroup {
+public:
+	BackOff():
+		CommandGroup("BackOff")
+	{
+		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+	}
+};
+
 class LeftFront: public CommandGroup {
 public:
 	LeftFront():
 		CommandGroup("LeftFront")
 	{
-		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+		AddSequential(new FrontLeftDrive());
+		AddSequential(new TrackingDrive());
+		AddSequential(new Drop());
+		AddSequential(new BackOff());
 	}
 };
 
@@ -111,7 +133,11 @@ public:
 	LeftFirst():
 		CommandGroup("LeftFirst")
 	{
-		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+		AddSequential(new SideLeftDrive());
+		AddSequential(new DriveToSlotOne());
+		AddSequential(new ApproachLeft());
+		AddSequential(new Drop());
+		AddSequential(new BackOff());
 	}
 };
 
@@ -120,7 +146,11 @@ public:
 	LeftSecond():
 		CommandGroup("LeftSecond")
 	{
-		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+		AddSequential(new SideLeftDrive());
+		AddSequential(new DriveToSlotTwo());
+		AddSequential(new ApproachLeft());
+		AddSequential(new Drop());
+		AddSequential(new BackOff());
 	}
 };
 
@@ -129,7 +159,11 @@ public:
 	LeftThird():
 		CommandGroup("LeftThird")
 	{
-		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+		AddSequential(new SideLeftDrive());
+		AddSequential(new DriveToSlotThree());
+		AddSequential(new ApproachLeft());
+		AddSequential(new Drop());
+		AddSequential(new BackOff());
 	}
 };
 
@@ -138,7 +172,10 @@ public:
 	RightFront():
 		CommandGroup("RightFront")
 	{
-		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+		AddSequential(new FrontRightDrive());
+		AddSequential(new TrackingDrive());
+		AddSequential(new Drop());
+		AddSequential(new BackOff());
 	}
 };
 
@@ -147,7 +184,11 @@ public:
 	RightFirst():
 		CommandGroup("RightFirst")
 	{
-		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+		AddSequential(new SideRightDrive());
+		AddSequential(new DriveToSlotOne());
+		AddSequential(new ApproachRight());
+		AddSequential(new Drop());
+		AddSequential(new BackOff());
 	}
 };
 
@@ -156,7 +197,11 @@ public:
 	RightSecond():
 		CommandGroup("RightSecond")
 	{
-		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+		AddSequential(new SideRightDrive());
+		AddSequential(new DriveToSlotTwo());
+		AddSequential(new ApproachRight());
+		AddSequential(new Drop());
+		AddSequential(new BackOff());
 	}
 };
 
@@ -165,7 +210,11 @@ public:
 	RightThird():
 		CommandGroup("RightThird")
 	{
-		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+		AddSequential(new SideRightDrive());
+		AddSequential(new DriveToSlotThree());
+		AddSequential(new ApproachRight());
+		AddSequential(new Drop());
+		AddSequential(new BackOff());
 	}
 };
 
