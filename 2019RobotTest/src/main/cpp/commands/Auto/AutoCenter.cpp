@@ -197,6 +197,6 @@ AutoCenter::AutoCenter() {
 		new PositionFront(new RightFront(),
 			new PositionClose(new RightFirst(), 
 				new PositionMiddle(new RightSecond(), 
-					new PositionFar(new RightThird(), nullptr)))))
+					new PositionFar(new RightThird(), nullptr))))))
 
 }	
