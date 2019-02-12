@@ -58,8 +58,8 @@ class Robot : public frc::TimedRobot {
   void TeleopPeriodic() override;
   void TestPeriodic() override;
 
-  SendableChooser<int*> targetPosition;
-  SendableChooser<int*> targetSide;
+  int* target_position = 0;
+  int* target_side = 0;
 
  private:
   // Have it null by default so that if testing teleop it
@@ -73,4 +73,6 @@ class Robot : public frc::TimedRobot {
   AutoRightLvl1 RightLvl1Auto;
   AutoRightLvl2 RightLvl2Auto;
   frc::SendableChooser<frc::Command*> AutonomousChooser;
+  SendableChooser<int*> targetPosition;
+  SendableChooser<int*> targetSide;
 };

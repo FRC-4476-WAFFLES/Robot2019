@@ -92,6 +92,8 @@ void Robot::AutonomousInit() {
   // }
 
   autonomousCommand = AutonomousChooser.GetSelected();
+  target_position = targetPosition.GetSelected();
+  target_side = targetSide.GetSelected();
 
   if (autonomousCommand != nullptr) {
     autonomousCommand->Start();

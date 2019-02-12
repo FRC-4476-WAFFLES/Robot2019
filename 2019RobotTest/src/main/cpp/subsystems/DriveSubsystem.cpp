@@ -60,7 +60,7 @@ void DriveSubsystem::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void DriveSubsystem::Drive(float Left, float Right) {
-	Robot::Camera.SetLedMode(Robot::Camera.CameraLEDMode::On);
+	Robot::Camera.SetLedMode(Robot::Camera.CameraLEDMode::Off);
 	left1.Set(ControlMode::PercentOutput, -Left);
 	right1.Set(ControlMode::PercentOutput, Right);
 	missing_vision_target = false;
@@ -81,7 +81,7 @@ void DriveSubsystem::TrackingDrive(float Left, float Right){
 	}
 	tx = tx; //+ skew_error;
 	double error = kp*tx;
-	Robot::Camera.SetLedMode(Robot::Camera.CameraLEDMode::Default);
+	Robot::Camera.SetLedMode(Robot::Camera.CameraLEDMode::On);
 	int tv = Robot::Camera.GetCameraTV();
 	if(tv == 0){
 		Left = 0;

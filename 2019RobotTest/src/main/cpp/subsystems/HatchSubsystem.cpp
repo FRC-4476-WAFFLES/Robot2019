@@ -14,8 +14,8 @@
 HatchSubsystem::HatchSubsystem() :
  frc::Subsystem("HatchSubsystem"),
  //     true            false
- hatchDeploy(HATCH_EXTEND, HATCH_UNEXTEND),
- hatchClamp(HATCH_CLAMP, HATCH_UNCLAMP) 
+ hatchDeploy(PCM_ID, HATCH_EXTEND, HATCH_UNEXTEND),
+ hatchClamp(PCM_ID, HATCH_CLAMP, HATCH_UNCLAMP) 
  {
 
  }
@@ -28,14 +28,9 @@ void HatchSubsystem::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void HatchSubsystem::Periodic(){
-  std::cout << "current clamp state" << std::endl;
-  std::cout << current_clamp_state << std::endl;
-  std::cout << next_clamp_state << std::endl;
-
   if(current_clamp_state != next_clamp_state){
     current_clamp_state = next_clamp_state;
     if(next_clamp_state){
-      std::cout << "in clamp change periodic" << std::endl;
       hatchClamp.Set(DoubleSolenoid::Value::kForward);
     }else{
       hatchClamp.Set(DoubleSolenoid::Value::kReverse);
