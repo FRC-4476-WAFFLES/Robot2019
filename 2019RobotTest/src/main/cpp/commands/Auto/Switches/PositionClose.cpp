@@ -5,23 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/Auto/Switches/SideState.h"
+#include "commands/Auto/Switches/PositionClose.h"
 #include "Robot.h"
-#include "iostream"
 
-SideState::SideState(Command* Left, Command* Right) :
-  ConditionalCommand("SideState", Left, Right)
+PositionClose::PositionClose(Command* Close, Command* Not_Close) :
+  ConditionalCommand("PositionClose", Close, Not_Close)
 {
   SetTimeout(15.0);
 }
 
-bool SideState::Condition() {
+bool PositionClose::Condition() {
   if(*Robot::Info.targetSide.GetSelected() == 1){
     return true;
   }else if(*Robot::Info.targetSide.GetSelected() == 0){
     return false;
   }else{
-    fprintf(stderr, "Position Set incorrectly, defaulting to left-> SideState.cpp \n");
+    fprintf(stderr, "Position Set incorrectly, defaulting to Close-> PositionClose.cpp \n");
     return true;
   }
 }

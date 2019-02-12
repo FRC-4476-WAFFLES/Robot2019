@@ -9,8 +9,8 @@
 
 #include <frc/commands/ConditionalCommand.h>
 
-class SideState : public frc::ConditionalCommand {
+class PositionFar : public frc::ConditionalCommand {
  public:
-  SideState(Command* Left, Command* Right);
+  PositionFar(Command* Far, Command* Not_Far);
   bool Condition() override;
 };

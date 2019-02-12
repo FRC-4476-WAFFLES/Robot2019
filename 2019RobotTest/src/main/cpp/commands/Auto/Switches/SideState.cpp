@@ -7,7 +7,6 @@
 
 #include "commands/Auto/Switches/SideState.h"
 #include "Robot.h"
-#include "iostream"
 
 SideState::SideState(Command* Left, Command* Right) :
   ConditionalCommand("SideState", Left, Right)
@@ -21,7 +20,7 @@ bool SideState::Condition() {
   }else if(*Robot::Info.targetSide.GetSelected() == 0){
     return false;
   }else{
-    fprintf(stderr, "Position Set incorrectly, defaulting to left-> SideState.cpp \n");
+    fprintf(stderr, "Side Set incorrectly, defaulting to left-> SideState.cpp \n");
     return true;
   }
 }

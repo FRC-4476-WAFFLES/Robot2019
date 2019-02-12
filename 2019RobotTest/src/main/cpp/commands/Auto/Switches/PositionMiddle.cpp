@@ -5,23 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/Auto/Switches/SideState.h"
+#include "commands/Auto/Switches/PositionMiddle.h"
 #include "Robot.h"
-#include "iostream"
 
-SideState::SideState(Command* Left, Command* Right) :
-  ConditionalCommand("SideState", Left, Right)
+PositionMiddle::PositionMiddle(Command* Middle, Command* Not_Middle) :
+  ConditionalCommand("PositionMiddle", Middle, Not_Middle)
 {
   SetTimeout(15.0);
 }
 
-bool SideState::Condition() {
+bool PositionMiddle::Condition() {
   if(*Robot::Info.targetSide.GetSelected() == 1){
     return true;
   }else if(*Robot::Info.targetSide.GetSelected() == 0){
     return false;
   }else{
-    fprintf(stderr, "Position Set incorrectly, defaulting to left-> SideState.cpp \n");
+    fprintf(stderr, "Position Set incorrectly, defaulting to Middle-> PositionMiddle.cpp \n");
     return true;
   }
 }
