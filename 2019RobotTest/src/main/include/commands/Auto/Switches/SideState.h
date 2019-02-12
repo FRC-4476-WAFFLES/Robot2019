@@ -7,19 +7,10 @@
 
 #pragma once
 
-#include <frc/commands/Subsystem.h>
-#include <frc/smartdashboard/SendableChooser.h>
-#include <networktables/NetworkTable.h>
-#include <networktables/NetworkTableInstance.h>
-using namespace frc;
-class RobotInfo : public frc::Subsystem {
- private:
-  // It's desirable that everything possible under private except
-  // for methods that implement subsystem capabilities
+#include <frc/commands/ConditionalCommand.h>
 
+class SideState : public frc::ConditionalCommand {
  public:
-  RobotInfo();
-  void InitDefaultCommand() override;
-  SendableChooser<int*> targetPosition;
-  SendableChooser<int*> targetSide;
+  SideState(Command* Left, Command* Right);
+  bool Condition() override;
 };

@@ -92,6 +92,79 @@ public:
 	}
 };
 
+class LeftFront: public CommandGroup {
+public:
+	LeftFront():
+		CommandGroup("LeftFront")
+	{
+		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+	}
+};
+
+class LeftFirst: public CommandGroup {
+public:
+	LeftFirst():
+		CommandGroup("LeftFirst")
+	{
+		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+	}
+};
+
+class LeftSecond: public CommandGroup {
+public:
+	LeftSecond():
+		CommandGroup("LeftSecond")
+	{
+		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+	}
+};
+
+class LeftThird: public CommandGroup {
+public:
+	LeftThird():
+		CommandGroup("LeftThird")
+	{
+		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+	}
+};
+
+class RightFront: public CommandGroup {
+public:
+	RightFront():
+		CommandGroup("RightFront")
+	{
+		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+	}
+};
+
+class RightFirst: public CommandGroup {
+public:
+	RightFirst():
+		CommandGroup("RightFirst")
+	{
+		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+	}
+};
+
+class RightSecond: public CommandGroup {
+public:
+	RightSecond():
+		CommandGroup("RightSecond")
+	{
+		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+	}
+};
+
+class RightThird: public CommandGroup {
+public:
+	RightThird():
+		CommandGroup("RightThird")
+	{
+		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+	}
+};
+
+
 AutoCenter::AutoCenter() {
   // Add Commands here:
   // e.g. AddSequential(new Command1());
@@ -127,6 +200,6 @@ AutoCenter::AutoCenter() {
   targetSide.SetDefaultOption("Right", new int(0));
   targetSide.AddOption("Left", new int(1));
 */
-  int* current_target_position = Robot::target_position;
+
 
 }

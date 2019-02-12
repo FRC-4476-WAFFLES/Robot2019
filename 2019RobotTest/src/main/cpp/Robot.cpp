@@ -34,19 +34,6 @@ void Robot::RobotInit(){
   AutonomousChooser.AddOption("Right Level 2", &RightLvl2Auto);
   frc::SmartDashboard::PutData("Auto Modes", &AutonomousChooser);
 
-
-  targetPosition.SetDefaultOption("Close", new int(0));
-  targetPosition.AddOption("Middle", new int(1));
-  targetPosition.AddOption("Far", new int(2));
-	targetPosition.AddOption("Front Left", new int(3));
-	targetPosition.AddOption("Front Right", new int(4));
-	SmartDashboard::PutData("Aim for ____ position", &targetPosition);
-  
-
-
-  targetSide.SetDefaultOption("Right", new int(0));
-  targetSide.AddOption("Left", new int(1));
-	SmartDashboard::PutData("If Center, Target Side", &targetSide);
 }
 
 /**
@@ -92,8 +79,6 @@ void Robot::AutonomousInit() {
   // }
 
   autonomousCommand = AutonomousChooser.GetSelected();
-  target_position = targetPosition.GetSelected();
-  target_side = targetSide.GetSelected();
 
   if (autonomousCommand != nullptr) {
     autonomousCommand->Start();

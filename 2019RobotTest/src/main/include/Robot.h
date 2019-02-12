@@ -73,6 +73,4 @@ class Robot : public frc::TimedRobot {
   AutoRightLvl1 RightLvl1Auto;
   AutoRightLvl2 RightLvl2Auto;
   frc::SendableChooser<frc::Command*> AutonomousChooser;
-  SendableChooser<int*> targetPosition;
-  SendableChooser<int*> targetSide;
 };
