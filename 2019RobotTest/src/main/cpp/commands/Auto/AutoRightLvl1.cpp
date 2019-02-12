@@ -75,7 +75,7 @@ public:
 	DriveToSlotOne():
 		CommandGroup("DriveToSlotOne")
 	{
-		AddSequential(new PathFollower("lefttoone"));//TODO: make real
+		AddSequential(new PathFollower("righttoone"));//TODO: make real
 	}
 };
 
@@ -84,7 +84,7 @@ public:
 	DriveToSlotTwo():
 		CommandGroup("DriveToSlotTwo")
 	{
-		AddSequential(new PathFollower("lefttotwo"));//TODO: make real
+		AddSequential(new PathFollower("righttotwo"));//TODO: make real
 	}
 };
 
@@ -93,7 +93,7 @@ public:
 	DriveToSlotThree():
 		CommandGroup("DriveToSlotThree")
 	{
-		AddSequential(new PathFollower("lefttothree"));//TODO: make real
+		AddSequential(new PathFollower("righttothree"));//TODO: make real
 	}
 };
 
