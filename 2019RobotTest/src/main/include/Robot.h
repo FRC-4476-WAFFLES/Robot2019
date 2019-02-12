@@ -31,6 +31,7 @@
 #include "subsystems/IntakeSubsystem.h"
 #include "subsystems/LightSubsystem.h"
 #include "subsystems/CameraSubsystem.h"
+#include "subsystems/RobotInfo.h"
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableInstance.h>
 
@@ -46,6 +47,7 @@ class Robot : public frc::TimedRobot {
   static IntakeSubsystem Intake;
   static LightSubsystem Lights;
   static CameraSubsystem Camera;
+  static RobotInfo Info;
 
 
   void RobotInit() override;
@@ -57,9 +59,6 @@ class Robot : public frc::TimedRobot {
   void TeleopInit() override;
   void TeleopPeriodic() override;
   void TestPeriodic() override;
-
-  int* target_position = 0;
-  int* target_side = 0;
 
  private:
   // Have it null by default so that if testing teleop it

@@ -21,6 +21,7 @@ HatchSubsystem Robot::Hatch;
 IntakeSubsystem Robot::Intake;
 LightSubsystem Robot::Lights;
 CameraSubsystem Robot::Camera;
+RobotInfo Robot::Info;
 
 void Robot::RobotInit(){
   compressor->SetClosedLoopControl(true);
