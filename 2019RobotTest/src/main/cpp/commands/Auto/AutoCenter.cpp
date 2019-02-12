@@ -8,21 +8,34 @@
 #include "commands/Auto/AutoCenter.h"
 
 #include "Robot.h"
+
+#include "commands/Drive/TrackingDrive.h"
 #include "commands/Drive/DriveAutoLines.h"
 #include "commands/Drive/PathFollower.h"
+
 #include "commands/Auto/Switches/PositionFront.h"
 #include "commands/Auto/Switches/SideState.h"
 #include "commands/Auto/Switches/PositionClose.h"
 #include "commands/Auto/Switches/PositionMiddle.h"
 #include "commands/Auto/Switches/PositionFar.h"
-#include "commands/Drive/TrackingDrive.h"
+#include "commands/Auto/Switches/GamepieceState.h"
+
+#include "commands/Elevator/ElevatorBottom.h"
+#include "commands/Elevator/ElevatorMiddle.h"
+#include "commands/Elevator/ElevatorTop.h"
+
+#include "commands/Intake/IntakeSet.h"
+#include "commands/Intake/IntakeStop.h"
+
+#include "commands/Hatch/ToggleClamp.h"
+#include "commands/Hatch/ToggleDeploy.h"
 
 class FrontLeftDrive: public CommandGroup {
 public:
 	FrontLeftDrive():
 		CommandGroup("FrontLeftDrive")
 	{
-		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+		AddSequential(new PathFollower("frontleftfromcenter"));
 	}
 };
 
@@ -31,7 +44,7 @@ public:
 	FrontRightDrive():
 		CommandGroup("FrontRightDrive")
 	{
-		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+		AddSequential(new PathFollower("frontrightfromcenter"));
 	}
 };
 
@@ -40,7 +53,7 @@ public:
 	SideLeftDrive():
 		CommandGroup("SideLeftDrive")
 	{
-		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+		AddSequential(new PathFollower("leftsidefromcenter"));
 	}
 };
 
@@ -49,7 +62,7 @@ public:
 	SideRightDrive():
 		CommandGroup("SideRightDrive")
 	{
-		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+		AddSequential(new PathFollower("rightsidefromcenter"));
 	}
 };
 
@@ -58,7 +71,7 @@ public:
 	DriveToSlotOne():
 		CommandGroup("DriveToSlotOne")
 	{
-		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+		AddSequential(new DriveAutoLines(0.0, 0, 10, 0.9));//TODO: make real
 	}
 };
 
@@ -67,7 +80,7 @@ public:
 	DriveToSlotTwo():
 		CommandGroup("DriveToSlotTwo")
 	{
-		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));//TODO: make real
 	}
 };
 
@@ -76,7 +89,7 @@ public:
 	DriveToSlotThree():
 		CommandGroup("DriveToSlotThree")
 	{
-		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));//TODO: make real
 	}
 };
 
@@ -85,7 +98,10 @@ public:
 	ApproachLeft():
 		CommandGroup("ApproachLeft")
 	{
-		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+		AddSequential(new ElevatorBottom());
+		AddSequential(new GamepieceState(new ToggleDeploy(), nullptr));
+		AddSequential(new DriveAutoLines(0.0, 90, 10, 0.9));//TODO: check direction
+		AddSequential(new TrackingDrive());
 	}
 };
 
@@ -94,7 +110,10 @@ public:
 	ApproachRight():
 		CommandGroup("ApproachRight")
 	{
-		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+		AddSequential(new ElevatorBottom());
+		AddSequential(new GamepieceState(new ToggleDeploy(), nullptr));
+		AddSequential(new DriveAutoLines(0.0, -90, 10, 0.9));//TODO: check direction
+		AddSequential(new TrackingDrive());
 	}
 };
 
@@ -103,7 +122,8 @@ public:
 	Drop():
 		CommandGroup("Drop")
 	{
-		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+		AddSequential(new ElevatorBottom());
+		AddSequential(new GamepieceState(new ToggleClamp(), new IntakeSet(1)));//TODO: check direction
 	}
 };
 
@@ -112,7 +132,7 @@ public:
 	BackOff():
 		CommandGroup("BackOff")
 	{
-		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));
+		AddSequential(new DriveAutoLines(-19.7, 0, 10, 0.9));//TODO: make real
 	}
 };
 
