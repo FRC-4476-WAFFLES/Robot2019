@@ -15,9 +15,9 @@ PositionFar::PositionFar(Command* Far, Command* Not_Far) :
 }
 
 bool PositionFar::Condition() {
-  if(*Robot::Info.targetSide.GetSelected() == 1){
+  if(*Robot::Info.targetSide.GetSelected() == 2){
     return true;
-  }else if(*Robot::Info.targetSide.GetSelected() == 0){
+  }else if(*Robot::Info.targetSide.GetSelected() > 3){
     return false;
   }else{
     fprintf(stderr, "Position Set incorrectly, defaulting to left-> PositionFar.cpp \n");

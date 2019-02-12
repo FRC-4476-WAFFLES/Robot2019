@@ -15,9 +15,9 @@ PositionFront::PositionFront(Command* Front, Command* Not_Front) :
 }
 
 bool PositionFront::Condition() {
-  if(*Robot::Info.targetSide.GetSelected() == 1){
+  if(*Robot::Info.targetSide.GetSelected() == 3){
     return true;
-  }else if(*Robot::Info.targetSide.GetSelected() == 0){
+  }else if(*Robot::Info.targetSide.GetSelected() != 3){
     return false;
   }else{
     fprintf(stderr, "Position Set incorrectly, defaulting to Front-> PositionFront.cpp \n");

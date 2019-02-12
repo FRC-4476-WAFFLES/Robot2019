@@ -15,9 +15,9 @@ PositionClose::PositionClose(Command* Close, Command* Not_Close) :
 }
 
 bool PositionClose::Condition() {
-  if(*Robot::Info.targetSide.GetSelected() == 1){
+  if(*Robot::Info.targetSide.GetSelected() == 0){
     return true;
-  }else if(*Robot::Info.targetSide.GetSelected() == 0){
+  }else if(*Robot::Info.targetSide.GetSelected() >= 1){
     return false;
   }else{
     fprintf(stderr, "Position Set incorrectly, defaulting to Close-> PositionClose.cpp \n");

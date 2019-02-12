@@ -10,6 +10,11 @@
 #include "Robot.h"
 #include "commands/Drive/DriveAutoLines.h"
 #include "commands/Drive/PathFollower.h"
+#include "commands/Auto/Switches/PositionFront.h"
+#include "commands/Auto/Switches/SideState.h"
+#include "commands/Auto/Switches/PositionClose.h"
+#include "commands/Auto/Switches/PositionMiddle.h"
+#include "commands/Auto/Switches/PositionFar.h"
 
 class FrontLeftDrive: public CommandGroup {
 public:
@@ -166,22 +171,6 @@ public:
 
 
 AutoCenter::AutoCenter() {
-  // Add Commands here:
-  // e.g. AddSequential(new Command1());
-  //      AddSequential(new Command2());
-  // these will run in order.
-
-  // To run multiple commands at the same time,
-  // use AddParallel()
-  // e.g. AddParallel(new Command1());
-  //      AddSequential(new Command2());
-  // Command1 and Command2 will run in parallel.
-
-  // A command group will require all of the subsystems that each member
-  // would require.
-  // e.g. if Command1 requires chassis, and Command2 requires arm,
-  // a CommandGroup containing them would require both the chassis and the
-  // arm.
 /*
   AutonomousChooser.SetDefaultOption("Null", nullptr);
   AutonomousChooser.AddOption("Test", &TestAuto);
@@ -200,6 +189,14 @@ AutoCenter::AutoCenter() {
   targetSide.SetDefaultOption("Right", new int(0));
   targetSide.AddOption("Left", new int(1));
 */
+	AddSequential(new SideState(
+		new PositionFront(new LeftFront(), 
+			new PositionClose(new LeftFirst(),
+				new PositionMiddle(new LeftSecond(),
+					new PositionFar(new LeftThird(), nullptr)))),
+		new PositionFront(new RightFront(),
+			new PositionClose(new RightFirst(), 
+				new PositionMiddle(new RightSecond(), 
+					new PositionFar(new RightThird(), nullptr)))))
 
-
-}
+}	

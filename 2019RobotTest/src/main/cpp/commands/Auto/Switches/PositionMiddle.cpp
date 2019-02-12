@@ -17,7 +17,7 @@ PositionMiddle::PositionMiddle(Command* Middle, Command* Not_Middle) :
 bool PositionMiddle::Condition() {
   if(*Robot::Info.targetSide.GetSelected() == 1){
     return true;
-  }else if(*Robot::Info.targetSide.GetSelected() == 0){
+  }else if(*Robot::Info.targetSide.GetSelected() >= 2){
     return false;
   }else{
     fprintf(stderr, "Position Set incorrectly, defaulting to Middle-> PositionMiddle.cpp \n");
