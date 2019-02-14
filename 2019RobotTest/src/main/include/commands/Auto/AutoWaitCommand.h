@@ -7,13 +7,17 @@
 
 #pragma once
 
-#include <frc/commands/TimedCommand.h>
+#include <frc/commands/Command.h>
+#include "frc/Timer.h"
 
-class WaitCommand : public frc::TimedCommand {
+class AutoWaitCommand : public frc::Command {
  public:
-  explicit WaitCommand(double timeout);
+  AutoWaitCommand(float timeout);
   void Initialize() override;
   void Execute() override;
+  bool IsFinished() override;
   void End() override;
   void Interrupted() override;
+  frc::Timer t;
+  float wait;
 };

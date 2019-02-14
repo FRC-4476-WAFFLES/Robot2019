@@ -5,23 +5,29 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/Auto/WaitCommand.h"
+#include "commands/Auto/AutoWaitCommand.h"
 
-WaitCommand::WaitCommand(double timeout)
-    : TimedCommand(timeout) {
+AutoWaitCommand::AutoWaitCommand(float timeout) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
+  wait = timeout;
 }
 
 // Called just before this Command runs the first time
-void WaitCommand::Initialize() {}
+void AutoWaitCommand::Initialize() {
+  t.Reset();
+  t.Start();
+}
 
 // Called repeatedly when this Command is scheduled to run
-void WaitCommand::Execute() { double x = 5; x = x+3;}
+void AutoWaitCommand::Execute() {}
 
-// Called once after command times out
-void WaitCommand::End() {}
+// Make this return true when this Command no longer needs to run execute()
+bool AutoWaitCommand::IsFinished() { return t.Get()>wait; }
+
+// Called once after isFinished returns true
+void AutoWaitCommand::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void WaitCommand::Interrupted() {}
+void AutoWaitCommand::Interrupted() {}
