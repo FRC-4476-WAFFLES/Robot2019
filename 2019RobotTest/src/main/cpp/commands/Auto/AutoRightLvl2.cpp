@@ -29,7 +29,11 @@
 
 #include "commands/Hatch/ToggleClamp.h"
 #include "commands/Hatch/ToggleDeploy.h"
+#include "commands/Auto/WaitCommand.h"
 
 AutoRightLvl2::AutoRightLvl2() {
+  AddSequential(new DriveAutoLines(6.0, 0, 15, 0.4));
+  AddSequential(new WaitCommand(0.3));
+  AddSequential(new DriveAutoLines(-3, 0, 15, 0.15));
   AddSequential(new AutoRightLvl1());
 }
