@@ -28,7 +28,9 @@ DriveSubsystem::DriveSubsystem() :
 	//sensors are quadratic (greyhills)
   left1.ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 10);
 	right1.ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 10);
-
+	right1.SetSensorPhase(true);
+	right1.SetSelectedSensorPosition(0);
+	left1.SetSelectedSensorPosition(0);
 	//current limiting
 	left1.ConfigPeakCurrentDuration(30,10);
 	left1.ConfigPeakCurrentLimit(22, 10);

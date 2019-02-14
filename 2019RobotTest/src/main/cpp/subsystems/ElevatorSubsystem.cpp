@@ -29,6 +29,10 @@ ElevatorSubsystem::ElevatorSubsystem() :
     elevatorFollower.ConfigPeakCurrentLimit(22, 10);
     elevatorFollower.ConfigContinuousCurrentLimit(15, 10);
     elevatorFollower.EnableCurrentLimit(true);
+
+    cargoIntakeExtend.ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 10);
+    cargoIntakeExtend.SetSelectedSensorPosition(0);
+    cargoIntakeExtend.SetSensorPhase(false);
     
     //follow code
     elevatorFollower.Follow(elevatorMaster);

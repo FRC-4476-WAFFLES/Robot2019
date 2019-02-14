@@ -11,6 +11,7 @@
 #include "frc/buttons/Button.h"
 #include "frc/buttons/JoystickButton.h"
 #include <frc/smartdashboard/SmartDashboard.h>
+#include "Robot.h"
 //elevator
 #include "commands/Elevator/ElevatorGroundPickup.h"
 #include "commands/Elevator/ElevatorBottom.h"
@@ -85,4 +86,5 @@ float OI::IntakeSpeed() {
 }
 void OI::Prints(){
   SmartDashboard::PutBoolean("climber switch", climber_switch);
+  Robot::Drive.Prints();
 }
