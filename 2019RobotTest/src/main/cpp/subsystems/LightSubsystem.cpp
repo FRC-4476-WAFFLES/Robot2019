@@ -9,6 +9,7 @@
 
 #include "RobotMap.h"
 #include "commands/Lights/LightGeneral.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 
 LightSubsystem::LightSubsystem() : frc::Subsystem("LightSubsystem"), led(LIGHT_STRIP) {
   T.Stop();
@@ -24,13 +25,14 @@ void LightSubsystem::InitDefaultCommand() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
-void LightSubsystem::UpdateColour(int colour){
+void LightSubsystem::UpdateColour(int input_colour){
   /*    None = 0,
     HaveHatch = 1,
     HaveCargo = 2,
     TrackingWithTarget = 3,
     TrackingWithoutTarget = 4,
     WantCargoFromHP = 5,*/
+  colour = input_colour;
   if(colour == 0){
     SendColour(0, 0, 0);
   }else if(colour == 1){
@@ -67,4 +69,8 @@ void LightSubsystem::Strobe(int r, int g, int b){
     T.Reset();
   }
 
+}
+
+void LightSubsystem::Prints(){
+  SmartDashboard::PutNumber("Lights/CurrentPattern", colour);
 }

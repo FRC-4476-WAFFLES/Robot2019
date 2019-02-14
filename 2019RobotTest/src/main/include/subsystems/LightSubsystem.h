@@ -17,10 +17,12 @@ class LightSubsystem : public frc::Subsystem {
  public:
   LightSubsystem();
   void InitDefaultCommand() override;
-  void UpdateColour(int colour);
+  void UpdateColour(int input_colour);
   void SendColour(int r, int g, int b);
   void Strobe(int r, int g, int b);
+  void Prints();
   bool hp_strobe = false;
+  int colour = 0;
   enum ColourCodes {
     None = 0,
     HaveHatch = 1,

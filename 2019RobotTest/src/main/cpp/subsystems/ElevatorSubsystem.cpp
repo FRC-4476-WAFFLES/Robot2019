@@ -10,6 +10,7 @@
 #include "../include/Robot.h"
 #include "RobotMap.h"
 #include "commands/Elevator/ElevatorDefault.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 
 ElevatorSubsystem::ElevatorSubsystem() : 
   frc::Subsystem("ElevatorSubsystem"),
@@ -204,4 +205,14 @@ void ElevatorSubsystem::ExtendPeriodic(){
   //   cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_OUT);
   // }
   cargoIntakeExtend.Set(ControlMode::PercentOutput, -Robot::oi.ElevatorFudge()/5);
+}
+
+void ElevatorSubsystem::Prints(){
+  SmartDashboard::PutNumber("Elevator/Elevator Encoder", elevatorMaster.GetSelectedSensorPosition(0));
+  SmartDashboard::PutNumber("Elevator/Drawer Encoder", cargoIntakeExtend.GetSelectedSensorPosition(0));
+  SmartDashboard::PutNumber("Elevator/Elevator Output", elevatorMaster.GetMotorOutputPercent());
+  SmartDashboard::PutNumber("Elevator/Drawer Output", cargoIntakeExtend.GetMotorOutputPercent());
+  SmartDashboard::PutNumber("Elevator/State", elevator_state_machine_state);
+  SmartDashboard::PutBoolean("Elevator/pull in cargo extend?", pull_in_cargo_exend);
+
 }

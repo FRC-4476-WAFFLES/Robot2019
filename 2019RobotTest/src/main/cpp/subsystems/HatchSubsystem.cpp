@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/HatchSubsystem.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 
 #include "RobotMap.h"
 #include "iostream"
@@ -54,5 +55,11 @@ void HatchSubsystem::UpdateHatch(bool clamp, bool deploy){
   }
 }
 bool HatchSubsystem::HasPannel(){
-  return false;
+  return has_pannel;
+}
+
+void HatchSubsystem::Prints(){
+  SmartDashboard::PutBoolean("Hatch/Clamp State", current_clamp_state);
+  SmartDashboard::PutBoolean("Hatch/Deploy State", current_deploy_state);
+  SmartDashboard::PutBoolean("Hatch/HasPannel", has_pannel);
 }

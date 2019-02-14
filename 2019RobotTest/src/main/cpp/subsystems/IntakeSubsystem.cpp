@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/IntakeSubsystem.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 #include "Robot.h"
 #include "RobotMap.h"
 #include "commands/Intake/IntakeDefault.h"
@@ -48,5 +49,10 @@ void IntakeSubsystem::SetIntakeSpeed(double Speed){
   speed = Speed;
 }
 bool IntakeSubsystem::HasCargo(){
-  return false;
+  return has_cargo;
+}
+
+void IntakeSubsystem::Prints(){
+  SmartDashboard::PutBoolean("Intake/HasCargo", has_cargo);
+  SmartDashboard::PutNumber("Intake/Intake Speed", speed);
 }

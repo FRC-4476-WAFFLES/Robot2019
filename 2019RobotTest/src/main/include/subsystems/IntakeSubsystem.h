@@ -22,9 +22,11 @@ class IntakeSubsystem : public frc::Subsystem {
   void Periodic() override;
   void SetIntakeSpeed(double Speed);
   bool HasCargo();
+  void Prints();
 
   double speed = 0.0;
   bool is_intaking = false;
+  bool has_cargo = false;
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities

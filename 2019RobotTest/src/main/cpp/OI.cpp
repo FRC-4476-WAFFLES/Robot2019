@@ -87,4 +87,8 @@ float OI::IntakeSpeed() {
 void OI::Prints(){
   SmartDashboard::PutBoolean("climber switch", climber_switch);
   Robot::Drive.Prints();
+  Robot::Elevator.Prints();
+  Robot::Hatch.Prints();
+  Robot::Intake.Prints();
+  Robot::Lights.Prints();
 }
