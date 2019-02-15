@@ -55,7 +55,8 @@ void Robot::RobotPeriodic() {}
 void Robot::DisabledInit() {}
 
 void Robot::DisabledPeriodic() { 
-  frc::Scheduler::GetInstance()->Run(); 
+  frc::Scheduler::GetInstance()->Run();
+  Camera.SetLedMode(Camera.CameraLEDMode::Off);
   oi.Prints();
 }
 

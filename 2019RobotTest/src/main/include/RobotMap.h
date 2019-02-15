@@ -42,10 +42,10 @@ constexpr int LIGHT_STRIP = 11;//canifier
 constexpr int PCM_ID = 15;
 
 //PCM
-constexpr int HATCH_CLAMP = 0;//double solonoid
-constexpr int HATCH_UNCLAMP = 1;//double solenoid
-constexpr int HATCH_EXTEND = 2;//double Solenoid
-constexpr int HATCH_UNEXTEND = 3;//double Solenoid
+constexpr int HATCH_CLAMP = 2;//double solonoid
+constexpr int HATCH_UNCLAMP = 3;//double solenoid
+constexpr int HATCH_EXTEND = 0;//double Solenoid
+constexpr int HATCH_UNEXTEND = 1;//double Solenoid
 
 //DIGITAL INPUT
 

@@ -11,6 +11,8 @@
 #include "RobotMap.h"
 #include "commands/Elevator/ElevatorDefault.h"
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <iostream>
+using namespace std;
 
 ElevatorSubsystem::ElevatorSubsystem() : 
   frc::Subsystem("ElevatorSubsystem"),
@@ -33,7 +35,8 @@ ElevatorSubsystem::ElevatorSubsystem() :
 
     cargoIntakeExtend.ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 10);
     cargoIntakeExtend.SetSelectedSensorPosition(0);
-    cargoIntakeExtend.SetSensorPhase(false);
+    cargoIntakeExtend.SetSensorPhase(true);
+    cargoIntakeExtend.ConfigReverseLimitSwitchSource(LimitSwitchSource::LimitSwitchSource_FeedbackConnector, LimitSwitchNormal::LimitSwitchNormal_NormallyOpen, 0);
     
     //follow code
     elevatorFollower.Follow(elevatorMaster);
@@ -199,12 +202,12 @@ float ElevatorSubsystem::ElevatorPosition(){
 }
 
 void ElevatorSubsystem::ExtendPeriodic(){
-  // if(pull_in_cargo_exend){
-  //   cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
-  // }else{
-  //   cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_OUT);
-  // }
-  cargoIntakeExtend.Set(ControlMode::PercentOutput, -Robot::oi.ElevatorFudge()/5);
+  if(pull_in_cargo_exend){
+    cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
+  }else{
+    cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_OUT);
+  }
+  
 }
 
 void ElevatorSubsystem::Prints(){

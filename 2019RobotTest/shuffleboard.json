@@ -17,46 +17,13 @@
             ],
             "content": {
               "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/If Center, Target Side",
-              "_title": "If Center, Target Side"
-            }
-          },
-          "1,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Limelight_PipelineName",
-              "_title": "Limelight_PipelineName"
-            }
-          },
-          "2,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Limelight_Interface",
-              "_title": "Limelight_Interface"
-            }
-          },
-          "3,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "ComboBox Chooser",
               "_source0": "network_table:///SmartDashboard/Auto Modes",
               "_title": "Auto Modes"
             }
           },
-          "4,0": {
+          "1,0": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -78,18 +45,7 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "6,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Limelight_Stream",
-              "_title": "Limelight_Stream"
-            }
-          },
-          "7,0": {
+          "10,1": {
             "size": [
               1,
               1
@@ -100,7 +56,7 @@
               "_title": "Drive/Skew"
             }
           },
-          "3,1": {
+          "8,2": {
             "size": [
               1,
               1
@@ -111,15 +67,234 @@
               "_title": "/Preferences/camera p"
             }
           },
-          "1,2": {
+          "4,2": {
             "size": [
-              9,
-              2
+              4,
+              1
             ],
             "content": {
               "_type": "Network Table Tree",
               "_source0": "network_table:///LiveWindow/Ungrouped/Scheduler",
               "_title": "LiveWindow/Ungrouped/Scheduler"
+            }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Target Side",
+              "_title": "Target Side"
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive/Gyro",
+              "_title": "Drive/Gyro"
+            }
+          },
+          "4,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Preload Gamepiece",
+              "_title": "Preload Gamepiece"
+            }
+          },
+          "9,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive/LeftEncoder",
+              "_title": "Drive/LeftEncoder"
+            }
+          },
+          "9,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive/LeftOutput",
+              "_title": "Drive/LeftOutput"
+            }
+          },
+          "10,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive/RightEncoder",
+              "_title": "Drive/RightEncoder"
+            }
+          },
+          "8,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive/RightOutput",
+              "_title": "Drive/RightOutput"
+            }
+          },
+          "7,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Hatch/Deploy State",
+              "_title": "Hatch/Deploy State",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "8,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Lights/CurrentPattern",
+              "_title": "Lights/CurrentPattern"
+            }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Intake/HasCargo",
+              "_title": "Intake/HasCargo",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "3,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Elevator/Elevator Encoder",
+              "_title": "Elevator/Elevator Encoder"
+            }
+          },
+          "4,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Elevator/pull in cargo extend?",
+              "_title": "Elevator/pull in cargo extend?",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "4,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Elevator/Drawer Encoder",
+              "_title": "Elevator/Drawer Encoder"
+            }
+          },
+          "6,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Hatch/Clamp State",
+              "_title": "Hatch/Clamp State",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Elevator/Drawer Output",
+              "_title": "Elevator/Drawer Output"
+            }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Hatch/HasPannel",
+              "_title": "Hatch/HasPannel",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "7,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Elevator/State",
+              "_title": "Elevator/State"
+            }
+          },
+          "10,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake/Intake Speed",
+              "_title": "Intake/Intake Speed"
+            }
+          },
+          "5,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Elevator/Elevator Output",
+              "_title": "Elevator/Elevator Output"
             }
           }
         }
@@ -269,6 +444,16 @@
                   "_title": "Compressor[15]/Enabled",
                   "Colors/Color when true": "#7CFC00FF",
                   "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DoubleSolenoid[15,2]/Value",
+                  "_title": "DoubleSolenoid[15,2]/Value"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DoubleSolenoid[15,0]/Value",
+                  "_title": "DoubleSolenoid[15,0]/Value"
                 }
               ]
             }
@@ -327,12 +512,37 @@
           }
         }
       }
+    },
+    {
+      "title": "PID",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "3,0": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "Robot Preferences",
+              "_source0": "network_table:///Preferences",
+              "_title": "Preferences",
+              "Miscellaneous/Show search box": true
+            }
+          }
+        }
+      }
     }
   ],
   "windowGeometry": {
-    "x": 0.0,
+    "x": -3.0,
     "y": 0.0,
-    "width": 1600.0,
+    "width": 1620.0,
     "height": 860.0
   }
 }
