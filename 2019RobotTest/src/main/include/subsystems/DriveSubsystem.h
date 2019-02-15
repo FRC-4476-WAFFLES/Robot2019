@@ -50,11 +50,11 @@ class DriveSubsystem : public frc::Subsystem {
 
 	constexpr static int COUNTS_PER_REV = 256;
 	constexpr static double WHEEL_CIRCUMFERENCE = 6*M_PI;
-	constexpr static double KI = 1;
-	constexpr static double KP = 0;
-	constexpr static double KD = 0;
-	constexpr static double KV = 1/MAX_SPEED;
-	constexpr static double KA = 0;
+	double KI = 1;
+	double KP = 0;
+	double KD = 0;
+	double KV = 1/MAX_SPEED;
+	double KA = 0;
   
 
 	PowerDistributionPanel PDP;

@@ -28,7 +28,8 @@ DriveSubsystem::DriveSubsystem() :
 	//sensors are quadratic (greyhills)
   left1.ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 10);
 	right1.ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 10);
-	right1.SetSensorPhase(true);
+	right1.SetSensorPhase(false);
+	left1.SetSensorPhase(true);
 	right1.SetSelectedSensorPosition(0);
 	left1.SetSelectedSensorPosition(0);
 	//current limiting
@@ -48,8 +49,14 @@ DriveSubsystem::DriveSubsystem() :
 	left3.Follow(left1);
 	//pathfinder
 	follower_notifier = new Notifier(this->FollowDrivePath);
-	left_trajectory_segments = new Segment[1000];
-	right_trajectory_segments = new Segment[1000];
+	left_trajectory_segments = new Segment[10000];
+	right_trajectory_segments = new Segment[10000];
+
+	KP = UpdateSinglePreference("path k", KP);
+	KI = UpdateSinglePreference("path i", KI);
+	KD = UpdateSinglePreference("path d", KD);
+	KV = UpdateSinglePreference("path v", KV);
+	KA = UpdateSinglePreference("path a", KA);
 
 }
 
@@ -142,6 +149,11 @@ void DriveSubsystem::Prints(){
 
 		left_follower.last_error = 0; left_follower.segment = 0; left_follower.finished = 0;
 		right_follower.last_error = 0; right_follower.segment = 0; right_follower.finished = 0;
+		KP = UpdateSinglePreference("path k", KP);
+		KI = UpdateSinglePreference("path i", KI);
+		KD = UpdateSinglePreference("path d", KD);
+		KV = UpdateSinglePreference("path v", KV);
+		KA = UpdateSinglePreference("path a", KA);
 		
 		encoder_config_left.initial_position = Left();
 		encoder_config_left.ticks_per_revolution = COUNTS_PER_REV;
@@ -168,7 +180,7 @@ void DriveSubsystem::Prints(){
 		DriveSubsystem *sub = &Robot::Drive;
 		double l = pathfinder_follow_encoder(sub->encoder_config_left, &sub->left_follower, sub->left_trajectory_segments, sub->left_trajectory_length, sub->Left());
 		double r = pathfinder_follow_encoder(sub->encoder_config_right, &sub->right_follower, sub->right_trajectory_segments, sub->right_trajectory_length, sub->Right());
-		// sub->Drive(l, r);
+	  sub->WafflesDrive(-l, -r);
 	}
 
   bool DriveSubsystem::IsPathFinished(){
