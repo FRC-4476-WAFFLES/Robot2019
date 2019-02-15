@@ -124,7 +124,8 @@ void ElevatorSubsystem::Periodic(){
       next_elevator_position = elevator_position + elevatorjoy * 50.0;
     }
     //set the motor to the fudge position using the encoder
-    elevatorMaster.Set(ControlMode::Position, next_elevator_position);
+    //elevatorMaster.Set(ControlMode::Position, next_elevator_position);
+    elevatorMaster.Set(ControlMode::PercentOutput, elevatorjoy);
     //if intaking, move the extend out
     if(Robot::Intake.is_intaking){
       pull_in_cargo_exend = false;
@@ -202,7 +203,7 @@ float ElevatorSubsystem::ElevatorPosition(){
 }
 
 void ElevatorSubsystem::ExtendPeriodic(){
-  if(pull_in_cargo_exend){
+  if(temp_pull_in_cargo_exend){
     cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
   }else{
     cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_OUT);

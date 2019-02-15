@@ -19,6 +19,7 @@ ToggleClamp::ToggleClamp() :
 // Called just before this Command runs the first time
 void ToggleClamp::Initialize() {
   Robot::Hatch.UpdateHatch(!Robot::Hatch.current_clamp_state, Robot::Hatch.current_deploy_state);
+  Robot::Elevator.temp_pull_in_cargo_exend = !Robot::Elevator.temp_pull_in_cargo_exend;
 }
 
 // Called repeatedly when this Command is scheduled to run

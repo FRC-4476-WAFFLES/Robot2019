@@ -64,9 +64,10 @@ class ElevatorSubsystem : public frc::Subsystem {
   
   //logic variables
   bool PID_joystick_switch = false;
-  int elevator_state_machine_state = 0;
+  int elevator_state_machine_state = 3;
 
   bool pull_in_cargo_exend = false;
+  bool temp_pull_in_cargo_exend = false;
   float next_elevator_position = 0.0;
   float next_cargo_extend_position = 0.0;
   float position_when_seek_to_set = 0;
