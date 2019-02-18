@@ -41,14 +41,14 @@ class DriveSubsystem : public frc::Subsystem {
 
 
 	//pathfinder constants
-	constexpr static float MAX_SPEED = 14.0; // feet/s
-	constexpr static float MAX_ACCEL = 6.56; // feet/s/s
+	constexpr static float MAX_SPEED = 10.4; // feet/s
+	constexpr static float MAX_ACCEL = 25.4; // feet/s/s
 	constexpr static float MAX_JERK = 197; // feet/s/s/s
 	constexpr static float ANGLE_P = 0.8;
 	constexpr static float WHEELBASE = 2.0;
 
 	constexpr static int COUNTS_PER_REV = 910;
-	constexpr static double WHEEL_CIRCUMFERENCE = 6*M_PI;
+	constexpr static double WHEEL_CIRCUMFERENCE = 6*M_PI/12;
 	double KI = 1;
 	double KP = 0;
 	double KD = 0;
