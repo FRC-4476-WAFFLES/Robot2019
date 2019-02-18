@@ -25,6 +25,7 @@ class CameraSubsystem : public frc::Subsystem {
   double GetCameraTX();
   double GetCameraTV();
   double GetCameraTS();
+  double GetCameraTA();
   void SetCameraProcessingMode(int mode);
   enum CameraLEDMode {
     Default = 0,

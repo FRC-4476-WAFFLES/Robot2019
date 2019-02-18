@@ -29,26 +29,31 @@ class ElevatorSubsystem : public frc::Subsystem {
   float ElevatorPosition();
   void ExtendPeriodic();
   void Prints();
+  void REZero();
+  float GetNextPosition();
 
 
   //elevator
   //HATCH
   constexpr static float GROUND_PICKUP_HATCH = 0.0;
   constexpr static float BOTTOM_HATCH_POSITION = 0.0;
-  constexpr static float MIDDLE_HATCH_POSITION = 0.0;
-  constexpr static float TOP_HATCH_POSITION = 0.0;
+  constexpr static float MIDDLE_HATCH_POSITION = 1666.0;
+  constexpr static float TOP_HATCH_POSITION = 3112.0;
 
   //CARGO
-  constexpr static float GROUND_PICKUP_CARGO = 0.0;
+  constexpr static float GROUND_PICKUP_CARGO = 100.0;
   constexpr static float HUMAN_PLAYER_PICKUP_CARGO = 0.0;
-  constexpr static float BOTTOM_CARGO_POSITION = 0.0;
-  constexpr static float MIDDLE_CARGO_POSITION = 0.0;
-  constexpr static float TOP_CARGO_POSITION = 0.0;
-  constexpr static float LIMIT_OF_EFFECTED_BY_CARGO_INTAKE = 0.0;
+  constexpr static float CARGO_SHIP_CARGO_POSITION = 1977.0;
+  constexpr static float BOTTOM_CARGO_POSITION = 1157.0;
+  constexpr static float MIDDLE_CARGO_POSITION = 2569.0;
+  constexpr static float TOP_CARGO_POSITION = 4000.0;
+  constexpr static float LIMIT_OF_EFFECTED_BY_CARGO_INTAKE = 990.0;
 
   //CARGO EXTEND OUT
-  constexpr static float CARGO_EXTEND_OUT = 1260.0;
-  constexpr static float CARGO_EXTEND_IN = 530.0;//slightly out
+  constexpr static float CARGO_EXTEND_CARGO = -1175.0;
+  constexpr static float CARGO_EXTEND_IN = 0.0;
+  constexpr static float CARGO_EXTEND_HATCH = -682;
+  constexpr static float CARGO_EXTEND_INTAKE = -1348;
 
   enum Positions {
     Top = 1,
@@ -56,6 +61,7 @@ class ElevatorSubsystem : public frc::Subsystem {
     Bottom = 3,
     HPPickup = 4,
     Ground = 5,
+    CargoShip = 6,
   };
   enum Gamepiece  {
     Hatch = 1,

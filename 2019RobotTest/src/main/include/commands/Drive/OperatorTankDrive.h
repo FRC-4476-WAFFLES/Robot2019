@@ -17,5 +17,4 @@ class OperatorTankDrive : public frc::Command {
 	bool IsFinished();
 	void End();
 	void Interrupted();
-
 };

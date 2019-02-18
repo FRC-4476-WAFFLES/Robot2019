@@ -78,10 +78,15 @@ void DriveSubsystem::WafflesDrive(float Left, float Right) {
 
 void DriveSubsystem::TrackingDrive(float Left, float Right){
 	is_tracking_drive = true;
-	double kp = UpdateSinglePreference("camera p", -0.017);
+	double kp_turning = UpdateSinglePreference("camera turning p", -0.017);
+	double kp_driving = UpdateSinglePreference("camera driving p", -0.017);
+	double kp_forwards = UpdateSinglePreference("camera area coefficient", 0.017);
+	double area = Robot::Camera.GetCameraTA();
 	float otherkp = UpdateSinglePreference("skew kp", 0.004);
 	double tx = Robot::Camera.GetCameraTX();
 	float ts = GetSkew();
+	Left = Left*(1/(area*kp_forwards));
+	Right = Right*(1/(area*kp_forwards));
 	double skew_error = 1/(ts*otherkp);
 	if(skew_error > 7){
 		skew_error = 7;
@@ -89,26 +94,42 @@ void DriveSubsystem::TrackingDrive(float Left, float Right){
 		skew_error = -7;
 	}
 	tx = tx; //+ skew_error;
-	double error = kp*tx;
+	double error = 0;
+	if(is_turning_tracking){
+		error = kp_turning*tx;
+	}else{
+		error = kp_driving*tx;
+	}
+	
 	Robot::Camera.SetLedMode(Robot::Camera.CameraLEDMode::On);
 	int tv = Robot::Camera.GetCameraTV();
 	if(tv == 0){
 		Left = 0;
 		Right = 0;
 		missing_vision_target = true;
-	}else if(error > -MIN_TRACKING_ERROR && error < 0){
-		Left+= -MIN_TRACKING_ERROR;
-		Right-= -MIN_TRACKING_ERROR;
-		missing_vision_target = false;
-	}else if(error < MIN_TRACKING_ERROR && error > 0){
-		Left+= MIN_TRACKING_ERROR;
-	  Right-= MIN_TRACKING_ERROR;
-		missing_vision_target = false;
+	}else if(fabs(error) < acceptable_error){
+		if(error > -MIN_TRACKING_ERROR && error < 0){
+			Left+= -MIN_TRACKING_ERROR;
+			Right-= -MIN_TRACKING_ERROR;
+			missing_vision_target = false;
+			is_turning_tracking = false;
+		}else if(error < MIN_TRACKING_ERROR && error > 0){
+			Left+= MIN_TRACKING_ERROR;
+			Right-= MIN_TRACKING_ERROR;
+			missing_vision_target = false;
+			is_turning_tracking = false;
+		}else{
+			Left+=error;
+			Right-=error;
+			missing_vision_target = false;
+			is_turning_tracking = false;
+		}
 	}else{
-		Left+=error;
-		Right-=error;
-		missing_vision_target = false;
+		Left = error*10;
+		Right = -error*10;
+		is_turning_tracking = true;
 	}
+	SmartDashboard::PutNumber("Drive/trackingError", error);
 	left1.Set(ControlMode::PercentOutput, -Left);
 	right1.Set(ControlMode::PercentOutput, Right);
 }
@@ -145,7 +166,7 @@ void DriveSubsystem::Prints(){
 
   void DriveSubsystem::LoadPath(std::string name){
 		left_trajectory_length = PathfinderFRC::get_trajectory(name + ".left", left_trajectory_segments);
-    right_trajectory_length = PathfinderFRC::get_trajectory(name + ".right", right_trajectory_segments);
+    	right_trajectory_length = PathfinderFRC::get_trajectory(name + ".right", right_trajectory_segments);
 
 		left_follower.last_error = 0; left_follower.segment = 0; left_follower.finished = 0;
 		right_follower.last_error = 0; right_follower.segment = 0; right_follower.finished = 0;

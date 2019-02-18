@@ -19,13 +19,20 @@ ElevatorMiddle::ElevatorMiddle():
 // Called just before this Command runs the first time
 void ElevatorMiddle::Initialize() {
   Robot::Elevator.SeekTo(Robot::Elevator.Positions::Middle);
+  time_held.Reset();
+  time_held.Start();
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ElevatorMiddle::Execute() {}
+void ElevatorMiddle::Execute() {
+  if(time_held.Get() > 1 && !is_over_time_threshold){
+    is_over_time_threshold = true;
+    Robot::Elevator.SeekTo(Robot::Elevator.Positions::CargoShip);
+  }
+}
 
 // Make this return true when this Command no longer needs to run execute()
-bool ElevatorMiddle::IsFinished() { return true; }
+bool ElevatorMiddle::IsFinished() { return false; }
 
 // Called once after isFinished returns true
 void ElevatorMiddle::End() {}

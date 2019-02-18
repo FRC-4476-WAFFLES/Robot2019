@@ -24,8 +24,8 @@ void OperatorTankDrive::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void OperatorTankDrive::Execute() {
-	if(Robot::oi.left.GetRawButton(6) || Robot::oi.left.GetRawButton(7)){
-		Robot::Drive.TrackingDrive(-0.2, -0.2);
+	if(Robot::oi.right.GetRawButton(10) || Robot::oi.right.GetRawButton(11)){
+		Robot::Drive.TrackingDrive(-0.25, -0.25);
 	}else {
 	Robot::Drive.WafflesDrive(Robot::oi.left.GetY(), Robot::oi.right.GetY());
 	}

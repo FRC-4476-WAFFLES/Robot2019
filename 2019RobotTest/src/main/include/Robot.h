@@ -13,7 +13,6 @@
 #include <frc/commands/Command.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc/Compressor.h>
-
 #include "OI.h"
 
 #include "commands/Auto/GeneralTestAuto.h"

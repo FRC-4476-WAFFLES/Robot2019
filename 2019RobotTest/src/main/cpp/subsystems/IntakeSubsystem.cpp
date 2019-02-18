@@ -43,6 +43,11 @@ void IntakeSubsystem::Periodic(){
   }else{
     is_intaking = false;
   }
+  if(-speed>= 0.5){
+    has_cargo = false;
+  }else if(-speed<=-0.5){
+    has_cargo = true;
+  }
 }
 
 void IntakeSubsystem::SetIntakeSpeed(double Speed){

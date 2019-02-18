@@ -30,7 +30,7 @@ constexpr int DRIVE_LEFT3 = 6;//SPX
 constexpr int ELEVATOR_MASTER = 7;//SRX
 constexpr int ELEVATOR_FOLLOWER = 8;//SRX
 
-constexpr int CARGO_EXTEND = 8;//SRX
+constexpr int CARGO_EXTEND = 9;//SRX
 constexpr int CARGO_INTAKE = 10;//SPX
 
 

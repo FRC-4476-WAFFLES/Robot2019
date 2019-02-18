@@ -23,6 +23,7 @@ void ElevatorManualGamepieceToggle::Initialize() {
   }else{
     Robot::Elevator.SetCurrentGamepiece(1);
   }
+  // Robot::Elevator.REZero();
 }
 
 // Called repeatedly when this Command is scheduled to run

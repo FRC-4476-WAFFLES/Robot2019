@@ -11,6 +11,7 @@
 #include <frc/smartdashboard/SendableChooser.h>
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableInstance.h>
+#include <frc/PowerDistributionPanel.h>
 using namespace frc;
 class RobotInfo : public frc::Subsystem {
  private:
@@ -23,4 +24,5 @@ class RobotInfo : public frc::Subsystem {
   SendableChooser<int*> targetPosition;
   SendableChooser<int*> targetSide;
   SendableChooser<int*> preload;
+  PowerDistributionPanel pdp;
 };

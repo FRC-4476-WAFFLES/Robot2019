@@ -40,7 +40,7 @@ OI::OI() :
   Bottom->WhenReleased(new WithOperatorMode(nullptr, new ElevatorBottom()));
 
   Button* Middle = new JoystickButton(&operate, OperatorButton::X);
-  Middle->WhenReleased(new WithOperatorMode(nullptr, new ElevatorMiddle()));
+  Middle->WhileHeld(new ElevatorMiddle());
 
   Button* Top = new JoystickButton(&operate, OperatorButton::Y);
   Top->WhenReleased(new WithOperatorMode(nullptr, new ElevatorTop()));
@@ -82,10 +82,12 @@ float OI::IntakeSpeed() {
 
 	double in = operate.GetRawAxis(3);
 	double out =  operate.GetRawAxis(2);
-	return in * in - 1.0 * out * out ;//0.4->1.0
+	return (in * in - 1.0 * out * out)*0.9;//0.4->1.0
 }
 void OI::Prints(){
   SmartDashboard::PutBoolean("climber switch", climber_switch);
+  SmartDashboard::PutNumber("Elevator1Amp", Robot::Info.pdp.GetCurrent(5));
+  SmartDashboard::PutNumber("Elevator2Amp", Robot::Info.pdp.GetCurrent(11));
   Robot::Drive.Prints();
   Robot::Elevator.Prints();
   Robot::Hatch.Prints();

@@ -8,14 +8,14 @@
 #include "subsystems/RobotInfo.h"
 #include "frc/smartdashboard/SmartDashboard.h"
 
-RobotInfo::RobotInfo() : Subsystem("ExampleSubsystem") {
+RobotInfo::RobotInfo() : Subsystem("ExampleSubsystem"), pdp(0) {
   targetPosition.SetDefaultOption("Close", new int(0));
   targetPosition.AddOption("Middle", new int(1));
   targetPosition.AddOption("Far", new int(2));
 	targetPosition.AddOption("Front", new int(3));
 	SmartDashboard::PutData("Aim for ____ position", &targetPosition);
   
-
+  
 
   targetSide.SetDefaultOption("Right", new int(0));
   targetSide.AddOption("Left", new int(1));

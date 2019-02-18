@@ -28,6 +28,9 @@ double CameraSubsystem::GetCameraTV(){
 double CameraSubsystem::GetCameraTS(){
   return camera->GetNumber("ts", 0.0);
 }
+double CameraSubsystem::GetCameraTA(){
+  return camera->GetNumber("ta", 0.0);
+}
 void CameraSubsystem::SetCameraProcessingMode(int mode){
   camera->PutNumber("camMode", mode);
 }

@@ -97,6 +97,8 @@ void Robot::TeleopInit() {
   // teleop starts running. If you want the autonomous to
   // continue until interrupted by another command, remove
   // this line or comment it out.
+  if(fabs(fabs(Elevator.ElevatorPosition())-fabs(Elevator.GetNextPosition()) > 100));
+  Elevator.elevator_state_machine_state = 1;
   if (autonomousCommand != nullptr) {
     autonomousCommand->Cancel();
     autonomousCommand = nullptr;
