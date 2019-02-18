@@ -24,6 +24,8 @@ CameraSubsystem Robot::Camera;
 RobotInfo Robot::Info;
 
 void Robot::RobotInit(){
+
+  CameraServer::GetInstance()->StartAutomaticCapture();
   compressor->SetClosedLoopControl(true);
 
   AutonomousChooser.SetDefaultOption("Null", nullptr);

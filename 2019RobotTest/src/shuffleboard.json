@@ -433,6 +433,17 @@
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
+          },
+          "0,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Elevator/ElevatorError",
+              "_title": "Elevator/ElevatorError"
+            }
           }
         }
       }
@@ -680,11 +691,126 @@
           }
         }
       }
+    },
+    {
+      "title": "Driving",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              6,
+              5
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://limelight",
+              "_title": "limelight",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": false,
+              "Controls/Rotation": "NONE",
+              "compression": 0.0,
+              "fps": 20,
+              "imageWidth": -1,
+              "imageHeight": -1
+            }
+          },
+          "6,0": {
+            "size": [
+              4,
+              3
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Hatch/Clamp State",
+              "_title": "SmartDashboard/Hatch/Clamp State",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#FF0000FF"
+            }
+          },
+          "7,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Intake/HasCargo",
+              "_title": "SmartDashboard/Intake/HasCargo",
+              "Colors/Color when true": "#FFFF00FF",
+              "Colors/Color when false": "#003333FF"
+            }
+          },
+          "7,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Elevator/Elevator Encoder",
+              "_title": "SmartDashboard/Elevator/Elevator Encoder"
+            }
+          },
+          "8,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive/Gyro",
+              "_title": "SmartDashboard/Drive/Gyro"
+            }
+          },
+          "9,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Elevator/Elevator Output",
+              "_title": "SmartDashboard/Elevator/Elevator Output"
+            }
+          },
+          "6,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Elevator/State",
+              "_title": "SmartDashboard/Elevator/State"
+            }
+          },
+          "6,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Hatch/HasPannel",
+              "_title": "SmartDashboard/Hatch/HasPannel",
+              "Colors/Color when true": "#FFFF00FF",
+              "Colors/Color when false": "#003333FF"
+            }
+          }
+        }
+      }
     }
   ],
   "windowGeometry": {
-    "x": -7.0,
-    "y": 0.0,
+    "x": -124.0,
+    "y": 43.0,
     "width": 1614.0,
     "height": 860.0
   }

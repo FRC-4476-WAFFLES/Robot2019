@@ -69,6 +69,7 @@ void DriveSubsystem::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void DriveSubsystem::WafflesDrive(float Left, float Right) {
+	Robot::Camera.SetCameraProcessingMode(1);
 	Robot::Camera.SetLedMode(Robot::Camera.CameraLEDMode::Off);
 	left1.Set(ControlMode::PercentOutput, -Left);
 	right1.Set(ControlMode::PercentOutput, Right);
@@ -77,6 +78,7 @@ void DriveSubsystem::WafflesDrive(float Left, float Right) {
 }
 
 void DriveSubsystem::TrackingDrive(float Left, float Right){
+	Robot::Camera.SetCameraProcessingMode(0);
 	is_tracking_drive = true;
 	double kp_turning = UpdateSinglePreference("camera turning p", -0.017);
 	double kp_driving = UpdateSinglePreference("camera driving p", -0.017);
@@ -94,7 +96,7 @@ void DriveSubsystem::TrackingDrive(float Left, float Right){
 		skew_error = -7;
 	}
 	tx = tx; //+ skew_error;
-	double error = 0;
+	 double error = 0;
 	if(is_turning_tracking){
 		error = kp_turning*tx;
 	}else{
