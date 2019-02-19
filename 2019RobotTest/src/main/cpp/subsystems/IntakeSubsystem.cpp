@@ -30,24 +30,25 @@ void IntakeSubsystem::InitDefaultCommand() {
 void IntakeSubsystem::Periodic(){
   if(frc::DriverStation::GetInstance().IsOperatorControl()){
     speed = Robot::oi.IntakeSpeed();
+    cargoCarriageLeft.Set(-speed - Robot::oi.OuttakeAngle());
+    cargoCarriageRight.Set(speed + Robot::oi.OuttakeAngle());
+    if(Robot::Elevator.ElevatorPosition() <= Robot::Elevator.LIMIT_OF_EFFECTED_BY_CARGO_INTAKE){
+      cargoIntake.Set(-speed);
+    }else{
+      cargoIntake.Set(0.0);
+    }
+    if(speed >= 0.1){
+      is_intaking = true;
+    }else{
+      is_intaking = false;
+    }
+    if(-speed>= 0.5){
+      has_cargo = false;
+    }else if(-speed<=-0.5){
+      has_cargo = true;
+    }
   }
-  cargoCarriageLeft.Set(-speed - Robot::oi.OuttakeAngle());
-	cargoCarriageRight.Set(speed + Robot::oi.OuttakeAngle());
-  if(Robot::Elevator.ElevatorPosition() <= Robot::Elevator.LIMIT_OF_EFFECTED_BY_CARGO_INTAKE){
-    cargoIntake.Set(-speed);
-  }else{
-    cargoIntake.Set(0.0);
-  }
-  if(speed >= 0.1){
-    is_intaking = true;
-  }else{
-    is_intaking = false;
-  }
-  if(-speed>= 0.5){
-    has_cargo = false;
-  }else if(-speed<=-0.5){
-    has_cargo = true;
-  }
+  
 }
 
 void IntakeSubsystem::SetIntakeSpeed(double Speed){

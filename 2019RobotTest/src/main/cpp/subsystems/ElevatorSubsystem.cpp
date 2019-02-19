@@ -12,6 +12,7 @@
 #include "commands/Elevator/ElevatorDefault.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <iostream>
+#include <frc/DriverStation.h>
 using namespace std;
 
 ElevatorSubsystem::ElevatorSubsystem() : 
@@ -245,18 +246,19 @@ float ElevatorSubsystem::ElevatorPosition(){
 }
 
 void ElevatorSubsystem::ExtendPeriodic(){
-  if(pull_in_cargo_exend){
-    cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
-  }else{
-    if(Robot::Intake.is_intaking){
-      cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_INTAKE);
-    }else if(Robot::Intake.HasCargo()){
-      cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_CARGO);
+  if(!DriverStation::GetInstance().IsAutonomous()){
+    if(pull_in_cargo_exend){
+      cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
     }else{
-      cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_HATCH);
+      if(Robot::Intake.is_intaking){
+        cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_INTAKE);
+      }else if(Robot::Intake.HasCargo()){
+        cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_CARGO);
+      }else{
+        cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_HATCH);
+      }
     }
   }
-  
 }
 
 void ElevatorSubsystem::Prints(){
