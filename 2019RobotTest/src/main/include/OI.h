@@ -7,6 +7,8 @@
 
 #pragma once
 #include <frc/Joystick.h>
+#include <frc/GenericHID.h>
+#include <frc/XboxController.h>
 using namespace frc;
 
 class OI {
@@ -34,4 +36,5 @@ class OI {
 	Joystick operate;
 	bool climber_switch = false;
 	bool joystick_mode_toggle_limit = false;
+	frc::XboxController hid;
 };

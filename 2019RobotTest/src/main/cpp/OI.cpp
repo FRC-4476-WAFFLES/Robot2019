@@ -31,7 +31,8 @@
 OI::OI() :
   left(0),
   right(1),
-  operate(2)
+  operate(2),
+  hid(3)
 {
   Button* Ground = new JoystickButton(&operate, OperatorButton::B);
   Ground->WhenReleased(new WithOperatorMode(nullptr, new ElevatorGroundPickup()));

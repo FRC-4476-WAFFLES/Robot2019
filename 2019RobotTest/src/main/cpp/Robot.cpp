@@ -13,6 +13,9 @@
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableInstance.h>
 
+#include <frc/GenericHID.h>
+#include <frc/XboxController.h>
+
 OI Robot::oi;
 ClimbSubsystem Robot::Climb;
 DriveSubsystem Robot::Drive;
@@ -54,7 +57,10 @@ void Robot::RobotPeriodic() {}
  * can use it to reset any subsystem information you want to clear when the
  * robot is disabled.
  */
-void Robot::DisabledInit() {}
+void Robot::DisabledInit() {
+  oi.hid.SetRumble(frc::GenericHID::RumbleType::kLeftRumble, 1.0);
+  oi.hid.SetRumble(frc::GenericHID::RumbleType::kRightRumble, 1.0);
+}
 
 void Robot::DisabledPeriodic() { 
   frc::Scheduler::GetInstance()->Run();
@@ -92,6 +98,7 @@ void Robot::AutonomousInit() {
 void Robot::AutonomousPeriodic() { 
   frc::Scheduler::GetInstance()->Run();
   oi.Prints(); 
+  
 }
 
 void Robot::TeleopInit() {
@@ -99,6 +106,9 @@ void Robot::TeleopInit() {
   // teleop starts running. If you want the autonomous to
   // continue until interrupted by another command, remove
   // this line or comment it out.
+  oi.hid.SetRumble(frc::GenericHID::RumbleType::kLeftRumble, 1.0);
+  oi.hid.SetRumble(frc::GenericHID::RumbleType::kRightRumble, 1.0);
+
   if(fabs(fabs(Elevator.ElevatorPosition())-fabs(Elevator.GetNextPosition()) > 100));
   Elevator.elevator_state_machine_state = 1;
   if (autonomousCommand != nullptr) {
@@ -110,6 +120,7 @@ void Robot::TeleopInit() {
 void Robot::TeleopPeriodic() { 
   frc::Scheduler::GetInstance()->Run(); 
   oi.Prints();
+  
 }
 
 void Robot::TestPeriodic() {
