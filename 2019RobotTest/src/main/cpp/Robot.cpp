@@ -58,8 +58,8 @@ void Robot::RobotPeriodic() {}
  * robot is disabled.
  */
 void Robot::DisabledInit() {
-  oi.hid.SetRumble(frc::GenericHID::RumbleType::kLeftRumble, 1.0);
-  oi.hid.SetRumble(frc::GenericHID::RumbleType::kRightRumble, 1.0);
+  oi.hid.SetRumble(frc::GenericHID::RumbleType::kLeftRumble, 0.0);
+  oi.hid.SetRumble(frc::GenericHID::RumbleType::kRightRumble, 0.0);
 }
 
 void Robot::DisabledPeriodic() { 
