@@ -1,7 +1,7 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* DUNCAN STEVENSON (c) 2019-3019 FIRST. All Rights Reserved.                 */
+/* Open Source Software - may NOT be modified and shared by FRC teams.The code*/
+/* must be accompanied by the DUNCAN BSD license file in the root directory of*/
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
@@ -21,8 +21,6 @@ ElevatorSubsystem::ElevatorSubsystem() :
   elevatorFollower(ELEVATOR_FOLLOWER),
   cargoIntakeExtend(CARGO_EXTEND)
   {
-    //encoder stuff goes here
-
     //current limiting, magic numbers currently
     elevatorMaster.ConfigPeakCurrentDuration(30, 10);
     elevatorMaster.ConfigPeakCurrentLimit(22, 10);
@@ -101,12 +99,11 @@ void ElevatorSubsystem::Periodic(){
   AutoDetectCurrentGamepiece();
 
 
-  if(t.Get() < 0.0){
+  if(t.Get() < 0.0 && frc::DriverStation::GetInstance().IsOperatorControl()){
     elevatorMaster.Set(ControlMode::PercentOutput, 0.0);
     cargoIntakeExtend.Set(ControlMode::PercentOutput, 0.0);
   }else if(elevator_state_machine_state == 0){
     std::cout << "in state 0" << std::endl;
-    fudging = false;
   }else if(elevator_state_machine_state == 1){//pull the extend out
     std::cout << "in state 1" << std::endl;
     std::cout << fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) << std::endl;
@@ -123,27 +120,16 @@ void ElevatorSubsystem::Periodic(){
     std::cout << "in state 2" << std::endl;
     elevatorMaster.Set(ControlMode::Position, next_elevator_position);
     pull_in_cargo_exend = false;
-    if(fabs(fabs(elevator_position) - fabs(next_elevator_position)) < 60.0 ||
-    elevator_position > LIMIT_OF_EFFECTED_BY_CARGO_INTAKE+0.0 && fudging){
+    if(fabs(fabs(elevator_position) - fabs(next_elevator_position)) < 60.0){
       elevator_state_machine_state = 3;
     }
 
   }else if(elevator_state_machine_state == 3){//pull the extend back in, unless we're fudging
     std::cout << "in state 3" << std::endl;
-    if(fudging){
-      elevator_state_machine_state = 4;
-    }else{
-      elevatorMaster.Set(ControlMode::Position, next_elevator_position);
-      if(pull_in_cargo_exend){
-        pull_in_cargo_exend = true;
-        elevator_state_machine_state = 4;
-      }else{
-        pull_in_cargo_exend = false;
-        elevator_state_machine_state = 4;
-      }
-    }
+    elevatorMaster.Set(ControlMode::Position, next_elevator_position);
+    elevator_state_machine_state = 4;
 
-  }else{
+  }else if(elevator_state_machine_state == 4){
     std::cout << "in state end state" << std::endl;
     //Elevator Fudge
     if(fabs(elevatorjoy) > 0.1){
@@ -157,16 +143,31 @@ void ElevatorSubsystem::Periodic(){
       pull_in_cargo_exend = false;
       Robot::Hatch.UpdateHatch(Robot::Hatch.current_clamp_state, true);
       next_elevator_position = GROUND_PICKUP_CARGO;
+    }else if(elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE+100){
+      position_when_seek_to_set = elevator_position;
+      elevator_state_machine_state = 5;
+      pull_in_cargo_exend = false;
     }else{
       pull_in_cargo_exend = true;
     }
+    
     // in manual mode, move the extend out of the way if neccessary
-    if(elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE+100 && fabs(elevatorjoy) > 0.1){
-      position_when_seek_to_set = elevator_position;
-      elevator_state_machine_state = 1;
-      fudging = true;
+  }else if(elevator_state_machine_state == 5){//for when fudging
+    std::cout << "in state 5" << std::endl;
+    std::cout << fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) << std::endl;
+    elevatorMaster.Set(ControlMode::Position, position_when_seek_to_set);
+    pull_in_cargo_exend = false;
+    if(fabs(fabs(extend_position) - fabs(CARGO_EXTEND_CARGO)) < 40.0 && Robot::Intake.HasCargo()){
+      elevator_state_machine_state = 4;
+    }else if(fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) < 40.0 && Robot::Hatch.HasPannel()){
+      elevator_state_machine_state = 4;
+    }else if(fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) < 40.0){
+      elevator_state_machine_state = 4;
     }
   }
+
+
+
 
   ExtendPeriodic();
 }
@@ -223,11 +224,9 @@ void ElevatorSubsystem::SeekTo(int next_rough_position, bool extend){
       next_elevator_position = GROUND_PICKUP_CARGO;
     }
   }else if(next_rough_position == 6){//Cargo Ship
-    std::cout << "cargo ship!!" << std::endl;
     if(gamepiece == 1){//Hatch
       next_elevator_position = MIDDLE_HATCH_POSITION;
     }else{//Cargo
-      std::cout << "cargo ship  CARGO" << std::endl;
       next_elevator_position = CARGO_SHIP_CARGO_POSITION;
     }
   }
@@ -238,7 +237,6 @@ void ElevatorSubsystem::SeekTo(int next_rough_position, bool extend){
      }else{
        elevator_state_machine_state = 2;//2
      }
-  fudging = false;
 }
 
 float ElevatorSubsystem::ElevatorPosition(){

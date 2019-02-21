@@ -85,5 +85,4 @@ class ElevatorSubsystem : public frc::Subsystem {
   WPI_TalonSRX elevatorFollower;
   WPI_TalonSRX cargoIntakeExtend;
   Timer t;
-  bool fudging = false;
 };
