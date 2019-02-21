@@ -21,7 +21,7 @@ ElevatorSubsystem::ElevatorSubsystem() :
   elevatorFollower(ELEVATOR_FOLLOWER),
   cargoIntakeExtend(CARGO_EXTEND)
   {
-    //current limiting, magic numbers currently
+    //current limiting
     elevatorMaster.ConfigPeakCurrentDuration(30, 10);
     elevatorMaster.ConfigPeakCurrentLimit(22, 10);
     elevatorMaster.ConfigContinuousCurrentLimit(15, 10);

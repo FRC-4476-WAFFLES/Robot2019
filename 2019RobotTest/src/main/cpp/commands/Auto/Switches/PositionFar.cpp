@@ -11,13 +11,17 @@
 PositionFar::PositionFar(Command* Far, Command* Not_Far) :
   ConditionalCommand("PositionFar", Far, Not_Far)
 {
+  //tells the class what command to run based on the reutrn value of the Condition() function
   SetTimeout(15.0);
 }
 
 bool PositionFar::Condition() {
-  if(*Robot::Info.targetSide.GetSelected() == 2){
+  //getting the state input from shuffleboard to tell us what target we are looking for, and using that to choose between two (sets) of comands
+  //uses the conditional command to run one of two commands when called
+  if(*Robot::Info.targetPosition.GetSelected() == 2){
+    //if if the postition is far(default), run the input for far
     return true;
-  }else if(*Robot::Info.targetSide.GetSelected() > 3){
+  }else if(*Robot::Info.targetPosition.GetSelected() > 3){
     return false;
   }else{
     fprintf(stderr, "Position Set incorrectly, defaulting to left-> PositionFar.cpp \n");

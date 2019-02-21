@@ -30,6 +30,11 @@
 #include "commands/Hatch/ToggleClamp.h"
 #include "commands/Hatch/ToggleDeploy.h"
 
+/*
+this year for autos we decided to try to make the autos *more* legible. did i do that? no. but i tried
+this time around i opted for a long list of classes before every auto that can be run as commands, to 
+sort of subdivide the autos into a series of editable segments
+*/
 class FrontLeftDrive: public CommandGroup {
 public:
 	FrontLeftDrive():
