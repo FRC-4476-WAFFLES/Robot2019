@@ -37,6 +37,7 @@ class DriveSubsystem : public frc::Subsystem {
   void LoadPath(std::string name);
   bool IsPathFinished();
   void ClosePath();
+  double AvgDriveOut();
   
 
 
@@ -64,6 +65,7 @@ class DriveSubsystem : public frc::Subsystem {
 	static constexpr float MIN_TRACKING_ERROR = 0.05;
 	bool missing_vision_target = false;
 	bool is_tracking_drive = false;
+	bool is_turning_tracking = true;
 	
 
  private:
@@ -75,9 +77,8 @@ class DriveSubsystem : public frc::Subsystem {
 	WPI_VictorSPX right2;
 	WPI_VictorSPX right3;
   	ADXRS450_Gyro gyro;
-	
+
 	constexpr static float acceptable_error = 0.035;
-	bool is_turning_tracking = true;
 
 	Notifier* follower_notifier;
 	int left_trajectory_length;

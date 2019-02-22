@@ -32,7 +32,6 @@ class ElevatorSubsystem : public frc::Subsystem {
   void REZero();
   float GetNextPosition();
 
-
   //elevator
   //HATCH
   constexpr static float GROUND_PICKUP_HATCH = 0.0;

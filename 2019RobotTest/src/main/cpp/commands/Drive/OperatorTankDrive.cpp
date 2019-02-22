@@ -29,6 +29,15 @@ void OperatorTankDrive::Execute() {
 	}else {
 	Robot::Drive.WafflesDrive(Robot::oi.left.GetY(), Robot::oi.right.GetY());
 	}
+	if(!Robot::Drive.is_turning_tracking){
+		if(Robot::Drive.AvgDriveOut()> 0.17 && !has_toggled){
+			has_toggled = true;
+			Robot::Hatch.UpdateHatch(!Robot::Hatch.current_clamp_state, Robot::Hatch.current_deploy_state);
+		}
+	}
+	if(!Robot::Drive.is_turning_tracking && !Robot::Drive.is_tracking_drive){
+		has_toggled = false;
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()

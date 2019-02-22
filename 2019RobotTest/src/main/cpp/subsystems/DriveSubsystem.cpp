@@ -74,7 +74,7 @@ void DriveSubsystem::WafflesDrive(float Left, float Right) {
 	left1.Set(ControlMode::PercentOutput, -Left);
 	right1.Set(ControlMode::PercentOutput, Right);
 	missing_vision_target = false;
-	is_tracking_drive = true;
+	is_tracking_drive = false;
 }
 
 void DriveSubsystem::TrackingDrive(float Left, float Right){
@@ -166,51 +166,55 @@ void DriveSubsystem::Prints(){
 
 }
 
-  void DriveSubsystem::LoadPath(std::string name){
-		left_trajectory_length = PathfinderFRC::get_trajectory(name + ".left", left_trajectory_segments);
-    	right_trajectory_length = PathfinderFRC::get_trajectory(name + ".right", right_trajectory_segments);
+void DriveSubsystem::LoadPath(std::string name){
+	left_trajectory_length = PathfinderFRC::get_trajectory(name + ".left", left_trajectory_segments);
+	right_trajectory_length = PathfinderFRC::get_trajectory(name + ".right", right_trajectory_segments);
 
-		left_follower.last_error = 0; left_follower.segment = 0; left_follower.finished = 0;
-		right_follower.last_error = 0; right_follower.segment = 0; right_follower.finished = 0;
-		KP = UpdateSinglePreference("path k", KP);
-		KI = UpdateSinglePreference("path i", KI);
-		KD = UpdateSinglePreference("path d", KD);
-		KV = UpdateSinglePreference("path v", KV);
-		KA = UpdateSinglePreference("path a", KA);
-		
-		encoder_config_left.initial_position = Left();
-		encoder_config_left.ticks_per_revolution = COUNTS_PER_REV;
-		encoder_config_left.wheel_circumference = WHEEL_CIRCUMFERENCE;
-		encoder_config_left.kp = KP;
-		encoder_config_left.ki = KI;
-		encoder_config_left.kd = KD;
-		encoder_config_left.kv = KV;
-		encoder_config_left.ka = KA;
+	left_follower.last_error = 0; left_follower.segment = 0; left_follower.finished = 0;
+	right_follower.last_error = 0; right_follower.segment = 0; right_follower.finished = 0;
+	KP = UpdateSinglePreference("path k", KP);
+	KI = UpdateSinglePreference("path i", KI);
+	KD = UpdateSinglePreference("path d", KD);
+	KV = UpdateSinglePreference("path v", KV);
+	KA = UpdateSinglePreference("path a", KA);
+	
+	encoder_config_left.initial_position = Left();
+	encoder_config_left.ticks_per_revolution = COUNTS_PER_REV;
+	encoder_config_left.wheel_circumference = WHEEL_CIRCUMFERENCE;
+	encoder_config_left.kp = KP;
+	encoder_config_left.ki = KI;
+	encoder_config_left.kd = KD;
+	encoder_config_left.kv = KV;
+	encoder_config_left.ka = KA;
 
-		encoder_config_right.initial_position = Right();
-		encoder_config_right.ticks_per_revolution = COUNTS_PER_REV;
-		encoder_config_right.wheel_circumference = WHEEL_CIRCUMFERENCE;
-		encoder_config_right.kp = KP;
-		encoder_config_right.ki = KI;
-		encoder_config_right.kd = KD;
-		encoder_config_right.kv = KV;
-		encoder_config_right.ka = KA;
+	encoder_config_right.initial_position = Right();
+	encoder_config_right.ticks_per_revolution = COUNTS_PER_REV;
+	encoder_config_right.wheel_circumference = WHEEL_CIRCUMFERENCE;
+	encoder_config_right.kp = KP;
+	encoder_config_right.ki = KI;
+	encoder_config_right.kd = KD;
+	encoder_config_right.kv = KV;
+	encoder_config_right.ka = KA;
 
-		follower_notifier->StartPeriodic(left_trajectory_segments[0].dt);
-	}
+	follower_notifier->StartPeriodic(left_trajectory_segments[0].dt);
+}
 
-	void DriveSubsystem::FollowDrivePath(){
-		DriveSubsystem *sub = &Robot::Drive;
-		double l = pathfinder_follow_encoder(sub->encoder_config_left, &sub->left_follower, sub->left_trajectory_segments, sub->left_trajectory_length, sub->Left());
-		double r = pathfinder_follow_encoder(sub->encoder_config_right, &sub->right_follower, sub->right_trajectory_segments, sub->right_trajectory_length, sub->Right());
-	  sub->WafflesDrive(-l, -r);
-	}
+void DriveSubsystem::FollowDrivePath(){
+	DriveSubsystem *sub = &Robot::Drive;
+	double l = pathfinder_follow_encoder(sub->encoder_config_left, &sub->left_follower, sub->left_trajectory_segments, sub->left_trajectory_length, sub->Left());
+	double r = pathfinder_follow_encoder(sub->encoder_config_right, &sub->right_follower, sub->right_trajectory_segments, sub->right_trajectory_length, sub->Right());
+	sub->WafflesDrive(-l, -r);
+}
 
-  bool DriveSubsystem::IsPathFinished(){
-		return left_follower.finished && right_follower.finished;
-	}
+bool DriveSubsystem::IsPathFinished(){
+	return left_follower.finished && right_follower.finished;
+}
 
-  void DriveSubsystem::ClosePath(){
-		follower_notifier->Stop();
-		WafflesDrive(0,0);
-	}
+void DriveSubsystem::ClosePath(){
+	follower_notifier->Stop();
+	WafflesDrive(0,0);
+}
+
+double DriveSubsystem::AvgDriveOut(){
+	return (left1.GetMotorOutputPercent()+right1.GetMotorOutputPercent())/2;
+}
