@@ -7,14 +7,17 @@
 
 #include "commands/Auto/AutoWaitCommand.h"
 
+//this command literallyy does nothing besides halting the auto it is called from until the timer it starts hits the custom timeout
 AutoWaitCommand::AutoWaitCommand(float timeout) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  wait = timeout;
+  wait = timeout;//get the timeout that the user sets and make it accessable from the rest of the functions
 }
 
 // Called just before this Command runs the first time
 void AutoWaitCommand::Initialize() {
+  //reset the timer and start it. this clears the (empty) timer and tells it what time to count up from
+  //timers record the start and end time and return the difference in seconds.
   t.Reset();
   t.Start();
 }
@@ -23,7 +26,7 @@ void AutoWaitCommand::Initialize() {
 void AutoWaitCommand::Execute() {}
 
 // Make this return true when this Command no longer needs to run execute()
-bool AutoWaitCommand::IsFinished() { return t.Get()>wait; }
+bool AutoWaitCommand::IsFinished() { return t.Get()>wait; }//exit when the requested time has passed
 
 // Called once after isFinished returns true
 void AutoWaitCommand::End() {}

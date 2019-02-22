@@ -8,7 +8,7 @@
 #include "commands/Auto/GeneralTestAuto.h"
 #include "commands/Drive/DriveAutoLines.h"
 #include "commands/Drive/PathFollower.h"
-
+//this is an ediable auto for testing things.
 GeneralTestAuto::GeneralTestAuto() :
  CommandGroup("GeneralTestAuto") 
 {

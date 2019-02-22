@@ -5,6 +5,7 @@
 #include "Robot.h"
 
 double clamp(double value, double min, double max) {
+	//function to make sure a givien value doesn't exceed the given parameters.
 	if(value < min) {
 		return min;
 	} else if(value > max) {
@@ -15,24 +16,30 @@ double clamp(double value, double min, double max) {
 }
 
 DriveAutoLines::DriveAutoLines(double distance, double angle, double epsilon, double speed_max, bool timed):
+		//constructor to tell the commands functions the info input to the constructor
 		frc::Command("DriveAutoLines"),
+		//distance is input in feet, this is the converstion to encoder tics
 		distance(distance * 680),//TODO: find the distance in a foot
 		angle(angle),
 		epsilon(epsilon),
 		max_speed(speed_max)
 {
+	//makes sure this is the only command accessing the drive
 	Requires(&Robot::Drive);
 }
 
 
 // Called just before this Command runs the first time
 void DriveAutoLines::Initialize() {
+	//add the target distance/angle to the last set distance/angle
 	Robot::Drive.target_distance += distance;
 	Robot::Drive.target_angle += angle;
 
+	//calculate how far off the target we are to use int the PID
 	double distance_error = Robot::Drive.target_distance - (Robot::Drive.Left() + Robot::Drive.Right()) / 2.0;
 	double angle_error = Robot::Drive.target_angle - Robot::Drive.Gyro();
 
+	//since this is the first time this command has been run, the last error will be the same as the current one
 	last_distance_error = distance_error;
 	last_angle_error = angle_error;
 	last_time.Reset();
@@ -41,8 +48,11 @@ void DriveAutoLines::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveAutoLines::Execute() {
+	//update the distance and angle error based on the newst data for the PID
+	//these variables are created and destroyed every time the function is called.
 	double distance_error = Robot::Drive.target_distance - (Robot::Drive.Left() + Robot::Drive.Right()) / 2.0;
 	double angle_error = Robot::Drive.target_angle - Robot::Drive.Gyro();
+	
 	double time = last_time.Get();
 	last_time.Reset();
 	last_time.Start();

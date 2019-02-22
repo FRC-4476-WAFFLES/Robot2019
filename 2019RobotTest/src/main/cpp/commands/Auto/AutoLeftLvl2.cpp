@@ -32,6 +32,12 @@
 
 #include "commands/Auto/AutoWaitCommand.h"
 
+/*
+instaid of re-writing my existing libraries of the level one autos, I decided to simply run the level 1
+auto after some aditional code to get the robot off the platform. This code simply drives forward a set 
+distance, then drives back to try to re-allign the robot with the starting postition of the level autos.
+*/
+
 AutoLeftLvl2::AutoLeftLvl2() {
   AddSequential(new DriveAutoLines(6.0, 0, 15, 0.4));
   AddSequential(new AutoWaitCommand(0.3));

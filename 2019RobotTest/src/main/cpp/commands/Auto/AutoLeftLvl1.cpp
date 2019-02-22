@@ -29,6 +29,18 @@
 #include "commands/Hatch/ToggleClamp.h"
 #include "commands/Hatch/ToggleDeploy.h"
 
+/*
+this year for autos we decided to try to make the autos *more* legible. did i do that? no. but i tried
+this time around I opted for a long list of classes before every auto that can be run as commands, to 
+sort of subdivide the autos into a series of editable and reusuable segments that can then be called 
+individually to make the code more legible. Once the different classes are collated into the complete autos, 
+they are selected by a long list of nested conditional commands that check the choosers on shuffleboard
+to inform which command will be run. the classes do what thier names say using existing commands. the reason
+for this is that alle the classes in this file are constructors that are not updated as the robot runs, 
+what you see is what you get. this is a result of the auto chooser in robot. To make commands that update, 
+you have to AddSequential the existing commands that will be updated by the scheduler as the robot runs.
+*/
+
 class ApproachLeft: public CommandGroup {
 public:
 	ApproachLeft():
