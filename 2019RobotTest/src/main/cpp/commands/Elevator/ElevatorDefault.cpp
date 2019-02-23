@@ -8,11 +8,13 @@
 #include "commands/Elevator/ElevatorDefault.h"
 #include "Robot.h"
 
+//nothing atm
+
 ElevatorDefault::ElevatorDefault():
   frc::Command("ElevatorDefault")
 {
   // Use Requires() here to declare subsystem dependencies
-  // eg. Requires(Robot::chassis.get());
+  Requires(&Robot::Elevator);
 }
 
 // Called just before this Command runs the first time
@@ -20,9 +22,6 @@ void ElevatorDefault::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void ElevatorDefault::Execute() {
-  if(Robot::Hatch.current_deploy_state){
-    Robot::Elevator.pull_in_cargo_exend = true;
-  }
 }
 
 // Make this return true when this Command no longer needs to run execute()

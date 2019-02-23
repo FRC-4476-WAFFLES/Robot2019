@@ -8,6 +8,8 @@
 #include "commands/Intake/IntakeDefault.h"
 #include "Robot.h"
 
+//default does nothing
+
 IntakeDefault::IntakeDefault() :
   frc::Command("IntakeDefault")
 {
@@ -21,7 +23,6 @@ void IntakeDefault::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void IntakeDefault::Execute() {
-  Robot::Intake.SetIntakeSpeed(0.1);
 }
 
 // Make this return true when this Command no longer needs to run execute()

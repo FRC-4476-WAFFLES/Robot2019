@@ -8,6 +8,8 @@
 #include "commands/Intake/IntakeStop.h"
 #include "Robot.h"
 
+//stop intake motors, for legibility of code in auto
+
 IntakeStop::IntakeStop() :
   frc::Command("IntakeStop")
 {

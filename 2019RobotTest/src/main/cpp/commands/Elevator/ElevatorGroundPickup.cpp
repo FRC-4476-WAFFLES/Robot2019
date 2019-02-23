@@ -8,6 +8,8 @@
 #include "commands/Elevator/ElevatorGroundPickup.h"
 #include "Robot.h"
 
+//set the elevator to the ground pickup postition using SeekTo (unused)
+
 ElevatorGroundPickup::ElevatorGroundPickup():
   frc::Command("ElevatorGroundPickup")
 {

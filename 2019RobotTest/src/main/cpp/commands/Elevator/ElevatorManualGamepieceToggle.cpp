@@ -8,6 +8,9 @@
 #include "commands/Elevator/ElevatorManualGamepieceToggle.h"
 #include "Robot.h"
 
+//toggle between the two possible gampeices for setpoint
+//runs once
+
 ElevatorManualGamepieceToggle::ElevatorManualGamepieceToggle():
   frc::Command("ElevatorManualGamepieceToggle")
 {

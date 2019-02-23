@@ -8,6 +8,8 @@
 #include "commands/Hatch/HatchDefault.h"
 #include "Robot.h"
 
+//default
+
 HatchDefault::HatchDefault() {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
@@ -19,9 +21,11 @@ void HatchDefault::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void HatchDefault::Execute() {
+  //unclamp if we don't have a hatch and are intaking
   if(Robot::Intake.is_intaking && Robot::Intake.HasCargo() && Robot::Hatch.current_clamp_state == false){
     Robot::Hatch.UpdateHatch(Robot::Hatch.current_clamp_state, false);
   }
+  //if clamped, put the arm down
   if(Robot::Hatch.current_clamp_state == false){
     Robot::Hatch.UpdateHatch(false, false);
   }

@@ -8,6 +8,8 @@
 #include "commands/Elevator/ElevatorHPPickup.h"
 #include "Robot.h"
 
+//set the elevator to the Human Player Pickup postition using SeekTo
+
 ElevatorHPPickup::ElevatorHPPickup():
   frc::Command("ElevatorHPPickup")
 {

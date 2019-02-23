@@ -7,7 +7,7 @@
 
 #include "commands/Drive/TrackingDrive.h"
 #include "Robot.h"
-
+//run the tracking drive from auto for 2 seconds
 TrackingDrive::TrackingDrive() {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());

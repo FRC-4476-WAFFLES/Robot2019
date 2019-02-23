@@ -8,6 +8,8 @@
 #include "commands/Elevator/ElevatorTop.h"
 #include "Robot.h"
 
+//set the elevator to the top postition using SeekTo
+
 ElevatorTop::ElevatorTop():
   frc::Command("ElevatorTop")
 {

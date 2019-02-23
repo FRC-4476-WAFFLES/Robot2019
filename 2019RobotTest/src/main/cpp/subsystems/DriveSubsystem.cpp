@@ -70,7 +70,6 @@ void DriveSubsystem::InitDefaultCommand() {
 // here. Call these from Commands.
 void DriveSubsystem::WafflesDrive(float Left, float Right) {
 	Robot::Camera.SetCameraProcessingMode(1);
-	Robot::Camera.SetLedMode(Robot::Camera.CameraLEDMode::Off);
 	left1.Set(ControlMode::PercentOutput, -Left);
 	right1.Set(ControlMode::PercentOutput, Right);
 	missing_vision_target = false;
@@ -103,7 +102,6 @@ void DriveSubsystem::TrackingDrive(float Left, float Right){
 		error = kp_driving*tx;
 	}
 	
-	Robot::Camera.SetLedMode(Robot::Camera.CameraLEDMode::On);
 	int tv = Robot::Camera.GetCameraTV();
 	if(tv == 0){
 		Left = 0;

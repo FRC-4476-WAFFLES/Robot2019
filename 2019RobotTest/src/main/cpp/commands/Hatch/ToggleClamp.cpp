@@ -8,6 +8,8 @@
 #include "commands/Hatch/ToggleClamp.h"
 #include "Robot.h"
 
+//toggle the clamp and finnish(run once)
+
 ToggleClamp::ToggleClamp() :
   frc::Command("ToggleClamp")
 {

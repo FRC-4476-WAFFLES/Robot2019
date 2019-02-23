@@ -8,6 +8,8 @@
 #include "commands/Elevator/ElevatorMiddle.h"
 #include "Robot.h"
 
+//set the elevator to the Middle postition using SeekTo
+
 ElevatorMiddle::ElevatorMiddle():
   frc::Command("ElevatorMiddle")
 {
@@ -25,6 +27,7 @@ void ElevatorMiddle::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ElevatorMiddle::Execute() {
+  //if we hold the button, then go to the alternate setpoint
   if(time_held.Get() > 1 && !is_over_time_threshold){
     is_over_time_threshold = true;
     Robot::Elevator.SeekTo(Robot::Elevator.Positions::CargoShip);

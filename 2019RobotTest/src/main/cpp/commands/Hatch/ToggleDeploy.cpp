@@ -8,6 +8,8 @@
 #include "commands/Hatch/ToggleDeploy.h"
 #include "Robot.h"
 
+//toggle the hatch deploy piston
+
 ToggleDeploy::ToggleDeploy() :
   frc::Command("ToggleDeploy")
 {

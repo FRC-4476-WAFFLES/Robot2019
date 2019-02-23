@@ -8,6 +8,8 @@
 #include "commands/Intake/IntakeSet.h"
 #include "Robot.h"
 
+//set intake speed for auto
+
 IntakeSet::IntakeSet(float spd) :
   frc::Command("IntakeSet")
 {

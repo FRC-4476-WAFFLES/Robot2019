@@ -8,6 +8,8 @@
 #include "commands/Elevator/ElevatorBottom.h"
 #include "Robot.h"
 
+//set the elevator to the bottom postition using SeekTo
+
 ElevatorBottom::ElevatorBottom():
   frc::Command("ElevatorBottom")
 {

@@ -9,6 +9,8 @@
 #include "Robot.h"
 #include "frc/RobotState.h"
 
+//Default command for Lights, independantly determines which light mode to set
+
 LightGeneral::LightGeneral() {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
@@ -21,24 +23,36 @@ void LightGeneral::Initialize() {
 }
 // Called repeatedly when this Command is scheduled to run
 void LightGeneral::Execute() {
+  //make sure the robot is not disabled, if so, do that mode regardless
   if(!frc::RobotState::IsDisabled()){
-    if(Robot::Drive.is_tracking_drive){
+    if(Robot::Drive.is_tracking_drive || Robot::Drive.is_turning_tracking){
+      //if tracking, tell us if we have a target, update the limelight LEDs
+      Robot::Camera.SetLedMode(Robot::Camera.CameraLEDMode::On);
       if(Robot::Drive.missing_vision_target){
         Robot::Lights.UpdateColour(Robot::Lights.ColourCodes::TrackingWithoutTarget);
       }else{
         Robot::Lights.UpdateColour(Robot::Lights.ColourCodes::TrackingWithTarget);
       }
     }else if(Robot::Hatch.HasPannel()){
+      //tell us if we think have a hatch
       Robot::Lights.UpdateColour(Robot::Lights.ColourCodes::HaveHatch);
     }else if(Robot::Intake.HasCargo()){
+      //tell us if we think have a cargo
       Robot::Lights.UpdateColour(Robot::Lights.ColourCodes::HaveCargo);
     }else if(Robot::Lights.hp_strobe){
+      //strobe the lights at hp
+      Robot::Camera.SetLedMode(Robot::Camera.CameraLEDMode::On);
       Robot::Lights.UpdateColour(Robot::Lights.ColourCodes::WantCargoFromHP);
     }else{
+      // if nothing else, tun the lights off.
       Robot::Lights.UpdateColour(Robot::Lights.ColourCodes::None);
     }
   }else{
     Robot::Lights.UpdateColour(Robot::Lights.ColourCodes::Disabled);
+  }
+
+  if(!Robot::Drive.is_tracking_drive || !Robot::Drive.is_turning_tracking || !Robot::Lights.hp_strobe){
+    Robot::Camera.SetLedMode(Robot::Camera.CameraLEDMode::Off);
   }
 }
 
