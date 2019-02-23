@@ -60,6 +60,5 @@
     "bitset": "cpp",
     "complex": "cpp",
     "numeric": "cpp"
-  },
-  "C_Cpp.default.configurationProvider": "vscode-wpilib"
+  }
 }

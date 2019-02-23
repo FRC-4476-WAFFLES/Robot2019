@@ -13,6 +13,7 @@
 #include <ctre/phoenix/motorcontrol/can/TalonSRX.h>
 #include <ctre/phoenix/motorcontrol/can/VictorSPX.h>
 #include <frc/VictorSP.h>
+#include <frc/AnalogInput.h>
 using namespace frc;
 
 class IntakeSubsystem : public frc::Subsystem {
@@ -33,4 +34,6 @@ class IntakeSubsystem : public frc::Subsystem {
   VictorSP cargoCarriageLeft;
   VictorSP cargoCarriageRight;
   WPI_VictorSPX cargoIntake;
+  AnalogInput IR;
+  float current_distance_voltage = 0;
 };

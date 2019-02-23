@@ -14,8 +14,8 @@
  * floating around.
  */
 //PWM
-constexpr int LEFT_CARGO_CARRIAGE = 0;//SPX
-constexpr int RIGHT_CARGO_CARRIAGE = 9;//SPX
+constexpr int LEFT_CARGO_CARRIAGE = 8;//SP---0
+constexpr int RIGHT_CARGO_CARRIAGE = 9;//SP---9
 
 constexpr int SPARE_SP_1 = 8;
 constexpr int SPARE_SP_2 = 1;
@@ -50,7 +50,7 @@ constexpr int HATCH_UNEXTEND = 1;//double Solenoid
 //DIGITAL INPUT
 
 //ANALOG INPUT
-
+constexpr int INFRA_RED = 0;
 
 // For example to map the left and right motors, you could define the
 // following variables to use with your drivetrain subsystem.
