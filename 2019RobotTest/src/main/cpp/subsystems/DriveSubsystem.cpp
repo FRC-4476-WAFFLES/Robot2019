@@ -74,11 +74,13 @@ void DriveSubsystem::WafflesDrive(float Left, float Right) {
 	right1.Set(ControlMode::PercentOutput, Right);
 	missing_vision_target = false;
 	is_tracking_drive = false;
+	is_turning_tracking = false;
 }
 
 void DriveSubsystem::TrackingDrive(float Left, float Right){
 	Robot::Camera.SetCameraProcessingMode(0);
 	is_tracking_drive = true;
+	is_turning_tracking = true;
 	double kp_turning = UpdateSinglePreference("camera turning p", -0.017);
 	double kp_driving = UpdateSinglePreference("camera driving p", -0.017);
 	double kp_forwards = UpdateSinglePreference("camera area coefficient", 0.017);

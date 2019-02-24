@@ -77,6 +77,7 @@ class ElevatorSubsystem : public frc::Subsystem {
   float next_cargo_extend_position = 0.0;
   float position_when_seek_to_set = 0;
   int current_gamepiece = 1;//default to Hatch
+  bool fudging = false;
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities

@@ -192,7 +192,7 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "6,4": {
+          "5,4": {
             "size": [
               1,
               1
@@ -264,9 +264,9 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "7,4": {
+          "6,4": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -286,7 +286,7 @@
               "_title": "Intake/Intake Speed"
             }
           },
-          "5,4": {
+          "4,4": {
             "size": [
               1,
               1
@@ -443,6 +443,17 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Elevator/ElevatorError",
               "_title": "Elevator/ElevatorError"
+            }
+          },
+          "0,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake/IR Voltage",
+              "_title": "Intake/IR Voltage"
             }
           }
         }
@@ -607,6 +618,22 @@
                   "_type": "Speed Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [9]",
                   "_title": "Talon SRX [9]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Voltage View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/AnalogInput[0]",
+                  "_title": "/LiveWindow/Ungrouped/AnalogInput[0]",
+                  "Range/Min": 0.0,
+                  "Range/Max": 5.0,
+                  "Range/Center": 0.0,
+                  "Visuals/Orientation": "HORIZONTAL",
+                  "Visuals/Number of tick marks": 5.0
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/VictorSP[8]",
+                  "_title": "/LiveWindow/Ungrouped/VictorSP[8]",
                   "Visuals/Orientation": "HORIZONTAL"
                 }
               ]
@@ -811,7 +838,7 @@
   "windowGeometry": {
     "x": -8.0,
     "y": -8.0,
-    "width": 1554.0,
+    "width": 1554.4000244140625,
     "height": 916.0
   }
 }

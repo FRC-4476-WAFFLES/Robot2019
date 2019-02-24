@@ -106,6 +106,7 @@ void ElevatorSubsystem::Periodic(){
     std::cout << "in state 0" << std::endl;
   }else if(elevator_state_machine_state == 1){//pull the extend out
     std::cout << "in state 1" << std::endl;
+    fudging = false;
     std::cout << fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) << std::endl;
     elevatorMaster.Set(ControlMode::Position, position_when_seek_to_set);
     pull_in_cargo_exend = false;
@@ -118,6 +119,7 @@ void ElevatorSubsystem::Periodic(){
     }
   }else if(elevator_state_machine_state == 2){//move the elevator
     std::cout << "in state 2" << std::endl;
+    fudging = false;
     elevatorMaster.Set(ControlMode::Position, next_elevator_position);
     pull_in_cargo_exend = false;
     if(fabs(fabs(elevator_position) - fabs(next_elevator_position)) < 60.0){
@@ -134,6 +136,7 @@ void ElevatorSubsystem::Periodic(){
     //Elevator Fudge
     if(fabs(elevatorjoy) > 0.1){
       next_elevator_position = elevator_position + elevatorjoy * 50.0;
+      fudging = true;
     }
     //set the motor to the fudge position using the encoder
     elevatorMaster.Set(ControlMode::Position, next_elevator_position);
@@ -143,7 +146,7 @@ void ElevatorSubsystem::Periodic(){
       pull_in_cargo_exend = false;
       Robot::Hatch.UpdateHatch(Robot::Hatch.current_clamp_state, true);
       next_elevator_position = GROUND_PICKUP_CARGO;
-    }else if(elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE+100){
+    }else if(elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE+100 && fudging){
       position_when_seek_to_set = elevator_position;
       elevator_state_machine_state = 5;
       pull_in_cargo_exend = false;
