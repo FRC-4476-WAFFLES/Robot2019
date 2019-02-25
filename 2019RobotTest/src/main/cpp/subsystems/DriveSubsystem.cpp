@@ -75,29 +75,35 @@ void DriveSubsystem::WafflesDrive(float Left, float Right) {
 	missing_vision_target = false;
 	is_tracking_drive = false;
 	is_turning_tracking = false;
+	last_angle_error = 0;
+	last_time.Stop();
 }
 
 void DriveSubsystem::TrackingDrive(float Left, float Right){
+	last_time.Reset();
+	last_time.Start();
+	double time = last_time.Get();
 	Robot::Camera.SetCameraProcessingMode(0);
 	is_tracking_drive = true;
 	is_turning_tracking = true;
 	double kp_turning = UpdateSinglePreference("camera turning p", -0.017);
+	double kd_turning = UpdateSinglePreference("camera turning d", -0.017);
 	double kp_driving = UpdateSinglePreference("camera driving p", -0.017);
 	double kp_forwards = UpdateSinglePreference("camera area coefficient", 0.017);
 	double area = Robot::Camera.GetCameraTA();
-	float otherkp = UpdateSinglePreference("skew kp", 0.004);
+	// float otherkp = UpdateSinglePreference("skew kp", 0.004);
 	double tx = Robot::Camera.GetCameraTX();
-	float ts = GetSkew();
+	// float ts = GetSkew();
 	Left = Left*(1/(area*kp_forwards));
 	Right = Right*(1/(area*kp_forwards));
-	double skew_error = 1/(ts*otherkp);
-	if(skew_error > 7){
-		skew_error = 7;
-	}else if(skew_error < -7){
-		skew_error = -7;
-	}
-	tx = tx; //+ skew_error;
-	 double error = 0;
+	// double skew_error = 1/(ts*otherkp);
+	// if(skew_error > 7){
+	// 	skew_error = 7;
+	// }else if(skew_error < -7){
+	// 	skew_error = -7;
+	// }
+	// tx = tx; //+ skew_error;
+	double error = 0;
 	if(is_turning_tracking){
 		error = kp_turning*tx;
 	}else{
@@ -127,9 +133,13 @@ void DriveSubsystem::TrackingDrive(float Left, float Right){
 			is_turning_tracking = false;
 		}
 	}else{
+		double angle_error = target_angle - Gyro();
+		kd_turning = kd_turning * ((angle_error - last_angle_error) / time);
+		double angle_out = clamp(kd_turning + tx*kp_turning, -0.45, 0.45);
 		Left = error*10;
 		Right = -error*10;
 		is_turning_tracking = true;
+		angle_error = last_angle_error;
 	}
 	SmartDashboard::PutNumber("Drive/trackingError", error);
 	left1.Set(ControlMode::PercentOutput, -Left);
@@ -217,4 +227,15 @@ void DriveSubsystem::ClosePath(){
 
 double DriveSubsystem::AvgDriveOut(){
 	return (left1.GetMotorOutputPercent()+right1.GetMotorOutputPercent())/2;
+}
+
+double DriveSubsystem::clamp(double value, double min, double max) {
+	//function to make sure a givien value doesn't exceed the given parameters.
+	if(value < min) {
+		return min;
+	} else if(value > max) {
+		return max;
+	} else {
+		return value;
+	}
 }

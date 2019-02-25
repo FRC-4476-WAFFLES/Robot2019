@@ -18,4 +18,5 @@ class OperatorTankDrive : public frc::Command {
 	void End();
 	void Interrupted();
 	bool has_toggled = false;
+	bool has_set = false;
 };
