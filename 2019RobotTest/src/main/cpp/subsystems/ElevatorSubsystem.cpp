@@ -107,6 +107,7 @@ void ElevatorSubsystem::Periodic(){
   }else if(elevator_state_machine_state == 1){//pull the extend out
     std::cout << "in state 1" << std::endl;
     fudging = false;
+    has_moved_for_vision = false;
     std::cout << fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) << std::endl;
     elevatorMaster.Set(ControlMode::Position, position_when_seek_to_set);
     pull_in_cargo_exend = false;
@@ -147,18 +148,24 @@ void ElevatorSubsystem::Periodic(){
       Robot::Hatch.UpdateHatch(Robot::Hatch.current_clamp_state, true);
       next_elevator_position = GROUND_PICKUP_CARGO;
     }else if(elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE+100 && fudging){
-      position_when_seek_to_set = elevator_position;
+      // position_when_seek_to_set = elevator_position;
       elevator_state_machine_state = 5;
       pull_in_cargo_exend = false;
-    }else{
+    }else /* if(Robot::Drive.is_tracking_drive && Robot::Drive.missing_vision_target && next_elevator_position > LIMIT_OF_EFFECTED_BY_CARGO_INTAKE){
+      next_elevator_position -= 100;
+      has_moved_for_vision = true;
+    }else */ {
       pull_in_cargo_exend = true;
+      if(next_elevator_position == GROUND_PICKUP_CARGO){
+        next_elevator_position = 0.0;
+      }
     }
     
     // in manual mode, move the extend out of the way if neccessary
   }else if(elevator_state_machine_state == 5){//for when fudging
     std::cout << "in state 5" << std::endl;
     std::cout << fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) << std::endl;
-    elevatorMaster.Set(ControlMode::Position, position_when_seek_to_set);
+    // elevatorMaster.Set(ControlMode::Position, position_when_seek_to_set);
     pull_in_cargo_exend = false;
     if(fabs(fabs(extend_position) - fabs(CARGO_EXTEND_CARGO)) < 40.0 && Robot::Intake.HasCargo()){
       elevator_state_machine_state = 4;
