@@ -38,7 +38,6 @@ class DriveSubsystem : public frc::Subsystem {
   bool IsPathFinished();
   void ClosePath();
   double AvgDriveOut();
-  double clamp(double value, double min, double max);
   
 
 
@@ -90,8 +89,7 @@ class DriveSubsystem : public frc::Subsystem {
 	EncoderFollower right_follower;
 	EncoderConfig encoder_config_left;
 	EncoderConfig encoder_config_right;
-	double last_angle_error;
-	Timer last_time;
+
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
 };

@@ -27,10 +27,6 @@ void OperatorTankDrive::Initialize() {
 void OperatorTankDrive::Execute() {
   //check if the driver is requesting vision assistance
 	if(Robot::oi.right.GetRawButton(10) || Robot::oi.right.GetRawButton(11)){
-		if(!has_set){
-			has_set = true;
-			Robot::Drive.target_angle = Robot::Camera.GetCameraTX() + Robot::Drive.Gyro();
-		}
 		Robot::Drive.TrackingDrive(-0.25, -0.25);
 	}else {
     //set the drive to the y axis of the joysticks
@@ -48,7 +44,6 @@ void OperatorTankDrive::Execute() {
 	if(!Robot::Drive.is_turning_tracking && !Robot::Drive.is_tracking_drive){
     //if we aren't vision tracking then next time we are we can auto clamp again
 		has_toggled = false;
-		has_set = true;
 	}
 }
 
