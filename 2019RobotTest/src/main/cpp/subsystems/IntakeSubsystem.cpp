@@ -46,11 +46,11 @@ void IntakeSubsystem::Periodic(){
     }else{
       is_intaking = false;
     }
-    if(-speed>= 0.5){
-      has_cargo = false;
-    }else if(-speed<=-0.5){
-      has_cargo = true;
-    }
+    // if(-speed>= 0.5){
+    //   has_cargo = false;
+    // }else if(-speed<=-0.5){
+    //   has_cargo = true;
+    // }
   }
   
 }
@@ -59,11 +59,11 @@ void IntakeSubsystem::SetIntakeSpeed(double Speed){
   speed = Speed;
 }
 bool IntakeSubsystem::HasCargo(){
-  // if(current_distance_voltage > 1.200 && current_distance_voltage < 3.000){
-  //   has_cargo = true;
-  // }else{
-  //   has_cargo = false;
-  // }
+  if(current_distance_voltage > 1.200 && current_distance_voltage < 3.000){
+    has_cargo = true;
+  }else{
+    has_cargo = false;
+  }
   return has_cargo;
 }
 

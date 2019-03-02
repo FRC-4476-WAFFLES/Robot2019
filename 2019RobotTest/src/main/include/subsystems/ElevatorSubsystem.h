@@ -36,17 +36,17 @@ class ElevatorSubsystem : public frc::Subsystem {
   //HATCH
   constexpr static float GROUND_PICKUP_HATCH = 0.0;
   constexpr static float BOTTOM_HATCH_POSITION = 0.0;
-  constexpr static float MIDDLE_HATCH_POSITION = 1290.0;
-  constexpr static float TOP_HATCH_POSITION = 2648.0;
+  constexpr static float MIDDLE_HATCH_POSITION = 2916.0;
+  constexpr static float TOP_HATCH_POSITION = 0.0;
 
   //CARGO
-  constexpr static float GROUND_PICKUP_CARGO = 165.0;
+  constexpr static float GROUND_PICKUP_CARGO = 100.0;
   constexpr static float HUMAN_PLAYER_PICKUP_CARGO = 0.0;
-  constexpr static float CARGO_SHIP_CARGO_POSITION = 1750.0;
-  constexpr static float BOTTOM_CARGO_POSITION = 961.0;
-  constexpr static float MIDDLE_CARGO_POSITION = 2324.0;
-  constexpr static float TOP_CARGO_POSITION = 3500.0;
-  constexpr static float LIMIT_OF_EFFECTED_BY_CARGO_INTAKE = 700.0;
+  constexpr static float CARGO_SHIP_CARGO_POSITION = 3180.0;
+  constexpr static float BOTTOM_CARGO_POSITION = 1990.0;
+  constexpr static float MIDDLE_CARGO_POSITION = 3180.0;
+  constexpr static float TOP_CARGO_POSITION = 0.0;
+  constexpr static float LIMIT_OF_EFFECTED_BY_CARGO_INTAKE = 1650.0;
 
   //CARGO EXTEND OUT
   constexpr static float CARGO_EXTEND_CARGO = -1175.0;
@@ -78,7 +78,6 @@ class ElevatorSubsystem : public frc::Subsystem {
   float position_when_seek_to_set = 0;
   int current_gamepiece = 1;//default to Hatch
   bool fudging = false;
-  bool has_moved_for_vision = false;
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
