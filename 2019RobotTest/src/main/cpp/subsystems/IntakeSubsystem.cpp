@@ -31,7 +31,7 @@ void IntakeSubsystem::InitDefaultCommand() {
 
 void IntakeSubsystem::Periodic(){
   current_distance_voltage = IR.GetVoltage();
-  if(frc::DriverStation::GetInstance().IsOperatorControl()){
+  // if(frc::DriverStation::GetInstance().IsOperatorControl()){
     speed = Robot::oi.IntakeSpeed();
     float effect_on_angle = UpdateSinglePreference("outtake angle impact", 0.5);
     cargoCarriageLeft.Set(-speed + Robot::oi.OuttakeAngle()*effect_on_angle);
@@ -51,7 +51,7 @@ void IntakeSubsystem::Periodic(){
     }else if(-speed<=-0.5){
       has_cargo = true;
     }
-  }
+  // }
   
 }
 

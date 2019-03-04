@@ -58,13 +58,15 @@ void Robot::RobotPeriodic() {}
  * robot is disabled.
  */
 void Robot::DisabledInit() {
-  oi.hid.SetRumble(frc::GenericHID::RumbleType::kLeftRumble, 0.0);
-  oi.hid.SetRumble(frc::GenericHID::RumbleType::kRightRumble, 0.0);
+  // oi.hid.SetRumble(frc::GenericHID::RumbleType::kLeftRumble, 0.0);
+  // oi.hid.SetRumble(frc::GenericHID::RumbleType::kRightRumble, 0.0);
+  Camera.SetCameraProcessingMode(1);
 }
 
 void Robot::DisabledPeriodic() { 
   frc::Scheduler::GetInstance()->Run();
   Camera.SetLedMode(Camera.CameraLEDMode::Off);
+  Camera.SetCameraProcessingMode(1);
   oi.Prints();
 }
 
@@ -106,11 +108,13 @@ void Robot::TeleopInit() {
   // teleop starts running. If you want the autonomous to
   // continue until interrupted by another command, remove
   // this line or comment it out.
-  oi.hid.SetRumble(frc::GenericHID::RumbleType::kLeftRumble, 1.0);
-  oi.hid.SetRumble(frc::GenericHID::RumbleType::kRightRumble, 1.0);
+  Camera.SetCameraProcessingMode(1);
+  // oi.hid.SetRumble(frc::GenericHID::RumbleType::kLeftRumble, 1.0);
+  // oi.hid.SetRumble(frc::GenericHID::RumbleType::kRightRumble, 1.0);
 
-  if(fabs(fabs(Elevator.ElevatorPosition())-fabs(Elevator.GetNextPosition()) > 100));
-  Elevator.elevator_state_machine_state = 1;
+  if(fabs(fabs(Elevator.ElevatorPosition())-fabs(Elevator.GetNextPosition()) > 100)){
+    Elevator.elevator_state_machine_state = 1;
+  }
   if (autonomousCommand != nullptr) {
     autonomousCommand->Cancel();
     autonomousCommand = nullptr;

@@ -27,6 +27,7 @@ class CameraSubsystem : public frc::Subsystem {
   double GetCameraTS();
   double GetCameraTA();
   void SetCameraProcessingMode(int mode);
+  void SetSnapshotMode(int mode);
   enum CameraLEDMode {
     Default = 0,
     Off = 1,
@@ -36,6 +37,10 @@ class CameraSubsystem : public frc::Subsystem {
   enum ProcessingMode {
     Vision = 0,
     Driver = 1,
+  };
+  enum SnapshotMode {
+    SnapOff = 0,
+    SnapOn = 1,
   };
 };
 //getting data

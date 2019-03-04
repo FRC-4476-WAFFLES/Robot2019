@@ -31,19 +31,21 @@ void OperatorTankDrive::Execute() {
 			has_set = true;
 			Robot::Drive.target_angle = Robot::Camera.GetCameraTX() + Robot::Drive.Gyro();
 		}
+		Robot::Camera.SetSnapshotMode(Robot::Camera.SnapshotMode::SnapOn);
 		Robot::Drive.TrackingDrive(-0.25, -0.25);
 	}else {
     //set the drive to the y axis of the joysticks
 	  Robot::Drive.WafflesDrive(Robot::oi.left.GetY(), Robot::oi.right.GetY());
+		Robot::Camera.SetSnapshotMode(Robot::Camera.SnapshotMode::SnapOff);
 	}
 	if(!Robot::Drive.is_turning_tracking){
     //if we're in the drive strait part of vision tracking, and we are very close to the target, then
     //change the clamp state to pick up or drop off a hatch. 
-		if(Robot::Drive.AvgDriveOut()> 0.17 && !has_toggled){
-			has_toggled = true;
-      //                                   opposite                            same
-			Robot::Hatch.UpdateHatch(!Robot::Hatch.current_clamp_state, Robot::Hatch.current_deploy_state);
-		}
+		// if(Robot::Drive.AvgDriveOut()> 0.17 && !has_toggled){
+		// 	has_toggled = true;
+    //   //                                   opposite                            same
+		// 	// Robot::Hatch.UpdateHatch(!Robot::Hatch.current_clamp_state, Robot::Hatch.current_deploy_state);
+		// }
 	}
 	if(!Robot::Drive.is_turning_tracking && !Robot::Drive.is_tracking_drive){
     //if we aren't vision tracking then next time we are we can auto clamp again

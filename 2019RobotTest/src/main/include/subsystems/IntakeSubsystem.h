@@ -28,12 +28,13 @@ class IntakeSubsystem : public frc::Subsystem {
   double speed = 0.0;
   bool is_intaking = false;
   bool has_cargo = false;
- private:
-  // It's desirable that everything possible under private except
-  // for methods that implement subsystem capabilities
   VictorSP cargoCarriageLeft;
   VictorSP cargoCarriageRight;
   WPI_VictorSPX cargoIntake;
   AnalogInput IR;
   float current_distance_voltage = 0;
+ private:
+  // It's desirable that everything possible under private except
+  // for methods that implement subsystem capabilities
+  
 };

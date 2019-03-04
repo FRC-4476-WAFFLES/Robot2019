@@ -8,10 +8,18 @@
 #include "commands/Auto/GeneralTestAuto.h"
 #include "commands/Drive/DriveAutoLines.h"
 #include "commands/Drive/PathFollower.h"
+#include "commands/Drive/OperatorTankDrive.h"
+#include "commands/Elevator/ElevatorAutoManual.h"
+#include "commands/Hatch/HatchAutoManual.h"
+#include "commands/Intake/IntakeAutoManual.h"
+
 //this is an ediable auto for testing things.
 GeneralTestAuto::GeneralTestAuto() :
  CommandGroup("GeneralTestAuto") 
 {
-  AddSequential(new PathFollower("first"));
-
+  AddSequential(new OperatorTankDrive());
+  AddParallel(new ElevatorAutoManual());
+  AddParallel(new HatchAutoManual());
+  AddParallel(new IntakeAutoManual());
+  
 }

@@ -5,48 +5,36 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/Elevator/ElevatorMiddle.h"
+#include "commands/Elevator/ElevatorAutoManual.h"
 #include "Robot.h"
 
-//set the elevator to the Middle postition using SeekTo
-
-ElevatorMiddle::ElevatorMiddle():
-  frc::Command("ElevatorMiddle")
-{
+ElevatorAutoManual::ElevatorAutoManual() {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  Requires(&Robot::Elevator);
 }
 
 // Called just before this Command runs the first time
-void ElevatorMiddle::Initialize() {
-  Robot::Elevator.SeekTo(Robot::Elevator.Positions::Middle);
-  time_held.Reset();
-  time_held.Start();
-}
+void ElevatorAutoManual::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ElevatorMiddle::Execute() {
-  //if we hold the button, then go to the alternate setpoint
-  if(time_held.Get() > 1 && !is_over_time_threshold){
-    is_over_time_threshold = true;
-    Robot::Elevator.SeekTo(Robot::Elevator.Positions::CargoShip);
-    
+void ElevatorAutoManual::Execute() {
+  if(Robot::oi.operate.GetRawButton(Robot::oi.B)){
+    Robot::Elevator.SeekTo(Robot::Elevator.Positions::Ground);
+  }else if(Robot::oi.operate.GetRawButton(Robot::oi.A)){
+    Robot::Elevator.SeekTo(Robot::Elevator.Positions::Bottom);
+  }else if(Robot::oi.operate.GetRawButton(Robot::oi.X)){
+    Robot::Elevator.SeekTo(Robot::Elevator.Positions::Middle);
+  }else if(Robot::oi.operate.GetRawButton(Robot::oi.Y)){
+    Robot::Elevator.SeekTo(Robot::Elevator.Positions::Top);
   }
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ElevatorMiddle::IsFinished() { return false; }
+bool ElevatorAutoManual::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-void ElevatorMiddle::End() {
-  time_held.Stop();
-  time_held.Reset();
-
-}
+void ElevatorAutoManual::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ElevatorMiddle::Interrupted() {
-  End();
-}
+void ElevatorAutoManual::Interrupted() {}

@@ -5,48 +5,39 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/Elevator/ElevatorMiddle.h"
+#include "commands/Hatch/HatchAutoManual.h"
 #include "Robot.h"
 
-//set the elevator to the Middle postition using SeekTo
-
-ElevatorMiddle::ElevatorMiddle():
-  frc::Command("ElevatorMiddle")
-{
+HatchAutoManual::HatchAutoManual() {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  Requires(&Robot::Elevator);
 }
 
 // Called just before this Command runs the first time
-void ElevatorMiddle::Initialize() {
-  Robot::Elevator.SeekTo(Robot::Elevator.Positions::Middle);
-  time_held.Reset();
-  time_held.Start();
-}
+void HatchAutoManual::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ElevatorMiddle::Execute() {
-  //if we hold the button, then go to the alternate setpoint
-  if(time_held.Get() > 1 && !is_over_time_threshold){
-    is_over_time_threshold = true;
-    Robot::Elevator.SeekTo(Robot::Elevator.Positions::CargoShip);
-    
+void HatchAutoManual::Execute() {
+  if(Robot::oi.operate.GetRawButton(Robot::oi.BumperTopLeft)){
+    Robot::Hatch.UpdateHatch(Robot::Hatch.current_clamp_state, !Robot::Hatch.current_deploy_state);
+  }
+  while(Robot::oi.operate.GetRawButton(Robot::oi.BumperTopLeft)){
+    counter = counter+1;
+  }
+  if(Robot::oi.operate.GetRawButton(Robot::oi.BumperTopRight)){
+    Robot::Hatch.UpdateHatch(!Robot::Hatch.current_clamp_state, Robot::Hatch.current_deploy_state);
+  }
+  while(Robot::oi.operate.GetRawButton(Robot::oi.BumperTopRight)){
+    counter = counter+1;
   }
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ElevatorMiddle::IsFinished() { return false; }
+bool HatchAutoManual::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-void ElevatorMiddle::End() {
-  time_held.Stop();
-  time_held.Reset();
-
-}
+void HatchAutoManual::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ElevatorMiddle::Interrupted() {
-  End();
-}
+void HatchAutoManual::Interrupted() {}

@@ -34,3 +34,6 @@ double CameraSubsystem::GetCameraTA(){
 void CameraSubsystem::SetCameraProcessingMode(int mode){
   camera->PutNumber("camMode", mode);
 }
+void CameraSubsystem::SetSnapshotMode(int mode){
+  camera->PutNumber("snapshot", mode);
+}

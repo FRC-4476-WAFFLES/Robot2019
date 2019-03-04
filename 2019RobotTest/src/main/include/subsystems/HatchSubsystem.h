@@ -20,9 +20,9 @@ class HatchSubsystem : public frc::Subsystem {
   void UpdateHatch(bool clamp, bool deploy);
   bool HasPannel();
   void Prints();
-  bool current_clamp_state = false;
+  bool current_clamp_state = true;
   bool current_deploy_state = false;
-  bool next_clamp_state = false;
+  bool next_clamp_state = true;
   bool next_deploy_state = false;
   bool has_pannel = false;
   DoubleSolenoid hatchDeploy;

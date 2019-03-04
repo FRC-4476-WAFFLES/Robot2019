@@ -87,9 +87,9 @@ void ElevatorSubsystem::Periodic(){
     elevatorMaster.SetSelectedSensorPosition(0, 0, 0);
 	}
   
-  if(cargoIntakeExtend.GetSensorCollection().IsFwdLimitSwitchClosed()){
-    cargoIntakeExtend.SetSelectedSensorPosition(0);
-  }
+  // if(cargoIntakeExtend.GetSensorCollection().IsFwdLimitSwitchClosed()){
+  //   cargoIntakeExtend.SetSelectedSensorPosition(0);
+  // }
 
   double elevatorjoy = -1*Robot::oi.ElevatorFudge();
 
@@ -101,7 +101,7 @@ void ElevatorSubsystem::Periodic(){
 
   if(t.Get() < 0.0 && frc::DriverStation::GetInstance().IsOperatorControl()){
     elevatorMaster.Set(ControlMode::PercentOutput, 0.0);
-    cargoIntakeExtend.Set(ControlMode::PercentOutput, 0.0);
+    // cargoIntakeExtend.Set(ControlMode::PercentOutput, 0.0);
   }else if(elevator_state_machine_state == 0){
     std::cout << "in state 0" << std::endl;
   }else if(elevator_state_machine_state == 1){//pull the extend out
@@ -145,22 +145,22 @@ void ElevatorSubsystem::Periodic(){
     //if intaking, move the extend out
     if(Robot::Intake.is_intaking){
       pull_in_cargo_exend = false;
-      Robot::Hatch.UpdateHatch(Robot::Hatch.current_clamp_state, true);
-      next_elevator_position = GROUND_PICKUP_CARGO;
+      Robot::Hatch.UpdateHatch(Robot::Hatch.current_clamp_state, false);
+      // next_elevator_position = GROUND_PICKUP_CARGO;
     }else if(elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE+100 && fudging){
       // position_when_seek_to_set = elevator_position;
       elevator_state_machine_state = 5;
       pull_in_cargo_exend = false;
-    }else if(Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && !Robot::Drive.is_tracking_drive &&!Robot::Drive.is_turning_tracking){
-      pull_in_cargo_exend = false;
+    // }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && !Robot::Drive.is_tracking_drive &&!Robot::Drive.is_turning_tracking){
+    //   pull_in_cargo_exend = false;
     }else /* if(Robot::Drive.is_tracking_drive && Robot::Drive.missing_vision_target && next_elevator_position > LIMIT_OF_EFFECTED_BY_CARGO_INTAKE){
       next_elevator_position -= 100;
       has_moved_for_vision = true;
     }else */ {
       pull_in_cargo_exend = true;
-      // if(next_elevator_position == GROUND_PICKUP_CARGO){
-      //   next_elevator_position = 0.0;
-      // }
+      if(next_elevator_position == GROUND_PICKUP_CARGO){
+        next_elevator_position = 0.0;
+      }
     }
     
     // in manual mode, move the extend out of the way if neccessary
@@ -256,25 +256,21 @@ float ElevatorSubsystem::ElevatorPosition(){
 }
 
 void ElevatorSubsystem::ExtendPeriodic(){
-  cout << "extend periodic"<< endl;
-  if(!DriverStation::GetInstance().IsAutonomous()){
-    cout <<"is not autonomous" << endl;
+  // if(!DriverStation::GetInstance().IsAutonomous()){
     if(pull_in_cargo_exend){
       cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
-      cout<< "in for extend" << endl;
     }else{
       if(Robot::Intake.is_intaking){
         cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_INTAKE);
-        cout<< "set" << endl;
       }else if(Robot::Intake.HasCargo()){
         cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_CARGO);
-        cout<< "set" << endl;
+      // }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && !Robot::Drive.is_tracking_drive &&!Robot::Drive.is_turning_tracking){
+      //   cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_SUPPORT);
       }else{
         cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_HATCH);
-        cout<< "set" << endl;
       }
     }
-  }
+  // }
 }
 
 void ElevatorSubsystem::Prints(){
