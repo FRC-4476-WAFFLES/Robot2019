@@ -17,23 +17,35 @@ void CameraSubsystem::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void CameraSubsystem::SetLedMode(int mode){
+  //update the existing entry on the table to change what the Limelight leds are doing. list in .h->CameraLEDMode(enum).
   camera->PutNumber("ledMode", mode);
 }
 double CameraSubsystem::GetCameraTX(){
+  //get the x distance between the center of the target and the center of the crosshairs.
 	return camera->GetNumber("tx", 0.0);
 }
 double CameraSubsystem::GetCameraTV(){
-  return camera->GetNumber("tv", 0);
+  //check for a valid target
+  int tv = camera->GetNumber("tv", 0);
+  //if the skew is too high, the camera is probobly tracking random lit pixels from lexan/doors
+  if(fabs(GetCameraTS()) > 15){//magic number
+    tv = 0;
+  }
+  return tv;
 }
 double CameraSubsystem::GetCameraTS(){
+  //get the skew / rotation of the target rectangle
   return camera->GetNumber("ts", 0.0);
 }
 double CameraSubsystem::GetCameraTA(){
+  //return the area of the target
   return camera->GetNumber("ta", 0.0);
 }
 void CameraSubsystem::SetCameraProcessingMode(int mode){
+  //update the existing entry on the table to change what the Limelight is processing. list in .h->ProcessingMode(enum).
   camera->PutNumber("camMode", mode);
 }
 void CameraSubsystem::SetSnapshotMode(int mode){
+  //update the existing entry on the table to change whether the Limelight is taking snapshots?. list in .h->SnapshotMode(enum).
   camera->PutNumber("snapshot", mode);
 }

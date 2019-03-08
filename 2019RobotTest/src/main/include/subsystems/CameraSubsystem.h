@@ -17,10 +17,12 @@ class CameraSubsystem : public frc::Subsystem {
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
+  //make the networktable for the camera an accessible object to help with legibility. the camera exists to the robot as a ToV accessible over the network
   std::shared_ptr<NetworkTable> camera = NetworkTableInstance::GetDefault().GetTable("limelight");
  public:
   CameraSubsystem();
   void InitDefaultCommand() override;
+  //custom methods
   void SetLedMode(int mode);
   double GetCameraTX();
   double GetCameraTV();
@@ -28,6 +30,7 @@ class CameraSubsystem : public frc::Subsystem {
   double GetCameraTA();
   void SetCameraProcessingMode(int mode);
   void SetSnapshotMode(int mode);
+  //turns random numbers into a legible list of options
   enum CameraLEDMode {
     Default = 0,
     Off = 1,
