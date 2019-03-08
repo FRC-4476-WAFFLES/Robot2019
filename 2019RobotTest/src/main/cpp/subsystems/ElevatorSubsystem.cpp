@@ -90,7 +90,7 @@ void ElevatorSubsystem::Periodic(){
 
   if(Robot::oi.left.GetRawButton(10)) {
     elevatorMaster.SetSelectedSensorPosition(0, 0, 0);
-    elevatorMaster.SetSelectedSensorPosition(0, 0, 0);
+    cargoIntakeExtend.SetSelectedSensorPosition(0, 0, 0);
 	}
   
   // if(cargoIntakeExtend.GetSensorCollection().IsFwdLimitSwitchClosed()){
