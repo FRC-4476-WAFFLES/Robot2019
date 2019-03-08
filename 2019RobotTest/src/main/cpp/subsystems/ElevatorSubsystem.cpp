@@ -78,9 +78,15 @@ void ElevatorSubsystem::AutoDetectCurrentGamepiece(){
 }
 
 void ElevatorSubsystem::Periodic(){
-  //         name          srx(lead)     p    i    d    f
-  UpdatePID("elevator", elevatorMaster, 0.0, 0.0, 0.0, 0.0);
-  UpdatePID("cargo_extend", cargoIntakeExtend, 0.0, 0.0, 0.0, 0.0);
+  //if we are going down
+  if(next_elevator_position - ElevatorPosition() < 0){
+    UpdatePID("elevatorDown", elevatorMaster, 0.0, 0.0, 0.0, 0.0);
+    UpdatePID("cargo_extend", cargoIntakeExtend, 0.0, 0.0, 0.0, 0.0);
+  }else{
+    //         name          srx(lead)     p    i    d    f
+    UpdatePID("elevator", elevatorMaster, 0.0, 0.0, 0.0, 0.0);
+    UpdatePID("cargo_extend", cargoIntakeExtend, 0.0, 0.0, 0.0, 0.0);
+  }
 
   if(Robot::oi.left.GetRawButton(10)) {
     elevatorMaster.SetSelectedSensorPosition(0, 0, 0);
@@ -146,17 +152,17 @@ void ElevatorSubsystem::Periodic(){
     if(Robot::Intake.is_intaking){
       pull_in_cargo_exend = false;
       Robot::Hatch.UpdateHatch(Robot::Hatch.current_clamp_state, false);
-      // next_elevator_position = GROUND_PICKUP_CARGO;
+      next_elevator_position = GROUND_PICKUP_CARGO;
     }else if(elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE+100 && fudging){
       // position_when_seek_to_set = elevator_position;
       elevator_state_machine_state = 5;
       pull_in_cargo_exend = false;
-    // }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && !Robot::Drive.is_tracking_drive &&!Robot::Drive.is_turning_tracking){
-    //   pull_in_cargo_exend = false;
-    }else /* if(Robot::Drive.is_tracking_drive && Robot::Drive.missing_vision_target && next_elevator_position > LIMIT_OF_EFFECTED_BY_CARGO_INTAKE){
+    }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && !Robot::Drive.is_tracking_drive &&!Robot::Drive.is_turning_tracking){
+      pull_in_cargo_exend = false;
+    }else if(Robot::Drive.is_tracking_drive && next_elevator_position > LIMIT_OF_EFFECTED_BY_CARGO_INTAKE){
       next_elevator_position -= 100;
       has_moved_for_vision = true;
-    }else */ {
+    }else{
       pull_in_cargo_exend = true;
       if(next_elevator_position == GROUND_PICKUP_CARGO){
         next_elevator_position = 0.0;
@@ -264,8 +270,8 @@ void ElevatorSubsystem::ExtendPeriodic(){
         cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_INTAKE);
       }else if(Robot::Intake.HasCargo()){
         cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_CARGO);
-      // }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && !Robot::Drive.is_tracking_drive &&!Robot::Drive.is_turning_tracking){
-      //   cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_SUPPORT);
+      }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && !Robot::Drive.is_tracking_drive &&!Robot::Drive.is_turning_tracking){
+        cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_SUPPORT);
       }else{
         cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_HATCH);
       }
