@@ -51,7 +51,7 @@ void LightGeneral::Execute() {
     Robot::Lights.UpdateColour(Robot::Lights.ColourCodes::Disabled);
   }
 
-  if(!Robot::Drive.is_tracking_drive || !Robot::Drive.is_turning_tracking || !Robot::Lights.hp_strobe){
+  if(!Robot::Drive.is_tracking_drive && !Robot::Drive.is_turning_tracking && !Robot::Lights.hp_strobe){
     Robot::Camera.SetLedMode(Robot::Camera.CameraLEDMode::Off);
   }
 }
