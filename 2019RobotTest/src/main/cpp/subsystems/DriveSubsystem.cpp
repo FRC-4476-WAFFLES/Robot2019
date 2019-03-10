@@ -90,7 +90,7 @@ void DriveSubsystem::TrackingDrive(float Left, float Right){
 	is_tracking_drive = true;
 	is_turning_tracking = true;
 	double kp_turning = UpdateSinglePreference("camera turning p", -0.017);
-	// double kd_turning = UpdateSinglePreference("camera turning d", -0.017);
+	double kd_turning = UpdateSinglePreference("camera turning d", -0.017);
 	double kp_driving = UpdateSinglePreference("camera driving p", -0.017);
 	double kp_forwards = UpdateSinglePreference("camera area coefficient", 0.017);
 	double area = Robot::Camera.GetCameraTA();
@@ -118,35 +118,35 @@ void DriveSubsystem::TrackingDrive(float Left, float Right){
 		Left = 0;
 		Right = 0;
 		missing_vision_target = true;
-	}else if(fabs(error) < acceptable_error){
-		if(error > -MIN_TRACKING_ERROR && error < 0){
-			Left+= -MIN_TRACKING_ERROR;
-			Right-= -MIN_TRACKING_ERROR;
-			missing_vision_target = false;
-			is_turning_tracking = false;
-		}else if(error < MIN_TRACKING_ERROR && error > 0){
-			Left+= MIN_TRACKING_ERROR;
-			Right-= MIN_TRACKING_ERROR;
-			missing_vision_target = false;
-			is_turning_tracking = false;
-		}else{
-			Left+=error;
-			Right-=error;
-			missing_vision_target = false;
-			is_turning_tracking = false;
-		}
+	// }else if(fabs(error) < acceptable_error){
+	// 	if(error > -MIN_TRACKING_ERROR && error < 0){
+	// 		Left+= -MIN_TRACKING_ERROR;
+	// 		Right-= -MIN_TRACKING_ERROR;
+	// 		missing_vision_target = false;
+	// 		is_turning_tracking = false;
+	// 	}else if(error < MIN_TRACKING_ERROR && error > 0){
+	// 		Left+= MIN_TRACKING_ERROR;
+	// 		Right-= MIN_TRACKING_ERROR;
+	// 		missing_vision_target = false;
+	// 		is_turning_tracking = false;
+	// 	}else{
+	// 		Left+=error;
+	// 		Right-=error;
+	// 		missing_vision_target = false;
+	// 		is_turning_tracking = false;
+	// 	}
 	}else{
-		// double angle_error = target_angle - Gyro();
-		// kd_turning = kd_turning * ((angle_error - last_angle_error) / time);
-		// double angle_out = clamp(kd_turning + tx*kp_turning, -0.45, 0.45);
+		double angle_error = target_angle - tx;//Gyro();
+		kd_turning = kd_turning * ((angle_error - last_angle_error) / time);
+		double angle_out = clamp(kd_turning + tx*kp_turning, -0.45, 0.45);
 		Left = error*10;
 		Right = -error*10;
 		is_turning_tracking = true;
-		// angle_error = last_angle_error;
+		angle_error = last_angle_error;
 	}
 	SmartDashboard::PutNumber("Drive/trackingError", error);
-	// left1.Set(ControlMode::PercentOutput, -Left);
-	// right1.Set(ControlMode::PercentOutput, Right);
+	left1.Set(ControlMode::PercentOutput, -Left);
+	right1.Set(ControlMode::PercentOutput, Right);
 }
 
 float DriveSubsystem::GetSkew(){
