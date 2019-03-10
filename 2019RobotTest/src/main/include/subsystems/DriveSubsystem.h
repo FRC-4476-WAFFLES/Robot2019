@@ -42,7 +42,7 @@ class DriveSubsystem : public frc::Subsystem {
   
 
 
-	//pathfinder constants
+	//pathfinder constants (mostly) not randomly set
 	constexpr static float MAX_SPEED = 10.4; // feet/s
 	constexpr static float MAX_ACCEL = 25.4; // feet/s/s
 	constexpr static float MAX_JERK = 197; // feet/s/s/s
@@ -57,12 +57,15 @@ class DriveSubsystem : public frc::Subsystem {
 	double KV = 1/MAX_SPEED;
 	double KA = 0;
   
-
+	
 	PowerDistributionPanel PDP;
 
+	//for driveautolines (unimplemented)
 	double target_distance;
 	double target_angle;
 	double drive_speed_FPS = 0.0;
+
+	//persistent variables 
 	static constexpr float MIN_TRACKING_ERROR = 0.05;
 	bool missing_vision_target = false;
 	bool is_tracking_drive = false;
@@ -70,7 +73,9 @@ class DriveSubsystem : public frc::Subsystem {
 	
 
  private:
+ 	//for pathfinder only
 	static void FollowDrivePath();
+	// drive motors
 	WPI_TalonSRX left1;
 	WPI_VictorSPX left2;
 	WPI_VictorSPX left3;
@@ -78,9 +83,10 @@ class DriveSubsystem : public frc::Subsystem {
 	WPI_VictorSPX right2;
 	WPI_VictorSPX right3;
   	ADXRS450_Gyro gyro;
-
+	//for the turning in vision
 	constexpr static float acceptable_error = 0.035;
 
+	//pathfinder stuff
 	Notifier* follower_notifier;
 	int left_trajectory_length;
 	int right_trajectory_length;
@@ -90,6 +96,7 @@ class DriveSubsystem : public frc::Subsystem {
 	EncoderFollower right_follower;
 	EncoderConfig encoder_config_left;
 	EncoderConfig encoder_config_right;
+	//good for unimplemented gyro turn on vision
 	double last_angle_error;
 	Timer last_time;
   // It's desirable that everything possible under private except

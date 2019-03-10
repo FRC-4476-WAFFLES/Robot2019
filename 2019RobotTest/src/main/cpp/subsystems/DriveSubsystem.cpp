@@ -77,6 +77,9 @@ void DriveSubsystem::WafflesDrive(float Left, float Right) {
 	is_turning_tracking = false;
 	last_angle_error = 0;
 	last_time.Stop();
+	if(Robot::oi.left.GetRawButton(1) && Robot::oi.right.GetRawButton(1)){
+		gyro.Reset();
+	}
 }
 
 void DriveSubsystem::TrackingDrive(float Left, float Right){
@@ -173,7 +176,7 @@ void DriveSubsystem::Prints(){
 	SmartDashboard::PutNumber("Drive/Gyro", Gyro());
 	SmartDashboard::PutNumber("Drive/LeftOutput", left1.GetMotorOutputPercent());
 	SmartDashboard::PutNumber("Drive/RightOutput", right1.GetMotorOutputPercent());
-
+	SmartDashboard::PutNumber("Camera/TX", Robot::Camera.GetCameraTX());
 }
 
 void DriveSubsystem::LoadPath(std::string name){

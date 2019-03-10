@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/CameraSubsystem.h"
+#include "Robot.h"
 
 CameraSubsystem::CameraSubsystem() : Subsystem("ExampleSubsystem") {}
 
@@ -28,7 +29,7 @@ double CameraSubsystem::GetCameraTV(){
   //check for a valid target
   int tv = camera->GetNumber("tv", 0);
   //if the skew is too high, the camera is probobly tracking random lit pixels from lexan/doors
-  if(fabs(GetCameraTS()) > 15){//magic number
+  if(fabs(Robot::Drive.GetSkew()) > 15){//magic number
     tv = 0;
   }
   return tv;
