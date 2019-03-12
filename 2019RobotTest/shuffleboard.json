@@ -375,6 +375,28 @@
               "_source0": "network_table:///SmartDashboard/Drive/trackingError",
               "_title": "Drive/trackingError"
             }
+          },
+          "4,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Camera/TX",
+              "_title": "Camera/TX"
+            }
+          },
+          "8,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive/Skew",
+              "_title": "Drive/Skew"
+            }
           }
         }
       }
@@ -426,7 +448,7 @@
                   "Range/Max": 5.0,
                   "Range/Center": 0.0,
                   "Visuals/Orientation": "HORIZONTAL",
-                  "Visuals/Number of tick marks": 5.0
+                  "Visuals/Number of tick marks": 5
                 },
                 {
                   "_type": "Speed Controller",
@@ -666,6 +688,50 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Elevator/Drawer Encoder",
               "_title": "/SmartDashboard/Elevator/Drawer Encoder"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Tab 4",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 60.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "6,0": {
+            "size": [
+              6,
+              9
+            ],
+            "content": {
+              "_type": "Robot Preferences",
+              "_source0": "network_table:///Preferences",
+              "_title": "/Preferences",
+              "Miscellaneous/Show search box": true
+            }
+          },
+          "12,0": {
+            "size": [
+              7,
+              7
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://limelight",
+              "_title": "limelight",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": 0,
+              "imageHeight": 0
             }
           }
         }

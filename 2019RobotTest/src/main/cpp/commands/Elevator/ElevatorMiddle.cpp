@@ -20,18 +20,15 @@ ElevatorMiddle::ElevatorMiddle():
 
 // Called just before this Command runs the first time
 void ElevatorMiddle::Initialize() {
-  Robot::Elevator.SeekTo(Robot::Elevator.Positions::Middle);
-  time_held.Reset();
-  time_held.Start();
+  Robot::Elevator.SeekTo(Robot::Elevator.Positions::CargoShip);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ElevatorMiddle::Execute() {
+  time_held++;
   //if we hold the button, then go to the alternate setpoint
-  if(time_held.Get() > 1 && !is_over_time_threshold){
-    is_over_time_threshold = true;
-    Robot::Elevator.SeekTo(Robot::Elevator.Positions::CargoShip);
-    
+  if(time_held == 20){
+    Robot::Elevator.SeekTo(Robot::Elevator.Positions::Middle);
   }
 }
 
@@ -40,9 +37,7 @@ bool ElevatorMiddle::IsFinished() { return false; }
 
 // Called once after isFinished returns true
 void ElevatorMiddle::End() {
-  time_held.Stop();
-  time_held.Reset();
-
+  time_held = 0;
 }
 
 // Called when another command which requires one or more of the same

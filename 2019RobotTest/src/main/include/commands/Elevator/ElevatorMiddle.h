@@ -8,7 +8,6 @@
 #pragma once
 
 #include <frc/commands/Command.h>
-#include <frc/Timer.h>
 
 class ElevatorMiddle : public frc::Command {
  public:
@@ -18,6 +17,5 @@ class ElevatorMiddle : public frc::Command {
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
-  bool is_over_time_threshold = false;
-  frc::Timer time_held;
+  int time_held = 0;
 };
