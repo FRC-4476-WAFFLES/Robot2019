@@ -40,7 +40,7 @@ double CameraSubsystem::GetCameraTS(){
 }
 double CameraSubsystem::GetCameraTA(){
   //return the area of the target
-  return camera->GetNumber("ta", 0.0);
+  return camera->GetNumber("ta", 0.00000001);
 }
 void CameraSubsystem::SetCameraProcessingMode(int mode){
   //update the existing entry on the table to change what the Limelight is processing. list in .h->ProcessingMode(enum).

@@ -80,12 +80,12 @@ void ElevatorSubsystem::AutoDetectCurrentGamepiece(){
 void ElevatorSubsystem::Periodic(){
   //if we are going down
   if(next_elevator_position - ElevatorPosition() < 0){
-    UpdatePID("elevatorDown", elevatorMaster, 0.0, 0.0, 0.0, 0.0);
+    UpdatePID("elevatorDown", elevatorMaster, 9.0, 0.0, 1.0, 0.0);
     UpdatePID("cargo_extend", cargoIntakeExtend, 0.0, 0.0, 0.0, 0.0);
   }else{
     //         name          srx(lead)     p    i    d    f
-    UpdatePID("elevator", elevatorMaster, 0.0, 0.0, 0.0, 0.0);
-    UpdatePID("cargo_extend", cargoIntakeExtend, 0.0, 0.0, 0.0, 0.0);
+    UpdatePID("elevator", elevatorMaster, 9.0, 0.0, 1.0, 0.0);
+    UpdatePID("cargo_extend", cargoIntakeExtend, 1.0, 0.0, 0.0, 0.0);
   }
 
   if(Robot::oi.left.GetRawButton(10)) {
