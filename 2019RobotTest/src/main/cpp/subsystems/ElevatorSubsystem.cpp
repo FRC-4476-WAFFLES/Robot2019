@@ -262,8 +262,8 @@ void ElevatorSubsystem::SeekTo(int next_rough_position, bool extend){
     }
   }
   
-  if(position_when_seek_to_set >= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && next_rough_position <= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE ||
-     position_when_seek_to_set <= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && next_rough_position >= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE){
+  if(position_when_seek_to_set >= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && next_elevator_position <= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE ||
+     position_when_seek_to_set <= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && next_elevator_position >= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE){
        elevator_state_machine_state = 1;//1
      }else{
        elevator_state_machine_state = 2;//2
