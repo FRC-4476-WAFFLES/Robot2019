@@ -17,4 +17,5 @@ class ElevatorDefault : public frc::Command {
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
+  bool has_moved_to_level_one = false;
 };

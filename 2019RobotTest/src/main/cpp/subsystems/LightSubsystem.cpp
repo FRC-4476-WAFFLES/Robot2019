@@ -11,10 +11,11 @@
 #include "commands/Lights/LightGeneral.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
-LightSubsystem::LightSubsystem() : frc::Subsystem("LightSubsystem"), led(LIGHT_STRIP) {
+LightSubsystem::LightSubsystem() : frc::Subsystem("LightSubsystem"), led(LIGHT_STRIP), red_out(2) {
   T.Stop();
   T.Reset();
   T.Start();
+  red_out.Set(0);
 }
 
 void LightSubsystem::InitDefaultCommand() {
@@ -36,7 +37,8 @@ void LightSubsystem::UpdateColour(int input_colour){
   if(colour == 0){
     SendColour(0, 0, 0);
   }else if(colour == 1){
-    SendColour(153, 0, 153);//purple(Dark)
+    // SendColour(153, 0, 153);//purple(Dark)
+    SendColour(255, 0, 0);
   }else if(colour == 2){
     SendColour(153, 0, 153);//purple(Dark)
   }else if(colour == 3){
@@ -51,20 +53,22 @@ void LightSubsystem::UpdateColour(int input_colour){
   }
 }
 void LightSubsystem::SendColour(int r, int g, int b){
-  led.SetLEDOutput(r, CANifier::LEDChannel::LEDChannelA);
-	led.SetLEDOutput(g, CANifier::LEDChannel::LEDChannelB);
-	led.SetLEDOutput(b, CANifier::LEDChannel::LEDChannelC);
+  red_out.Set(-r/255);
+
+  // led.SetLEDOutput(r, CANifier::LEDChannel::LEDChannelA);
+	// led.SetLEDOutput(g, CANifier::LEDChannel::LEDChannelB);
+	// led.SetLEDOutput(b, CANifier::LEDChannel::LEDChannelC);
 }
 void LightSubsystem::Strobe(int r, int g, int b){
   if(T.Get() >= 0.1){
     if(!strobe_index){
-      led.SetLEDOutput(r, CANifier::LEDChannel::LEDChannelA);
-      led.SetLEDOutput(g, CANifier::LEDChannel::LEDChannelB);
-      led.SetLEDOutput(b, CANifier::LEDChannel::LEDChannelC);
+      // led.SetLEDOutput(r, CANifier::LEDChannel::LEDChannelA);
+      // led.SetLEDOutput(g, CANifier::LEDChannel::LEDChannelB);
+      // led.SetLEDOutput(b, CANifier::LEDChannel::LEDChannelC);
     }else{
-      led.SetLEDOutput(0, CANifier::LEDChannel::LEDChannelA);
-      led.SetLEDOutput(0, CANifier::LEDChannel::LEDChannelB);
-      led.SetLEDOutput(0, CANifier::LEDChannel::LEDChannelC);
+      // led.SetLEDOutput(0, CANifier::LEDChannel::LEDChannelA);
+      // led.SetLEDOutput(0, CANifier::LEDChannel::LEDChannelB);
+      // led.SetLEDOutput(0, CANifier::LEDChannel::LEDChannelC);
     }
     T.Reset();
   }

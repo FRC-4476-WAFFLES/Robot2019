@@ -23,10 +23,12 @@ class IntakeSubsystem : public frc::Subsystem {
   void Periodic() override;
   void SetIntakeSpeed(double Speed);
   bool HasCargo();
+  bool HasCargoIR();
   void Prints();
 
   double speed = 0.0;
   bool is_intaking = false;
+  bool is_outtaking = false;
   bool has_cargo = false;
   VictorSP cargoCarriageLeft;
   VictorSP cargoCarriageRight;
@@ -34,6 +36,8 @@ class IntakeSubsystem : public frc::Subsystem {
   AnalogInput IR;
   float current_distance_voltage = 0;
  private:
+ bool cargo_is_in_intake = false;
+bool has_cargo_IR = false;
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
   

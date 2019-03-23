@@ -83,7 +83,7 @@ float OI::IntakeSpeed() {
 
 	double in = operate.GetRawAxis(3);
 	double out =  operate.GetRawAxis(2);
-	return (in * in - 0.75 * out * out)*0.9;//0.4->1.0
+	return (in * in - 1 * out * out)*0.9;//0.75 -> 1
 }
 void OI::Prints(){
   SmartDashboard::PutBoolean("climber switch", climber_switch);

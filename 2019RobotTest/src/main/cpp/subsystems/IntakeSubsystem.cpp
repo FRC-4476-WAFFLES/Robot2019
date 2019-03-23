@@ -31,8 +31,10 @@ void IntakeSubsystem::InitDefaultCommand() {
 
 void IntakeSubsystem::Periodic(){
   current_distance_voltage = IR.GetVoltage();
-  // if(frc::DriverStation::GetInstance().IsOperatorControl()){
     speed = Robot::oi.IntakeSpeed();
+    if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && Robot::Elevator.next_elevator_position < Robot::Elevator.LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && Robot::Drive.is_tracking_drive || Robot::Drive.is_turning_tracking){
+      speed = -0.3452345678901;
+    }
     float effect_on_angle = UpdateSinglePreference("outtake angle impact", 0.5);
     cargoCarriageLeft.Set(-speed + Robot::oi.OuttakeAngle()*effect_on_angle);
     cargoCarriageRight.Set(speed + Robot::oi.OuttakeAngle()*effect_on_angle);
@@ -41,17 +43,36 @@ void IntakeSubsystem::Periodic(){
     }else{
       cargoIntake.Set(0.0);
     }
+    
     if(speed >= 0.1){
       is_intaking = true;
     }else{
       is_intaking = false;
     }
+
+    if(speed >= -0.1){
+      is_outtaking = true;
+    }else{
+      is_outtaking = false;
+    }
+
     if(-speed>= 0.5){
       has_cargo = false;
     }else if(-speed<=-0.5){
       has_cargo = true;
     }
-  // }
+
+  if(current_distance_voltage>2.5){
+    has_cargo_IR = true;
+    cargo_is_in_intake = true;
+  }else if(current_distance_voltage<2.5 &&!cargo_is_in_intake) {
+    has_cargo_IR = false;
+    
+  }
+  if(current_distance_voltage<0.1){
+    cargo_is_in_intake = false;
+  }
+
   
 }
 
@@ -59,12 +80,12 @@ void IntakeSubsystem::SetIntakeSpeed(double Speed){
   speed = Speed;
 }
 bool IntakeSubsystem::HasCargo(){
-  // if(current_distance_voltage > 1.200 && current_distance_voltage < 3.000){
-  //   has_cargo = true;
-  // }else{
-  //   has_cargo = false;
-  // }
+  
   return has_cargo;
+}
+
+bool IntakeSubsystem::HasCargoIR(){
+  return has_cargo_IR;
 }
 
 void IntakeSubsystem::Prints(){

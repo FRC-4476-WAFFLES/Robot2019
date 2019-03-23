@@ -45,6 +45,7 @@ void HatchSubsystem::Periodic(){
       hatchDeploy.Set(DoubleSolenoid::Value::kReverse);
     }
   }
+
 }
 void HatchSubsystem::UpdateHatch(bool clamp, bool deploy){
   if(clamp != current_clamp_state){
@@ -55,6 +56,11 @@ void HatchSubsystem::UpdateHatch(bool clamp, bool deploy){
   }
 }
 bool HatchSubsystem::HasPannel(){
+  if(!current_clamp_state && current_deploy_state){
+    has_pannel = true;
+  }else{
+   has_pannel = false;
+  } 
   return has_pannel;
 }
 

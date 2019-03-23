@@ -36,24 +36,24 @@ class ElevatorSubsystem : public frc::Subsystem {
   //HATCH
   constexpr static float GROUND_PICKUP_HATCH = 0.0;
   constexpr static float BOTTOM_HATCH_POSITION = 0.0;
-  constexpr static float MIDDLE_HATCH_POSITION = 1290.0;
-  constexpr static float TOP_HATCH_POSITION = 2648.0;
+  constexpr static float MIDDLE_HATCH_POSITION = 1440.0;//1290
+  constexpr static float TOP_HATCH_POSITION = 2818.0;
 
   //CARGO
   constexpr static float GROUND_PICKUP_CARGO = 100.0;
   constexpr static float HUMAN_PLAYER_PICKUP_CARGO = 0.0;
-  constexpr static float CARGO_SHIP_CARGO_POSITION = 1750.0;
+  constexpr static float CARGO_SHIP_CARGO_POSITION = 1650.0;
   constexpr static float BOTTOM_CARGO_POSITION = 961.0;
   constexpr static float MIDDLE_CARGO_POSITION = 2324.0;
   constexpr static float TOP_CARGO_POSITION = 3500.0;
   constexpr static float LIMIT_OF_EFFECTED_BY_CARGO_INTAKE = 800.0;
 
   //CARGO EXTEND OUT
-  constexpr static float CARGO_EXTEND_CARGO = -1348.0;//1175
+  constexpr static float CARGO_EXTEND_CARGO = -1240.0;//1175
   constexpr static float CARGO_EXTEND_IN = 0.0;
   constexpr static float CARGO_EXTEND_HATCH = -682;
-  constexpr static float CARGO_EXTEND_INTAKE = -1348;
-  constexpr static float CARGO_EXTEND_SUPPORT = -1215;
+  constexpr static float CARGO_EXTEND_INTAKE = -1240;
+  constexpr static float CARGO_EXTEND_SUPPORT = -1240;
 
   enum Positions {
     Top = 1,
@@ -87,4 +87,6 @@ class ElevatorSubsystem : public frc::Subsystem {
   WPI_TalonSRX elevatorFollower;
   WPI_TalonSRX cargoIntakeExtend;
   Timer t;
+  bool has_moved_up_for_vision = false;
+  bool has_moved_down_for_vision = false;
 };

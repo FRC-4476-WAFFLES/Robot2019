@@ -28,12 +28,12 @@ void LightGeneral::Execute() {
     if(Robot::Drive.is_tracking_drive || Robot::Drive.is_turning_tracking){
       //if tracking, tell us if we have a target, update the limelight LEDs
       Robot::Camera.SetLedMode(Robot::Camera.CameraLEDMode::On);
-      if(Robot::Drive.missing_vision_target){
+      /*if(Robot::Drive.missing_vision_target){
         Robot::Lights.UpdateColour(Robot::Lights.ColourCodes::TrackingWithoutTarget);
       }else{
         Robot::Lights.UpdateColour(Robot::Lights.ColourCodes::TrackingWithTarget);
-      }
-    }else if(Robot::Hatch.HasPannel()){
+      }*/
+    }/*else*/ if(Robot::Hatch.HasPannel()){
       //tell us if we think have a hatch
       Robot::Lights.UpdateColour(Robot::Lights.ColourCodes::HaveHatch);
     }else if(Robot::Intake.HasCargo()){

@@ -9,11 +9,14 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "Robot.h"
 #include "RobotMap.h"
+#include <math.h>
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableInstance.h>
 #include "commands/Drive/OperatorTankDrive.h"
 #include "Utils/PIDPreferences.h"
 #include "pathfinder-frc.h"
+#include <iostream>
+using namespace std;
 
 
 DriveSubsystem::DriveSubsystem() : 
@@ -69,6 +72,11 @@ void DriveSubsystem::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void DriveSubsystem::WafflesDrive(float Left, float Right) {
+	left_vel_segment = this->Left() - last_left_val;
+	right_vel_segment = this->Right() - last_right_val;
+	last_left_val = this->Left();
+	last_right_val = this->Right(); 
+	velocity_encoder_segment = fabs( ( fabs(left_vel_segment) + fabs(right_vel_segment)) - velocity_encoder_segment);
 	Robot::Camera.SetCameraProcessingMode(1);
 	left1.Set(ControlMode::PercentOutput, -Left);
 	right1.Set(ControlMode::PercentOutput, Right);
@@ -83,6 +91,11 @@ void DriveSubsystem::WafflesDrive(float Left, float Right) {
 }
 
 void DriveSubsystem::TrackingDrive(float Left, float Right){
+	left_vel_segment = this->Left() - last_left_val;
+	right_vel_segment = this->Right() - last_right_val;
+	last_left_val = this->Left();
+	last_right_val = this->Right(); 
+	velocity_encoder_segment = fabs( ( fabs(left_vel_segment) + fabs(right_vel_segment)) - velocity_encoder_segment);
 	last_time.Reset();
 	last_time.Start();
 	double time = last_time.Get();
@@ -178,6 +191,8 @@ void DriveSubsystem::Prints(){
 	SmartDashboard::PutNumber("Drive/RightOutput", right1.GetMotorOutputPercent());
 	SmartDashboard::PutNumber("Camera/TX", Robot::Camera.GetCameraTX());
 	SmartDashboard::PutNumber("Drive/AvgDriveOut", AvgDriveOut());
+	SmartDashboard::PutNumber("Drive/AvgVel", GetAvgVel());
+	SmartDashboard::PutNumber("Drive/encdif", velocity_encoder_segment);
 }
 
 void DriveSubsystem::LoadPath(std::string name){
@@ -242,4 +257,8 @@ double DriveSubsystem::clamp(double value, double min, double max) {
 	} else {
 		return value;
 	}
+}
+
+double DriveSubsystem::GetAvgVel(){
+	return velocity_encoder_segment;  
 }

@@ -397,6 +397,91 @@
               "_source0": "network_table:///SmartDashboard/Drive/Skew",
               "_title": "Drive/Skew"
             }
+          },
+          "10,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive/AvgDriveOut",
+              "_title": "Drive/AvgDriveOut"
+            }
+          },
+          "12,4": {
+            "size": [
+              6,
+              4
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://limelight",
+              "_title": "limelight",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": 0,
+              "imageHeight": 0
+            }
+          },
+          "18,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight_PipelineName",
+              "_title": "limelight_PipelineName"
+            }
+          },
+          "0,5": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight_Interface",
+              "_title": "limelight_Interface"
+            }
+          },
+          "2,5": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight_Stream",
+              "_title": "limelight_Stream"
+            }
+          },
+          "4,5": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive/AvgVel",
+              "_title": "Drive/AvgVel"
+            }
+          },
+          "6,5": {
+            "size": [
+              6,
+              3
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive/encdif",
+              "_title": "Drive/encdif"
+            }
           }
         }
       }
@@ -541,6 +626,12 @@
                   "_title": "Compressor[15]/Enabled",
                   "Colors/Color when true": "#7CFC00FF",
                   "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/VictorSP[2]",
+                  "_title": "VictorSP[2]",
+                  "Visuals/Orientation": "HORIZONTAL"
                 }
               ]
             }
@@ -623,10 +714,10 @@
               "Crosshair/Crosshair color": "#FFFFFFFF",
               "Controls/Show controls": true,
               "Controls/Rotation": "NONE",
-              "compression": 0.0,
+              "compression": -1.0,
               "fps": -1,
-              "imageWidth": -1,
-              "imageHeight": -1
+              "imageWidth": 0,
+              "imageHeight": 0
             }
           },
           "17,0": {

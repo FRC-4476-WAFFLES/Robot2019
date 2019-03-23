@@ -11,6 +11,7 @@
 #include <ctre/Phoenix.h>
 #include <ctre/phoenix/CANifier.h>
 #include <frc/Timer.h>
+#include <frc/VictorSP.h>
 using namespace frc;
 
 class LightSubsystem : public frc::Subsystem {
@@ -37,6 +38,7 @@ class LightSubsystem : public frc::Subsystem {
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
   CANifier led;
+  VictorSP red_out;
   Timer T;
   bool strobe_index = false;
 };

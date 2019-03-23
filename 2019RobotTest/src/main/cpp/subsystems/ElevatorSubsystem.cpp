@@ -68,7 +68,9 @@ void ElevatorSubsystem::SetCurrentGamepiece(int gamepiece){
 }
 
 void ElevatorSubsystem::AutoDetectCurrentGamepiece(){
-  if(Robot::Intake.HasCargo() && Robot::Hatch.HasPannel()){
+  if(Robot::Intake.HasCargoIR()){
+    current_gamepiece = 2;
+  }else if(Robot::Intake.HasCargo() && Robot::Hatch.HasPannel()){
     current_gamepiece = 1;
   }else if(Robot::Intake.HasCargo()){
     current_gamepiece = 2;
@@ -114,6 +116,8 @@ void ElevatorSubsystem::Periodic(){
     std::cout << "in state 1" << std::endl;
     fudging = false;
     has_moved_for_vision = false;
+    has_moved_up_for_vision = false;
+    has_moved_down_for_vision = false;
     std::cout << fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) << std::endl;
     elevatorMaster.Set(ControlMode::Position, position_when_seek_to_set);
     pull_in_cargo_exend = false;
@@ -149,7 +153,7 @@ void ElevatorSubsystem::Periodic(){
     elevatorMaster.Set(ControlMode::Position, next_elevator_position);
     // elevatorMaster.Set(ControlMode::PercentOutput, elevatorjoy);
     //if intaking, move the extend out
-    if(Robot::Intake.is_intaking){
+    if(Robot::Intake.is_intaking || Robot::Intake.is_outtaking){
       pull_in_cargo_exend = false;
       Robot::Hatch.UpdateHatch(Robot::Hatch.current_clamp_state, false);
       next_elevator_position = GROUND_PICKUP_CARGO;
@@ -157,9 +161,13 @@ void ElevatorSubsystem::Periodic(){
       // position_when_seek_to_set = elevator_position;
       elevator_state_machine_state = 5;
       pull_in_cargo_exend = false;
-    }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && !Robot::Drive.is_tracking_drive &&!Robot::Drive.is_turning_tracking){
+    }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE /*&& !Robot::Drive.is_tracking_drive &&!Robot::Drive.is_turning_tracking*/){
       pull_in_cargo_exend = false;
-    }else if(Robot::Drive.is_tracking_drive && next_elevator_position > LIMIT_OF_EFFECTED_BY_CARGO_INTAKE){
+    }else if(!has_moved_down_for_vision && Robot::Drive.is_tracking_drive && (MIDDLE_CARGO_POSITION + 200) > next_elevator_position > LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && !has_moved_for_vision){
+      next_elevator_position +=300;
+      has_moved_up_for_vision = true;
+      has_moved_for_vision = true;
+    }else if(Robot::Drive.is_tracking_drive && next_elevator_position > (MIDDLE_CARGO_POSITION + 200) && !has_moved_for_vision){
       next_elevator_position -= 100;
       has_moved_for_vision = true;
     }else{
@@ -167,6 +175,11 @@ void ElevatorSubsystem::Periodic(){
       if(next_elevator_position == GROUND_PICKUP_CARGO){
         next_elevator_position = 0.0;
       }
+    }
+
+    if(has_moved_up_for_vision && fabs(elevator_position - next_elevator_position) < 40 && !has_moved_down_for_vision){
+      next_elevator_position -=300;
+      has_moved_down_for_vision = true;
     }
     
     // in manual mode, move the extend out of the way if neccessary
@@ -267,12 +280,18 @@ void ElevatorSubsystem::ExtendPeriodic(){
       cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
     }else{
       if(Robot::Intake.is_intaking){
+        cout << "intaking "<<endl;
         cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_INTAKE);
+      }else if(Robot::Intake.is_outtaking){
+        cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_HATCH);
       }else if(Robot::Intake.HasCargo()){
+        cout << "has cargo "<<endl;
         cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_CARGO);
       }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && !Robot::Drive.is_tracking_drive &&!Robot::Drive.is_turning_tracking){
+        cout << "has hatch "<<endl;
         cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_SUPPORT);
       }else{
+        cout << "else "<<endl;
         cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_HATCH);
       }
     }
