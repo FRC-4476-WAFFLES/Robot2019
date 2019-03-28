@@ -172,9 +172,6 @@ void ElevatorSubsystem::Periodic(){
       has_moved_for_vision = true;
     }else{
       pull_in_cargo_exend = true;
-      if(next_elevator_position == GROUND_PICKUP_CARGO){
-        next_elevator_position = 0.0;
-      }
     }
 
     if(has_moved_up_for_vision && fabs(elevator_position - next_elevator_position) < 40 && !has_moved_down_for_vision){
@@ -264,10 +261,10 @@ void ElevatorSubsystem::SeekTo(int next_rough_position, bool extend){
   
   if(position_when_seek_to_set >= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && next_elevator_position <= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE ||
      position_when_seek_to_set <= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && next_elevator_position >= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE){
-       elevator_state_machine_state = 1;//1
-     }else{
-       elevator_state_machine_state = 2;//2
-     }
+    elevator_state_machine_state = 1;//1
+  }else{
+    elevator_state_machine_state = 2;//2
+  }
 }
 
 float ElevatorSubsystem::ElevatorPosition(){

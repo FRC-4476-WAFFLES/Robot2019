@@ -94,4 +94,5 @@ void OI::Prints(){
   Robot::Hatch.Prints();
   Robot::Intake.Prints();
   Robot::Lights.Prints();
+  Robot::Climb.Prints();
 }

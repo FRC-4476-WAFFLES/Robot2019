@@ -61,3 +61,16 @@ constexpr int INFRA_RED = 0;
 // number and the module. For example you with a rangefinder:
 // constexpr int kRangeFinderPort = 1;
 // constexpr int kRangeFinderModule = 1;
+
+//climber, subject to change
+//pcm
+constexpr int CLIMBER_CLAMP = 4;
+constexpr int CLIMBER_UNCLAMP = 5;
+
+//Relay
+constexpr int CLIMBER_LOCK_LEFT = 0;
+constexpr int CLIMBER_LOCK_RIGHT = 0;
+
+//can
+constexpr int CLIMBER_ELEVATOR_MASTER = 16;
+constexpr int CLIMBER_ELEVATOR_FOLLOWER = 17;
