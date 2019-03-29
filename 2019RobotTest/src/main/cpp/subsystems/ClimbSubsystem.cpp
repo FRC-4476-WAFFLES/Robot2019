@@ -58,25 +58,26 @@ void ClimbSubsystem::ClimbTo(int target){
 }
 
 void ClimbSubsystem::TogglePumping(){
-
+  pumping = !pumping;
 }
 
-void ClimbSubsystem::ShouldPumping(){
-
+bool ClimbSubsystem::ShouldPumping(){
+  return pumping;
 }
 
 void ClimbSubsystem::ToggleEMLock(){
-
+  locking = !locking;
 }
 
 int ClimbSubsystem::GetFootState(){
-
+  return foot_position;
 }
 
 int ClimbSubsystem::GetLegPosition(){
-
+  return climberLegMaster.GetSelectedSensorPosition(0);
 }
 
 void ClimbSubsystem::Prints(){
-
+  SmartDashboard::PutNumber("Climbe/Leg Encoder", GetLegPosition());
+  SmartDashboard::PutNumber("Climber/Foot State", GetFootState());
 }

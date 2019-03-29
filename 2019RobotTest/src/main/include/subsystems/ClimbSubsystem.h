@@ -24,7 +24,7 @@ class ClimbSubsystem : public frc::Subsystem {
   void Periodic() override;
   void ClimbTo(int target);
   void TogglePumping();
-  void ShouldPumping();
+  bool ShouldPumping();
   void ToggleEMLock();
   int GetFootState();
   int GetLegPosition();
@@ -57,6 +57,7 @@ class ClimbSubsystem : public frc::Subsystem {
 
   //logic variables
   bool pumping{false};
+  bool locking{true};
   int foot_position{1};
   int leg_target{0};
   int current_leg_state{1};
