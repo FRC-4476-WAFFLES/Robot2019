@@ -9,6 +9,7 @@
 #include "Utils/PIDPreferences.h"
 #include "Robot.h"
 #include <frc/smartdashboard/SmartDashboard.h>
+#include "commands/Climber/ClimberDefault.h"
 //#include <iostream>
 
 #include "RobotMap.h"
@@ -40,17 +41,36 @@ ClimbSubsystem::ClimbSubsystem() :
   climberLegFollower.EnableCurrentLimit(true);
   //follow code
   climberLegFollower.Follow(climberLegMaster);
+  compressionRate.Reset();
+  compressionRate.Start();
  }
 
 void ClimbSubsystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.
-  // SetDefaultCommand(new MySpecialCommand());
+  SetDefaultCommand(new ClimberDefault());
 }
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void ClimbSubsystem::Periodic(){
-
+  UpdatePID("ClimberLeg", climberLegMaster, 0, 0, 0);
+  climberLegFollower.Set(ControlMode::Position, leg_target);
+  if(locking){
+    rightElectromagnetLock.Set(Relay::Value::kOn);
+    leftElectromagnetLock.Set(Relay::Value::kOn);
+  }else{
+    rightElectromagnetLock.Set(Relay::Value::kOff);
+    leftElectromagnetLock.Set(Relay::Value::kOff);
+  }
+  if(pumping && compressionRate.Get() > 0.3){
+    if(cycle_state){
+      suctionClamp.Set(DoubleSolenoid::Value::kForward);
+    }else{
+      suctionClamp.Set(DoubleSolenoid::Value::kReverse);
+    }
+  }else{
+    suctionClamp.Set(DoubleSolenoid::Value::kOff);
+  }
 }
 
 void ClimbSubsystem::ClimbTo(int target){

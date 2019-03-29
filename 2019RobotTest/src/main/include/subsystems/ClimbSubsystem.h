@@ -12,6 +12,7 @@
 #include <frc/Relay.h>
 #include <ctre/Phoenix.h>
 #include <ctre/phoenix/motorcontrol/can/WPI_TalonSRX.h>
+#include "frc/Timer.h"
 
 // #include <rev/CANSparkMax.h>
 using namespace frc;
@@ -61,6 +62,7 @@ class ClimbSubsystem : public frc::Subsystem {
   int foot_position{1};
   int leg_target{0};
   int current_leg_state{1};
-  
+  Timer compressionRate;
+  bool cycle_state{false};
 
 };
