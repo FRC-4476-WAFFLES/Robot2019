@@ -8,7 +8,7 @@
 #include "commands/Climber/ClimberBuddy.h"
 #include "Robot.h"
 
-ClimberBuddy::ClimberBuddy() {
+ClimberBuddy::ClimberBuddy() : Command("ClimberBuddy"){
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(&Robot::Climb);

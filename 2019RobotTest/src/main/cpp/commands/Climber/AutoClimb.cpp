@@ -49,7 +49,7 @@ public:
 	}
 };
 
-AutoClimb::AutoClimb() {
+AutoClimb::AutoClimb() : CommandGroup("AutoClimb"){
   // Add Commands here:
   // e.g. AddSequential(new Command1());
   //      AddSequential(new Command2());

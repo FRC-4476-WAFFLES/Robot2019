@@ -136,6 +136,6 @@ public:
 	}
 };
 
-AutoLeftLvl1::AutoLeftLvl1() {
+AutoLeftLvl1::AutoLeftLvl1() : CommandGroup("AutoLeftLvl1"){
 
 }

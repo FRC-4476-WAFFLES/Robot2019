@@ -37,7 +37,7 @@ auto after some aditional code to get the robot off the platform. This code simp
 distance, then drives back to try to re-allign the robot with the starting postition of the level autos.
 */
 
-AutoRightLvl2::AutoRightLvl2() {
+AutoRightLvl2::AutoRightLvl2() : CommandGroup("AutoRightLvl2"){
   AddSequential(new DriveAutoLines(6.0, 0, 15, 0.4));
   AddSequential(new AutoWaitCommand(0.3));
   AddSequential(new DriveAutoLines(-3, 0, 15, 0.15));

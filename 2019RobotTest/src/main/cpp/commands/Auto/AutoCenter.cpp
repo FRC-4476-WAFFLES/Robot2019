@@ -250,7 +250,7 @@ public:
 };
 
 
-AutoCenter::AutoCenter() {
+AutoCenter::AutoCenter() : CommandGroup("AutoCenter") {
 /*
   AutonomousChooser.SetDefaultOption("Null", nullptr);
   AutonomousChooser.AddOption("Test", &TestAuto);

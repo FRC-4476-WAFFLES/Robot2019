@@ -8,7 +8,7 @@
 #include "commands/Climber/ClimberToggleFoot.h"
 #include "Robot.h"
 
-ClimberToggleFoot::ClimberToggleFoot() {
+ClimberToggleFoot::ClimberToggleFoot() : Command("ClimberToggleFoot"){
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(&Robot::Climb);

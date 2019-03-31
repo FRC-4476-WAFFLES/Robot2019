@@ -8,7 +8,7 @@
 #include "commands/Climber/ClimberHabLevel.h"
 #include "Robot.h"
 
-ClimberHabLevel::ClimberHabLevel() {
+ClimberHabLevel::ClimberHabLevel() : Command("ClimberHabLevel"){
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(&Robot::Climb);

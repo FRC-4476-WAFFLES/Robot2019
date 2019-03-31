@@ -7,7 +7,7 @@
 
 #include "commands/Climber/ClimberDefault.h"
 
-ClimberDefault::ClimberDefault() {
+ClimberDefault::ClimberDefault() : Command("ClimberDefault"){
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
 }

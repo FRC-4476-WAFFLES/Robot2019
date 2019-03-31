@@ -8,7 +8,7 @@
 #include "commands/Climber/ClimberFullIn.h"
 #include "Robot.h"
 
-ClimberFullIn::ClimberFullIn() {
+ClimberFullIn::ClimberFullIn() : Command("ClimberFullIn"){
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(&Robot::Climb);

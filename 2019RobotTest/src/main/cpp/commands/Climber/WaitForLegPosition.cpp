@@ -8,7 +8,7 @@
 #include "commands/Climber/WaitForLegPosition.h"
 #include "Robot.h"
 
-WaitForLegPosition::WaitForLegPosition() {
+WaitForLegPosition::WaitForLegPosition() : Command("WaitForPosition"){
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
 }

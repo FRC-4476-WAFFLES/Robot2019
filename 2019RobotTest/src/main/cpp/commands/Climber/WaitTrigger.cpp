@@ -8,7 +8,7 @@
 #include "commands/Climber/WaitTrigger.h"
 #include "Robot.h"
 
-WaitTrigger::WaitTrigger() {
+WaitTrigger::WaitTrigger() : Command("WaitTrigger"){
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(&Robot::Climb);

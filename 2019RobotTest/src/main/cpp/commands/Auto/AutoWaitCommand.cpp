@@ -8,7 +8,7 @@
 #include "commands/Auto/AutoWaitCommand.h"
 
 //this command literallyy does nothing besides halting the auto it is called from until the timer it starts hits the custom timeout
-AutoWaitCommand::AutoWaitCommand(float timeout) {
+AutoWaitCommand::AutoWaitCommand(float timeout) : Command("AutoWaitCommand"){
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   wait = timeout;//get the timeout that the user sets and make it accessable from the rest of the functions
