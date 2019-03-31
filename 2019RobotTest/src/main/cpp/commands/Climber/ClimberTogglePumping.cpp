@@ -6,14 +6,18 @@
 /*----------------------------------------------------------------------------*/
 
 #include "commands/Climber/ClimberTogglePumping.h"
+#include "Robot.h"
 
 ClimberTogglePumping::ClimberTogglePumping() {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
+  Requires(&Robot::Climb);
 }
 
 // Called just before this Command runs the first time
-void ClimberTogglePumping::Initialize() {}
+void ClimberTogglePumping::Initialize() {
+  Robot::Climb.TogglePumping();
+}
 
 // Called repeatedly when this Command is scheduled to run
 void ClimberTogglePumping::Execute() {}

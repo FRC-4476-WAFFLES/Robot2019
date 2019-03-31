@@ -29,6 +29,7 @@ class ClimbSubsystem : public frc::Subsystem {
   void ToggleEMLock();
   int GetFootState();
   int GetLegPosition();
+  bool IsLegAtPosition();
   void Prints();
   enum FootPosition {
     kLiftSelf = 1,
@@ -64,5 +65,6 @@ class ClimbSubsystem : public frc::Subsystem {
   int current_leg_state{1};
   Timer compressionRate;
   bool cycle_state{false};
+  bool is_at_position{false};
 
 };

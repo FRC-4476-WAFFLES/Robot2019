@@ -28,6 +28,14 @@
 #include "commands/Hatch/ToggleDeploy.h"
 //lights
 #include "Commands/Lights/HPWontDropItem.h"
+//climber
+#include "commands/Climber/AutoClimb.h"//rjcb
+#include "commands/Climber/ClimberBuddy.h"//b
+#include "commands/Climber/ClimberFullExtend.h"//y
+#include "commands/Climber/ClimberFullIn.h"//a
+#include "commands/Climber/ClimberHabLevel.h"//x
+#include "commands/Climber/ClimberToggleFoot.h"//lb
+
 OI::OI() :
   left(0),
   right(1),
@@ -35,16 +43,16 @@ OI::OI() :
   hid(3)
 {
   Button* Ground = new JoystickButton(&operate, OperatorButton::B);
-  Ground->WhenReleased(new WithOperatorMode(nullptr, new ElevatorGroundPickup()));
+  Ground->WhenReleased(new WithOperatorMode(new ClimberBuddy(), new ElevatorGroundPickup()));
 
   Button* Bottom = new JoystickButton(&operate, OperatorButton::A);
-  Bottom->WhenReleased(new WithOperatorMode(nullptr, new ElevatorBottom()));
+  Bottom->WhenReleased(new WithOperatorMode(new ClimberFullIn(), new ElevatorBottom()));
 
   Button* Middle = new JoystickButton(&operate, OperatorButton::X);
-  Middle->WhileHeld(new ElevatorMiddle());
+  Middle->WhileHeld(new WithOperatorMode(new ClimberHabLevel(), new ElevatorMiddle()));
 
   Button* Top = new JoystickButton(&operate, OperatorButton::Y);
-  Top->WhenReleased(new WithOperatorMode(nullptr, new ElevatorTop()));
+  Top->WhenReleased(new WithOperatorMode(new ClimberFullExtend(), new ElevatorTop()));
 
   Button* HP = new JoystickButton(&operate, OperatorButton::RightJoystickCenterButton);
   HP->WhenReleased(new WithOperatorMode(nullptr, new ElevatorHPPickup()));
@@ -55,14 +63,17 @@ OI::OI() :
   Button* ModeSwitch = new JoystickButton(&operate, OperatorButton::Back);
   ModeSwitch->WhenPressed(new OperatorModeSwitch());
 
-  Button* testthepathfindercode = new JoystickButton(&operate, OperatorButton::RightJoystickCenterButton);
-  testthepathfindercode->WhenReleased(new PathFollower("first"));
+  // Button* testthepathfindercode = new JoystickButton(&operate, OperatorButton::RightJoystickCenterButton);
+  // testthepathfindercode->WhenReleased(new PathFollower("first"));
+
+  Button* AutomagicClimb = new JoystickButton(&operate, OperatorButton::RightJoystickCenterButton);
+  AutomagicClimb->WhenReleased(new WithOperatorMode(new AutoClimb, nullptr));
   
   Button* ToggleHatchDeploy = new JoystickButton(&operate, OperatorButton::BumperTopLeft);
-  ToggleHatchDeploy->WhenPressed(new WithOperatorMode(new ToggleDeploy(), new ToggleDeploy()));
+  ToggleHatchDeploy->WhenPressed(new WithOperatorMode(new ClimberToggleFoot(), new ToggleDeploy()));
 
   Button* ToggleHatchClamp = new JoystickButton(&operate, OperatorButton::BumperTopRight);
-  ToggleHatchClamp->WhenPressed(new WithOperatorMode(new ToggleClamp(), new ToggleClamp()));
+  ToggleHatchClamp->WhenPressed(new WithOperatorMode(nullptr, new ToggleClamp()));
 
   Button* WhenUrHumanPlayerWontNoticeU = new JoystickButton(&left, 11);
   WhenUrHumanPlayerWontNoticeU->WhileHeld(new HPWontDropItem());

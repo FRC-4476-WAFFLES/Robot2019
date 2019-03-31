@@ -68,8 +68,18 @@ void ClimbSubsystem::Periodic(){
     }else{
       suctionClamp.Set(DoubleSolenoid::Value::kReverse);
     }
-  }else{
+    cycle_state = !cycle_state;
+    compressionRate.Reset();
+    compressionRate.Start();
+  }
+  if(!pumping){
     suctionClamp.Set(DoubleSolenoid::Value::kOff);
+    cycle_state = false;
+  }
+  if(fabs(fabs(GetLegPosition()) - fabs(leg_target)) > 40){
+    is_at_position = true;
+  }else{
+    is_at_position = false;
   }
 }
 
@@ -95,6 +105,10 @@ int ClimbSubsystem::GetFootState(){
 
 int ClimbSubsystem::GetLegPosition(){
   return climberLegMaster.GetSelectedSensorPosition(0);
+}
+
+bool ClimbSubsystem::IsLegAtPosition(){
+  return is_at_position;
 }
 
 void ClimbSubsystem::Prints(){

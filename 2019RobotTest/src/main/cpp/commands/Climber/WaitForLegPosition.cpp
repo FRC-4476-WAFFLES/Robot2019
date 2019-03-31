@@ -5,29 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/Climber/ClimberHabLevel.h"
+#include "commands/Climber/WaitForLegPosition.h"
 #include "Robot.h"
 
-ClimberHabLevel::ClimberHabLevel() {
+WaitForLegPosition::WaitForLegPosition() {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  Requires(&Robot::Climb);
 }
 
 // Called just before this Command runs the first time
-void ClimberHabLevel::Initialize() {
-  Robot::Climb.ClimbTo(Robot::Climb.LegPositions::kHabHight);
-}
+void WaitForLegPosition::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ClimberHabLevel::Execute() {}
+void WaitForLegPosition::Execute() {}
 
 // Make this return true when this Command no longer needs to run execute()
-bool ClimberHabLevel::IsFinished() { return true; }
+bool WaitForLegPosition::IsFinished() { return Robot::Climb.IsLegAtPosition(); }
 
 // Called once after isFinished returns true
-void ClimberHabLevel::End() {}
+void WaitForLegPosition::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ClimberHabLevel::Interrupted() {}
+void WaitForLegPosition::Interrupted() {}

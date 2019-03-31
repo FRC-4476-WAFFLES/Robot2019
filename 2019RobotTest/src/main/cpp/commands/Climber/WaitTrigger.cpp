@@ -5,29 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/Climber/ClimberHabLevel.h"
+#include "commands/Climber/WaitTrigger.h"
 #include "Robot.h"
 
-ClimberHabLevel::ClimberHabLevel() {
+WaitTrigger::WaitTrigger() {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(&Robot::Climb);
 }
 
 // Called just before this Command runs the first time
-void ClimberHabLevel::Initialize() {
-  Robot::Climb.ClimbTo(Robot::Climb.LegPositions::kHabHight);
-}
+void WaitTrigger::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ClimberHabLevel::Execute() {}
+void WaitTrigger::Execute() {}
 
 // Make this return true when this Command no longer needs to run execute()
-bool ClimberHabLevel::IsFinished() { return true; }
+bool WaitTrigger::IsFinished() { return Robot::oi.operate.GetRawButton(Robot::oi.OperatorButton::BumperTopRight); }
 
 // Called once after isFinished returns true
-void ClimberHabLevel::End() {}
+void WaitTrigger::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ClimberHabLevel::Interrupted() {}
+void WaitTrigger::Interrupted() {}

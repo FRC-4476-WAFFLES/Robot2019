@@ -5,29 +5,31 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/Climber/ClimberHabLevel.h"
+#include "commands/Drive/DriveInterruptable.h"
 #include "Robot.h"
 
-ClimberHabLevel::ClimberHabLevel() {
+DriveInterruptable::DriveInterruptable() {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  Requires(&Robot::Climb);
+  Requires(&Robot::Drive);
 }
 
 // Called just before this Command runs the first time
-void ClimberHabLevel::Initialize() {
-  Robot::Climb.ClimbTo(Robot::Climb.LegPositions::kHabHight);
+void DriveInterruptable::Initialize() {
+  Robot::Drive.WafflesDrive(0.5, 0.5);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ClimberHabLevel::Execute() {}
+void DriveInterruptable::Execute() {}
 
 // Make this return true when this Command no longer needs to run execute()
-bool ClimberHabLevel::IsFinished() { return true; }
+bool DriveInterruptable::IsFinished() { return Robot::oi.operate.GetRawButton(Robot::oi.OperatorButton::BumperTopRight); }
 
 // Called once after isFinished returns true
-void ClimberHabLevel::End() {}
+void DriveInterruptable::End() {
+  Robot::Drive.WafflesDrive(0.0, 0.0);
+}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ClimberHabLevel::Interrupted() {}
+void DriveInterruptable::Interrupted() {End();}
