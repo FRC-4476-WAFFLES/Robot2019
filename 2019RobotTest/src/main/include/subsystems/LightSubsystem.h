@@ -22,8 +22,8 @@ class LightSubsystem : public frc::Subsystem {
   void SendColour(int r, int g, int b);
   void Strobe(int r, int g, int b);
   void Prints();
-  bool hp_strobe = false;
-  int colour = 0;
+  bool hp_strobe{false};
+  int colour{0};
   enum ColourCodes {
     None = 0,
     HaveHatch = 1,
@@ -40,5 +40,5 @@ class LightSubsystem : public frc::Subsystem {
   CANifier led;
   VictorSP red_out;
   Timer T;
-  bool strobe_index = false;
+  bool strobe_index{false};
 };

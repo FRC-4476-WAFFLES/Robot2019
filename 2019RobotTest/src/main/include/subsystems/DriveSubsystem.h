@@ -44,19 +44,19 @@ class DriveSubsystem : public frc::Subsystem {
 
 
 	//pathfinder constants (mostly) not randomly set
-	constexpr static float MAX_SPEED = 10.4; // feet/s
-	constexpr static float MAX_ACCEL = 25.4; // feet/s/s
-	constexpr static float MAX_JERK = 197; // feet/s/s/s
-	constexpr static float ANGLE_P = 0.8;
-	constexpr static float WHEELBASE = 2.0;
+	constexpr static float MAX_SPEED{10.4}; // feet/s
+	constexpr static float MAX_ACCEL{25.4}; // feet/s/s
+	constexpr static float MAX_JERK{197}; // feet/s/s/s
+	constexpr static float ANGLE_P{0.8};
+	constexpr static float WHEELBASE{2.0};
 
-	constexpr static int COUNTS_PER_REV = 910;
-	constexpr static double WHEEL_CIRCUMFERENCE = 6*M_PI/12;
-	double KI = 1;
-	double KP = 0;
-	double KD = 0;
-	double KV = 1/MAX_SPEED;
-	double KA = 0;
+	constexpr static int COUNTS_PER_REV{910};
+	constexpr static double WHEEL_CIRCUMFERENCE{6*M_PI/12};
+	double KI{1};
+	double KP{0};
+	double KD{0};
+	double KV{1/MAX_SPEED};
+	double KA{0};
   
 	
 	PowerDistributionPanel PDP;
@@ -64,13 +64,13 @@ class DriveSubsystem : public frc::Subsystem {
 	//for driveautolines (unimplemented)
 	double target_distance;
 	double target_angle;
-	double drive_speed_FPS = 0.0;
+	double drive_speed_FPS{0.0};
 
 	//persistent variables 
-	static constexpr float MIN_TRACKING_ERROR = 0.05;
-	bool missing_vision_target = false;
-	bool is_tracking_drive = false;
-	bool is_turning_tracking = false;
+	static constexpr float MIN_TRACKING_ERROR{0.05};
+	bool missing_vision_target{false};
+	bool is_tracking_drive{false};
+	bool is_turning_tracking{false};
 	
 
  private:
@@ -85,7 +85,7 @@ class DriveSubsystem : public frc::Subsystem {
 	WPI_VictorSPX right3;
   	ADXRS450_Gyro gyro;
 	//for the turning in vision
-	constexpr static float acceptable_error = 0.02;
+	constexpr static float acceptable_error{0.02};
 
 	//pathfinder stuff
 	Notifier* follower_notifier;
@@ -101,11 +101,11 @@ class DriveSubsystem : public frc::Subsystem {
 	double last_angle_error;
 	Timer last_time;
 	//velocity
-	int velocity_encoder_segment = 0;
-	int left_vel_segment = 0;
-	int right_vel_segment = 0;
-	int last_left_val = 0;
-	int last_right_val = 0;
+	int velocity_encoder_segment{0};
+	int left_vel_segment{0};
+	int right_vel_segment{0};
+	int last_left_val{0};
+	int last_right_val{0};
 
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities

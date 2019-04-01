@@ -17,5 +17,5 @@ class HatchAutoManual : public frc::Command {
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
-  int counter = 0;
+  int counter{0};
 };

@@ -14,43 +14,43 @@
  * floating around.
  */
 //PWM
-constexpr int LEFT_CARGO_CARRIAGE = 8;//SP---0
-constexpr int RIGHT_CARGO_CARRIAGE = 9;//SP---9
+constexpr int LEFT_CARGO_CARRIAGE{8};//SP---0
+constexpr int RIGHT_CARGO_CARRIAGE{9};//SP---9
 
-constexpr int SPARE_SP_1 = 8;
-constexpr int SPARE_SP_2 = 1;
+constexpr int SPARE_SP_1{8};
+constexpr int SPARE_SP_2{1};
 //CAN
-constexpr int DRIVE_RIGHT1 = 1;//SRX
-constexpr int DRIVE_RIGHT2 = 2;//SPX
-constexpr int DRIVE_RIGHT3 = 3;//SPX
-constexpr int DRIVE_LEFT1 = 4;//SRX
-constexpr int DRIVE_LEFT2 = 5;//SPX
-constexpr int DRIVE_LEFT3 = 6;//SPX
+constexpr int DRIVE_RIGHT1{1};//SRX
+constexpr int DRIVE_RIGHT2{2};//SPX
+constexpr int DRIVE_RIGHT3{3};//SPX
+constexpr int DRIVE_LEFT1{4};//SRX
+constexpr int DRIVE_LEFT2{5};//SPX
+constexpr int DRIVE_LEFT3{6};//SPX
 
-constexpr int ELEVATOR_MASTER = 7;//SRX
-constexpr int ELEVATOR_FOLLOWER = 8;//SRX
+constexpr int ELEVATOR_MASTER{7};//SRX
+constexpr int ELEVATOR_FOLLOWER{8};//SRX
 
-constexpr int CARGO_EXTEND = 9;//SRX
-constexpr int CARGO_INTAKE = 10;//SPX
+constexpr int CARGO_EXTEND{9};//SRX
+constexpr int CARGO_INTAKE{10};//SPX
 
 
 
-constexpr int CLIMB_MASTER = 13;//SPARK MAX
-constexpr int CLIMB_FOLLOWER = 14;//SPARK MAX
+constexpr int CLIMB_MASTER{13};//SPARK MAX
+constexpr int CLIMB_FOLLOWER{14};//SPARK MAX
 
-constexpr int LIGHT_STRIP = 11;//canifier
-constexpr int PCM_ID = 15;
+constexpr int LIGHT_STRIP{11};//canifier
+constexpr int PCM_ID{15};
 
 //PCM
-constexpr int HATCH_CLAMP = 2;//double solonoid
-constexpr int HATCH_UNCLAMP = 3;//double solenoid
-constexpr int HATCH_EXTEND = 0;//double Solenoid
-constexpr int HATCH_UNEXTEND = 1;//double Solenoid
+constexpr int HATCH_CLAMP{2};//double solonoid
+constexpr int HATCH_UNCLAMP{3};//double solenoid
+constexpr int HATCH_EXTEND{0};//double Solenoid
+constexpr int HATCH_UNEXTEND{1};//double Solenoid
 
 //DIGITAL INPUT
 
 //ANALOG INPUT
-constexpr int INFRA_RED = 0;
+constexpr int INFRA_RED{0};
 
 // For example to map the left and right motors, you could define the
 // following variables to use with your drivetrain subsystem.
@@ -64,13 +64,13 @@ constexpr int INFRA_RED = 0;
 
 //climber, subject to change
 //pcm
-constexpr int CLIMBER_CLAMP = 4;
-constexpr int CLIMBER_UNCLAMP = 5;
+constexpr int CLIMBER_CLAMP{4};
+constexpr int CLIMBER_UNCLAMP{5};
 
 //Relay
-constexpr int CLIMBER_LOCK_LEFT = 0;
-constexpr int CLIMBER_LOCK_RIGHT = 0;
+constexpr int CLIMBER_LOCK_LEFT{0};
+constexpr int CLIMBER_LOCK_RIGHT{0};
 
 //can
-constexpr int CLIMBER_ELEVATOR_MASTER = 16;
-constexpr int CLIMBER_ELEVATOR_FOLLOWER = 17;
+constexpr int CLIMBER_ELEVATOR_MASTER{16};
+constexpr int CLIMBER_ELEVATOR_FOLLOWER{17};

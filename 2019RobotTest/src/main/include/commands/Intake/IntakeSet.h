@@ -17,5 +17,5 @@ class IntakeSet : public frc::Command {
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
-  float SPD = 0.0;
+  float SPD{0.0};
 };

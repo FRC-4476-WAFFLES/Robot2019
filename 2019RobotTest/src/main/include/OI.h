@@ -34,7 +34,7 @@ class OI {
 	Joystick left;
 	Joystick right;
 	Joystick operate;
-	bool climber_switch = false;
-	bool joystick_mode_toggle_limit = false;
+	bool climber_switch{false};
+	bool joystick_mode_toggle_limit{false};
 	frc::XboxController hid;
 };

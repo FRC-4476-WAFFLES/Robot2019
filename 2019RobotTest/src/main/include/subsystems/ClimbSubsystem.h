@@ -31,6 +31,7 @@ class ClimbSubsystem : public frc::Subsystem {
   int GetLegPosition();
   bool IsLegAtPosition();
   void Prints();
+  
   enum FootPosition {
     kLiftSelf = 1,
     kLiftBuddy = 2,

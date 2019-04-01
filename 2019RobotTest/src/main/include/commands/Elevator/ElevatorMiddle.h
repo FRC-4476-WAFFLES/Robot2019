@@ -17,5 +17,5 @@ class ElevatorMiddle : public frc::Command {
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
-  int time_held = 0;
+  int time_held{0};
 };
