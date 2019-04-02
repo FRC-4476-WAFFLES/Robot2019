@@ -146,7 +146,7 @@ void ElevatorSubsystem::Periodic(){
     std::cout << "in state end state" << std::endl;
     //Elevator Fudge
     if(fabs(elevatorjoy) > 0.1){
-      next_elevator_position = elevator_position + elevatorjoy * 50.0;
+      next_elevator_position = elevator_position + elevatorjoy * 75.0;
       fudging = true;
     }
     //set the motor to the fudge position using the encoder
