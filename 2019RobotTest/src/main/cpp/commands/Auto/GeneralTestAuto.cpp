@@ -12,11 +12,13 @@
 #include "commands/Elevator/ElevatorAutoManual.h"
 #include "commands/Hatch/HatchAutoManual.h"
 #include "commands/Intake/IntakeAutoManual.h"
+#include "commands/Hatch/ToggleClamp.h"
 
 //this is an ediable auto for testing things.
 GeneralTestAuto::GeneralTestAuto() :
  CommandGroup("GeneralTestAuto") 
 {
+  AddSequential(new ToggleClamp());
   AddSequential(new OperatorTankDrive());
   AddParallel(new ElevatorAutoManual());
   AddParallel(new HatchAutoManual());

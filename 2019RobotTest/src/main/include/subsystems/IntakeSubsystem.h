@@ -14,6 +14,7 @@
 #include <ctre/phoenix/motorcontrol/can/VictorSPX.h>
 #include <frc/VictorSP.h>
 #include <frc/AnalogInput.h>
+#include <frc/DigitalInput.h>
 using namespace frc;
 
 class IntakeSubsystem : public frc::Subsystem {
@@ -33,8 +34,9 @@ class IntakeSubsystem : public frc::Subsystem {
   VictorSP cargoCarriageLeft;
   VictorSP cargoCarriageRight;
   WPI_VictorSPX cargoIntake;
-  AnalogInput IR;
-  float current_distance_voltage{0};
+  // AnalogInput IR;
+  DigitalInput Proximity;
+  // float current_distance_voltage{0};
  private:
  bool cargo_is_in_intake{false};
 bool has_cargo_IR{false};

@@ -83,11 +83,11 @@ void ElevatorSubsystem::Periodic(){
   //if we are going down
   if(next_elevator_position - ElevatorPosition() < 0){
     UpdatePID("elevatorDown", elevatorMaster, 9.0, 0.0, 1.0, 0.0);
-    UpdatePID("cargo_extend", cargoIntakeExtend, 0.0, 0.0, 0.0, 0.0);
+    UpdatePID("cargo_extend", cargoIntakeExtend, 2.0, 0.0, 0.0, 0.0);
   }else{
     //         name          srx(lead)     p    i    d    f
     UpdatePID("elevator", elevatorMaster, 9.0, 0.0, 1.0, 0.0);
-    UpdatePID("cargo_extend", cargoIntakeExtend, 1.0, 0.0, 0.0, 0.0);
+    UpdatePID("cargo_extend", cargoIntakeExtend, 2.0, 0.0, 0.0, 0.0);
   }
 
   if(Robot::oi.left.GetRawButton(10)) {
@@ -153,21 +153,27 @@ void ElevatorSubsystem::Periodic(){
     elevatorMaster.Set(ControlMode::Position, next_elevator_position);
     // elevatorMaster.Set(ControlMode::PercentOutput, elevatorjoy);
     //if intaking, move the extend out
-    if(Robot::Intake.is_intaking || Robot::Intake.is_outtaking){
+    if(Robot::Intake.is_intaking){
       pull_in_cargo_exend = false;
       Robot::Hatch.UpdateHatch(Robot::Hatch.current_clamp_state, false);
       next_elevator_position = GROUND_PICKUP_CARGO;
+    }else if(Robot::Intake.is_outtaking){
+      pull_in_cargo_exend = false;
     }else if(elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE+100 && fudging){
+      std::cout << "Condition: fudge move extend" << std::endl;
       // position_when_seek_to_set = elevator_position;
       elevator_state_machine_state = 5;
       pull_in_cargo_exend = false;
     }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE /*&& !Robot::Drive.is_tracking_drive &&!Robot::Drive.is_turning_tracking*/){
+      std::cout << "Condition: move out extend to support hatch" << std::endl;
       pull_in_cargo_exend = false;
-    }else if(!has_moved_down_for_vision && Robot::Drive.is_tracking_drive && (MIDDLE_CARGO_POSITION + 200) > next_elevator_position > LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && !has_moved_for_vision){
+    }else if(!has_moved_down_for_vision && Robot::Drive.is_tracking_drive && (MIDDLE_CARGO_POSITION + 200) > next_elevator_position && next_elevator_position > LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && !has_moved_for_vision){
+      std::cout << "Condition: move Up for Vision under level 2" << std::endl;
       next_elevator_position +=300;
       has_moved_up_for_vision = true;
       has_moved_for_vision = true;
     }else if(Robot::Drive.is_tracking_drive && next_elevator_position > (MIDDLE_CARGO_POSITION + 200) && !has_moved_for_vision){
+      std::cout << "Condition: move up then down for vision" << std::endl;
       next_elevator_position -= 100;
       has_moved_for_vision = true;
     }else{
@@ -177,6 +183,7 @@ void ElevatorSubsystem::Periodic(){
     if(has_moved_up_for_vision && fabs(elevator_position - next_elevator_position) < 40 && !has_moved_down_for_vision){
       next_elevator_position -=300;
       has_moved_down_for_vision = true;
+      std::cout << "moving down for vision" << std::endl;
     }
     
     // in manual mode, move the extend out of the way if neccessary
@@ -261,9 +268,11 @@ void ElevatorSubsystem::SeekTo(int next_rough_position, bool extend){
   
   if(position_when_seek_to_set >= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && next_elevator_position <= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE ||
      position_when_seek_to_set <= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && next_elevator_position >= LIMIT_OF_EFFECTED_BY_CARGO_INTAKE){
+       std::cout << " move extend to accomodate elevator" << std::endl;
     elevator_state_machine_state = 1;//1
   }else{
     elevator_state_machine_state = 2;//2
+    std::cout << " DO NOT move extend" << std::endl;
   }
 }
 

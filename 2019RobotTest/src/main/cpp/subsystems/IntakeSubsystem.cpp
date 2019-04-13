@@ -17,7 +17,8 @@ IntakeSubsystem::IntakeSubsystem() :
  cargoCarriageLeft(LEFT_CARGO_CARRIAGE),
  cargoCarriageRight(RIGHT_CARGO_CARRIAGE),
  cargoIntake(CARGO_INTAKE),
- IR(INFRA_RED)
+//  IR(INFRA_RED),
+ Proximity(PROXIMITY_SENSOR)
  {
 
  }
@@ -30,8 +31,11 @@ void IntakeSubsystem::InitDefaultCommand() {
 
 
 void IntakeSubsystem::Periodic(){
-  current_distance_voltage = IR.GetVoltage();
+  // current_distance_voltage = IR.GetVoltage();
     speed = Robot::oi.IntakeSpeed();
+    if(has_cargo_IR){
+      speed = speed + 0.085;
+    }
     if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && Robot::Elevator.next_elevator_position < Robot::Elevator.LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && Robot::Drive.is_tracking_drive || Robot::Drive.is_turning_tracking){
       speed = -0.3452345678901;
     }
@@ -50,7 +54,7 @@ void IntakeSubsystem::Periodic(){
       is_intaking = false;
     }
 
-    if(speed >= -0.1){
+    if(speed <= -0.1){
       is_outtaking = true;
     }else{
       is_outtaking = false;
@@ -61,17 +65,17 @@ void IntakeSubsystem::Periodic(){
     }else if(-speed<=-0.5){
       has_cargo = true;
     }
-
-  if(current_distance_voltage>2.5){
+//get returns a inverted value
+  if(!Proximity.Get()/*current_distance_voltage>2.5*/){
     has_cargo_IR = true;
-    cargo_is_in_intake = true;
-  }else if(current_distance_voltage<2.5 &&!cargo_is_in_intake) {
+    // cargo_is_in_intake = true;
+  }else if(Proximity.Get()/*current_distance_voltage<2.5 &&!cargo_is_in_intake*/) {
     has_cargo_IR = false;
     
   }
-  if(current_distance_voltage<0.1){
-    cargo_is_in_intake = false;
-  }
+  // if(current_distance_voltage<0.1){
+  //   cargo_is_in_intake = false;
+  // }
 
   
 }
@@ -91,5 +95,8 @@ bool IntakeSubsystem::HasCargoIR(){
 void IntakeSubsystem::Prints(){
   SmartDashboard::PutBoolean("Intake/HasCargo", has_cargo);
   SmartDashboard::PutNumber("Intake/Intake Speed", speed);
-  SmartDashboard::PutNumber("Intake/IR Voltage", current_distance_voltage);
+  SmartDashboard::PutBoolean("Intake/HasCagoIR", has_cargo_IR);
+  // SmartDashboard::PutNumber("Intake/IR Voltage", current_distance_voltage);
+  SmartDashboard::PutBoolean("Intake/Is Intaking", is_intaking);
+  SmartDashboard::PutBoolean("Intake/Is Outtaking", is_outtaking);
 }

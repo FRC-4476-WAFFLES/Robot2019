@@ -39,6 +39,8 @@ class LightSubsystem : public frc::Subsystem {
   // for methods that implement subsystem capabilities
   CANifier led;
   VictorSP red_out;
+  VictorSP green_out;
+  VictorSP blue_out;
   Timer T;
   bool strobe_index{false};
 };

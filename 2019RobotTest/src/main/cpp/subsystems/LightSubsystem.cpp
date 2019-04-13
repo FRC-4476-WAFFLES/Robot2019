@@ -11,11 +11,13 @@
 #include "commands/Lights/LightGeneral.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
-LightSubsystem::LightSubsystem() : frc::Subsystem("LightSubsystem"), led(LIGHT_STRIP), red_out(2) {
+LightSubsystem::LightSubsystem() : frc::Subsystem("LightSubsystem"), led(LIGHT_STRIP), red_out(RED_LIGHTS_CONTROLLER), green_out(GREEN_LIGHTS_CONTROLLER), blue_out(BLUE_LIGHTS_CONTROLLER) {
   T.Stop();
   T.Reset();
   T.Start();
   red_out.Set(0);
+  green_out.Set(0);
+  blue_out.Set(0);
 }
 
 void LightSubsystem::InitDefaultCommand() {
@@ -38,7 +40,7 @@ void LightSubsystem::UpdateColour(int input_colour){
     SendColour(0, 0, 0);
   }else if(colour == 1){
     // SendColour(153, 0, 153);//purple(Dark)
-    SendColour(255, 0, 0);
+    SendColour(255, 255, 255);
   }else if(colour == 2){
     SendColour(153, 0, 153);//purple(Dark)
   }else if(colour == 3){
@@ -54,6 +56,8 @@ void LightSubsystem::UpdateColour(int input_colour){
 }
 void LightSubsystem::SendColour(int r, int g, int b){
   red_out.Set(-r/255);
+  green_out.Set(-r/255);
+  blue_out.Set(-r/255);
 
   // led.SetLEDOutput(r, CANifier::LEDChannel::LEDChannelA);
 	// led.SetLEDOutput(g, CANifier::LEDChannel::LEDChannelB);
@@ -62,10 +66,16 @@ void LightSubsystem::SendColour(int r, int g, int b){
 void LightSubsystem::Strobe(int r, int g, int b){
   if(T.Get() >= 0.1){
     if(!strobe_index){
+      red_out.Set(-r/255);
+      green_out.Set(-r/255);
+      blue_out.Set(-r/255);
       // led.SetLEDOutput(r, CANifier::LEDChannel::LEDChannelA);
       // led.SetLEDOutput(g, CANifier::LEDChannel::LEDChannelB);
       // led.SetLEDOutput(b, CANifier::LEDChannel::LEDChannelC);
     }else{
+      red_out.Set(0);
+      green_out.Set(0);
+      blue_out.Set(0);
       // led.SetLEDOutput(0, CANifier::LEDChannel::LEDChannelA);
       // led.SetLEDOutput(0, CANifier::LEDChannel::LEDChannelB);
       // led.SetLEDOutput(0, CANifier::LEDChannel::LEDChannelC);

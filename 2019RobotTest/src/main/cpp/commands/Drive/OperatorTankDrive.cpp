@@ -44,7 +44,7 @@ void OperatorTankDrive::Execute() {
     //change the clamp state to pick up or drop off a hatch.
 		delay_clamp.Start(); 
 		std::cout << "step1" << std::endl;
-		if(/*Robot::Drive.AvgDriveOut()> 0.17*/ Robot::Drive.GetAvgVel() < 3 /*this is a magic numer*/ && !has_toggled && Robot::oi.right.GetRawButton(10) && delay_clamp.Get() > 0.5){
+		if(/*Robot::Drive.AvgDriveOut()> 0.17*/ Robot::Drive.GetAvgVel() < 5 /*this is a magic numer*/ && !has_toggled && Robot::oi.right.GetRawButton(10) && delay_clamp.Get() > 0.5){
 			has_toggled = true;
 			std::cout << "has Toggled clamp" <<std::endl;
 			delay_clamp_delay.Start();

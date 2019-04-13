@@ -40,7 +40,7 @@ class ElevatorSubsystem : public frc::Subsystem {
   constexpr static float TOP_HATCH_POSITION{2818.0};
 
   //CARGO
-  constexpr static float GROUND_PICKUP_CARGO{100.0};
+  constexpr static float GROUND_PICKUP_CARGO{100.0 + 30};
   constexpr static float HUMAN_PLAYER_PICKUP_CARGO{0.0};
   constexpr static float CARGO_SHIP_CARGO_POSITION{1650.0};
   constexpr static float BOTTOM_CARGO_POSITION{961.0};
@@ -49,11 +49,11 @@ class ElevatorSubsystem : public frc::Subsystem {
   constexpr static float LIMIT_OF_EFFECTED_BY_CARGO_INTAKE{800.0};
 
   //CARGO EXTEND OUT
-  constexpr static float CARGO_EXTEND_CARGO{-1240.0};//1175
+  constexpr static float CARGO_EXTEND_CARGO{1200.0};//1175
   constexpr static float CARGO_EXTEND_IN{0.0};
-  constexpr static float CARGO_EXTEND_HATCH{-682};
-  constexpr static float CARGO_EXTEND_INTAKE{-1240};
-  constexpr static float CARGO_EXTEND_SUPPORT{-1240};
+  constexpr static float CARGO_EXTEND_HATCH{682};
+  constexpr static float CARGO_EXTEND_INTAKE{1200};
+  constexpr static float CARGO_EXTEND_SUPPORT{1200};
 
   enum Positions {
     Top = 1,

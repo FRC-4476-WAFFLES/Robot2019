@@ -16,9 +16,9 @@
 //PWM
 constexpr int LEFT_CARGO_CARRIAGE{8};//SP---0
 constexpr int RIGHT_CARGO_CARRIAGE{9};//SP---9
-
-constexpr int SPARE_SP_1{8};
-constexpr int SPARE_SP_2{1};
+constexpr int RED_LIGHTS_CONTROLLER{2};
+constexpr int GREEN_LIGHTS_CONTROLLER{3};
+constexpr int BLUE_LIGHTS_CONTROLLER{1};
 //CAN
 constexpr int DRIVE_RIGHT1{1};//SRX
 constexpr int DRIVE_RIGHT2{2};//SPX
@@ -48,7 +48,7 @@ constexpr int HATCH_EXTEND{0};//double Solenoid
 constexpr int HATCH_UNEXTEND{1};//double Solenoid
 
 //DIGITAL INPUT
-
+constexpr int PROXIMITY_SENSOR{0};
 //ANALOG INPUT
 constexpr int INFRA_RED{0};
 

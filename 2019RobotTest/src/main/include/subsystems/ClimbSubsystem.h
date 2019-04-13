@@ -44,28 +44,28 @@ class ClimbSubsystem : public frc::Subsystem {
   };
 
  private:
-  // It's desirable that everything possible under private except
-  // for methods that implement subsystem capabilities
-  // CANSparkMax climbMaster;
-  // CANSparkMax climbFollower;
-  WPI_TalonSRX climberLegMaster;
-  WPI_TalonSRX climberLegFollower;
+  // // It's desirable that everything possible under private except
+  // // for methods that implement subsystem capabilities
+  // // CANSparkMax climbMaster;
+  // // CANSparkMax climbFollower;
+  // WPI_TalonSRX climberLegMaster;
+  // WPI_TalonSRX climberLegFollower;
 
-  //suction cup
-  DoubleSolenoid suctionClamp;
+  // //suction cup
+  // DoubleSolenoid suctionClamp;
 
-  //legs
-  Relay leftElectromagnetLock;
-  Relay rightElectromagnetLock;
+  // //legs
+  // Relay leftElectromagnetLock;
+  // Relay rightElectromagnetLock;
 
-  //logic variables
-  bool pumping{false};
-  bool locking{true};
-  int foot_position{1};
-  int leg_target{0};
-  int current_leg_state{1};
-  Timer compressionRate;
-  bool cycle_state{false};
-  bool is_at_position{false};
+  // //logic variables
+  // bool pumping{false};
+  // bool locking{true};
+  // int foot_position{1};
+  // int leg_target{0};
+  // int current_leg_state{1};
+  // Timer compressionRate;
+  // bool cycle_state{false};
+  // bool is_at_position{false};
 
 };

@@ -22,7 +22,7 @@ void ElevatorDefault::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void ElevatorDefault::Execute() {
-  if(Robot::Intake.HasCargoIR() && !has_moved_to_level_one){
+  if(Robot::Intake.HasCargoIR() && !has_moved_to_level_one && !Robot::Intake.is_intaking && !Robot::Intake.is_outtaking){
     Robot::Elevator.SeekTo(Robot::Elevator.Positions::Bottom);
     has_moved_to_level_one = true;
   }

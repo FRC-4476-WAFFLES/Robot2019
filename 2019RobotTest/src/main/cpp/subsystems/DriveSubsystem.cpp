@@ -61,6 +61,7 @@ DriveSubsystem::DriveSubsystem() :
 	KV = UpdateSinglePreference("path v", KV);
 	KA = UpdateSinglePreference("path a", KA);
 
+	velocity_time.Start();
 }
 
 void DriveSubsystem::InitDefaultCommand() {
@@ -72,10 +73,14 @@ void DriveSubsystem::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void DriveSubsystem::WafflesDrive(float Left, float Right) {
-	left_vel_segment = this->Left() - last_left_val;
-	right_vel_segment = this->Right() - last_right_val;
-	last_left_val = this->Left();
-	last_right_val = this->Right(); 
+	if(velocity_time.Get()>0.1){
+		left_vel_segment = this->Left() - last_left_val;
+		right_vel_segment = this->Right() - last_right_val;
+		last_left_val = this->Left();
+		last_right_val = this->Right(); 
+		velocity_time.Reset();
+		velocity_time.Start();
+	}
 	velocity_encoder_segment = fabs( ( fabs(left_vel_segment) + fabs(right_vel_segment)) - velocity_encoder_segment);
 	Robot::Camera.SetCameraProcessingMode(1);
 	left1.Set(ControlMode::PercentOutput, -Left);
@@ -91,10 +96,15 @@ void DriveSubsystem::WafflesDrive(float Left, float Right) {
 }
 
 void DriveSubsystem::TrackingDrive(float Left, float Right){
-	left_vel_segment = this->Left() - last_left_val;
-	right_vel_segment = this->Right() - last_right_val;
-	last_left_val = this->Left();
-	last_right_val = this->Right(); 
+	if(velocity_time.Get()>0.1){
+		left_vel_segment = this->Left() - last_left_val;
+		right_vel_segment = this->Right() - last_right_val;
+		last_left_val = this->Left();
+		last_right_val = this->Right(); 
+		velocity_time.Reset();
+		velocity_time.Start();
+	}
+	cout << velocity_time.Get() << endl;
 	velocity_encoder_segment = fabs( ( fabs(left_vel_segment) + fabs(right_vel_segment)) - velocity_encoder_segment);
 	last_time.Reset();
 	last_time.Start();
@@ -105,7 +115,7 @@ void DriveSubsystem::TrackingDrive(float Left, float Right){
 	double kp_turning = UpdateSinglePreference("camera turning p", -0.003);
 	double kd_turning = UpdateSinglePreference("camera turning d", -0.017);
 	double kp_driving = UpdateSinglePreference("camera driving p", -0.017);
-	double kp_forwards = UpdateSinglePreference("camera area coefficient", 0.45);
+	double kp_forwards = UpdateSinglePreference("camera area coefficient", 0.35);
 	double area = Robot::Camera.GetCameraTA();
 	// float otherkp = UpdateSinglePreference("skew kp", 0.004);
 	double tx = Robot::Camera.GetCameraTX();
