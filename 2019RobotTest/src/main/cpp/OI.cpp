@@ -80,6 +80,12 @@ OI::OI() :
   
   Button* WhenUrHumanPlayerWontNoticeUAndUrAngry = new JoystickButton(&left, 10);
   WhenUrHumanPlayerWontNoticeUAndUrAngry->WhileHeld(new HPWontDropItem());
+
+  Button* DriverClampyThingy = new JoystickButton(&left, 7);
+  DriverClampyThingy->WhenReleased(new ToggleClamp());
+
+  Button* DriverClampyThingyTheSecond = new JoystickButton(&left, 7);
+  DriverClampyThingyTheSecond->WhenReleased(new ToggleClamp());
 }
 
 float OI::ElevatorFudge(){

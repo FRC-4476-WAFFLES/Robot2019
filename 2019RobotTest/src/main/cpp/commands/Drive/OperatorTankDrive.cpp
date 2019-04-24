@@ -33,7 +33,8 @@ void OperatorTankDrive::Execute() {
 			Robot::Drive.target_angle = Robot::Camera.GetCameraTX() + Robot::Drive.Gyro();
 		}
 		Robot::Camera.SetSnapshotMode(Robot::Camera.SnapshotMode::SnapOn);
-		Robot::Drive.TrackingDrive(-0.25, -0.25);
+		// Robot::Drive.TrackingDrive(-0.25, -0.25);///////////////////////////
+		Robot::Drive.TrackingDrive(Robot::oi.left.GetY()*0.75, Robot::oi.left.GetY()*0.75);
 	}else {
     //set the drive to the y axis of the joysticks
 	  Robot::Drive.WafflesDrive(Robot::oi.left.GetY(), Robot::oi.right.GetY());

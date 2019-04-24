@@ -22,11 +22,12 @@ using namespace std;
 DriveSubsystem::DriveSubsystem() : 
   frc::Subsystem("DriveSubsystem"),
   	left1(DRIVE_LEFT1),
-		left2(DRIVE_LEFT2),
-		left3(DRIVE_LEFT3),
-		right1(DRIVE_RIGHT1),
-		right2(DRIVE_RIGHT2),
-		right3(DRIVE_RIGHT3)
+	left2(DRIVE_LEFT2),
+	left3(DRIVE_LEFT3),
+	right1(DRIVE_RIGHT1),
+	right2(DRIVE_RIGHT2),
+	right3(DRIVE_RIGHT3)
+	
 {
 	//sensors are quadratic (greyhills)
   left1.ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 10);
@@ -85,6 +86,7 @@ void DriveSubsystem::WafflesDrive(float Left, float Right) {
 	Robot::Camera.SetCameraProcessingMode(1);
 	left1.Set(ControlMode::PercentOutput, -Left);
 	right1.Set(ControlMode::PercentOutput, Right);
+
 	missing_vision_target = false;
 	is_tracking_drive = false;
 	is_turning_tracking = false;
@@ -117,18 +119,9 @@ void DriveSubsystem::TrackingDrive(float Left, float Right){
 	double kp_driving = UpdateSinglePreference("camera driving p", -0.017);
 	double kp_forwards = UpdateSinglePreference("camera area coefficient", 0.35);
 	double area = Robot::Camera.GetCameraTA();
-	// float otherkp = UpdateSinglePreference("skew kp", 0.004);
 	double tx = Robot::Camera.GetCameraTX();
-	// float ts = GetSkew();
-	Left = Left*(1/(area*kp_forwards));
-	Right = Right*(1/(area*kp_forwards));
-	// double skew_error = 1/(ts*otherkp);
-	// if(skew_error > 7){
-	// 	skew_error = 7;
-	// }else if(skew_error < -7){
-	// 	skew_error = -7;
-	// }
-	// tx = tx; //+ skew_error;
+	//Left = Left*(1/(area*kp_forwards));////////////////////////////////////
+	//Right = Right*(1/(area*kp_forwards));//////////////////////////////////
 	double error = 0;
 	if(is_turning_tracking){
 		error = kp_turning*tx;
