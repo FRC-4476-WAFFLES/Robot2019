@@ -84,8 +84,8 @@ OI::OI() :
   Button* DriverClampyThingy = new JoystickButton(&left, 7);
   DriverClampyThingy->WhenReleased(new ToggleClamp());
 
-  Button* DriverClampyThingyTheSecond = new JoystickButton(&left, 7);
-  DriverClampyThingyTheSecond->WhenReleased(new ToggleClamp());
+  // Button* DriverClampyThingyTheSecond = new JoystickButton(&left, 7);
+  // DriverClampyThingyTheSecond->WhenReleased(new ToggleClamp());
 }
 
 float OI::ElevatorFudge(){
@@ -100,7 +100,15 @@ float OI::IntakeSpeed() {
 
 	double in = operate.GetRawAxis(3);
 	double out =  operate.GetRawAxis(2);
-	return (in * in - 1 * out * out)*0.9;//0.75 -> 1
+  float additional_out = 0;
+  if(Robot::Hatch.current_deploy_state){
+    additional_out = 0;
+  }else{
+    additional_out = -0.5*left.GetRawButton(7) + -0.5*operate.GetRawButton(6);
+  }
+  
+  //                                              outake on a button press
+	return (in * in - 1 * out * out + additional_out)*0.9;//0.75 -> 1
 }
 void OI::Prints(){
   SmartDashboard::PutBoolean("climber switch", climber_switch);
