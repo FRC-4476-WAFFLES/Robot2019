@@ -20,6 +20,8 @@ class OperatorTankDrive : public frc::Command {
 	void Interrupted();
 	bool has_toggled{false};
 	bool has_set{false};
+	bool has_set_backing{false};
 	frc::Timer delay_clamp;
 	frc::Timer delay_clamp_delay;
+	double init_angle{0};
 };

@@ -120,8 +120,15 @@ void DriveSubsystem::TrackingDrive(float Left, float Right){
 	double kp_forwards = UpdateSinglePreference("camera area coefficient", 0.35);
 	double area = Robot::Camera.GetCameraTA();
 	double tx = Robot::Camera.GetCameraTX();
-	//Left = Left*(1/(area*kp_forwards));////////////////////////////////////
-	//Right = Right*(1/(area*kp_forwards));//////////////////////////////////
+	Left = Left*(1/(area*kp_forwards));
+	if(fabs(Left) <0.1){
+		Left = 0.1*(Left/fabs(Left));
+	}
+	Right = Right*(1/(area*kp_forwards));
+	if(fabs(Right) <0.1){
+		Right = 0.1*(Right/fabs(Right));
+	}
+
 	double error = 0;
 	if(is_turning_tracking){
 		error = kp_turning*tx;
@@ -135,22 +142,22 @@ void DriveSubsystem::TrackingDrive(float Left, float Right){
 		Right = 0;
 		missing_vision_target = true;
 	}else if(fabs(error) < acceptable_error){
-		if(error > -MIN_TRACKING_ERROR && error < 0){
-			Left+= -MIN_TRACKING_ERROR;
-			Right-= -MIN_TRACKING_ERROR;
+		// if(error > -MIN_TRACKING_ERROR && error < 0){
+		// 	Left+= -MIN_TRACKING_ERROR;
+		// 	Right-= -MIN_TRACKING_ERROR;
+		// 	missing_vision_target = false;
+		// 	is_turning_tracking = false;
+		// }else if(error < MIN_TRACKING_ERROR && error > 0){
+		// 	Left+= MIN_TRACKING_ERROR;
+		// 	Right-= MIN_TRACKING_ERROR;
+		// 	missing_vision_target = false;
+		// 	is_turning_tracking = false;
+		// }else{
+			Left+=error*10;
+			Right-=error*10;
 			missing_vision_target = false;
 			is_turning_tracking = false;
-		}else if(error < MIN_TRACKING_ERROR && error > 0){
-			Left+= MIN_TRACKING_ERROR;
-			Right-= MIN_TRACKING_ERROR;
-			missing_vision_target = false;
-			is_turning_tracking = false;
-		}else{
-			Left+=error;
-			Right-=error;
-			missing_vision_target = false;
-			is_turning_tracking = false;
-		}
+		// }
 	}else{
 		double angle_error = target_angle - tx;//Gyro();
 		kd_turning = kd_turning * ((angle_error - last_angle_error) / time);

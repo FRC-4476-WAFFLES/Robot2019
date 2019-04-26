@@ -33,11 +33,22 @@ void OperatorTankDrive::Execute() {
 			Robot::Drive.target_angle = Robot::Camera.GetCameraTX() + Robot::Drive.Gyro();
 		}
 		Robot::Camera.SetSnapshotMode(Robot::Camera.SnapshotMode::SnapOn);
-		// Robot::Drive.TrackingDrive(-0.25, -0.25);///////////////////////////
-		Robot::Drive.TrackingDrive(Robot::oi.left.GetY()*0.75, Robot::oi.left.GetY()*0.75);
+		Robot::Drive.TrackingDrive(-0.25, -0.25);
+		// Robot::Drive.TrackingDrive(Robot::oi.left.GetY()*0.75, Robot::oi.left.GetY()*0.75);
 	}else {
     //set the drive to the y axis of the joysticks
-	  Robot::Drive.WafflesDrive(Robot::oi.left.GetY(), Robot::oi.right.GetY());
+		if(Robot::oi.left.GetRawButton(1) || Robot::oi.left.GetRawButton(2) || Robot::oi.left.GetRawButton(3) || Robot::oi.left.GetRawButton(4) || 
+			Robot::oi.right.GetRawButton(1) || Robot::oi.right.GetRawButton(2) || Robot::oi.right.GetRawButton(3) || Robot::oi.right.GetRawButton(4)){
+				// if(!has_set_backing){
+					//init_angle = Robot::Drive.Gyro();
+					// has_set_backing = true;
+				// }else{
+					//double angle_error = init_angle-Robot::Drive.Gyro();
+					Robot::Drive.WafflesDrive(0.9, 0.9);
+				// }
+		}else{
+			Robot::Drive.WafflesDrive(Robot::oi.left.GetY(), Robot::oi.right.GetY());
+		}
 		Robot::Camera.SetSnapshotMode(Robot::Camera.SnapshotMode::SnapOff);
 	}
 	if(!Robot::Drive.is_turning_tracking){

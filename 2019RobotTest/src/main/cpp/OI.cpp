@@ -81,7 +81,7 @@ OI::OI() :
   Button* WhenUrHumanPlayerWontNoticeUAndUrAngry = new JoystickButton(&left, 10);
   WhenUrHumanPlayerWontNoticeUAndUrAngry->WhileHeld(new HPWontDropItem());
 
-  Button* DriverClampyThingy = new JoystickButton(&left, 7);
+  Button* DriverClampyThingy = new JoystickButton(&left, 6);
   DriverClampyThingy->WhenReleased(new ToggleClamp());
 
   // Button* DriverClampyThingyTheSecond = new JoystickButton(&left, 7);
@@ -104,7 +104,7 @@ float OI::IntakeSpeed() {
   if(Robot::Hatch.current_deploy_state){
     additional_out = 0;
   }else{
-    additional_out = -0.5*left.GetRawButton(7) + -0.5*operate.GetRawButton(6);
+    additional_out = -0.5*left.GetRawButton(6) + -0.5*operate.GetRawButton(6);
   }
   
   //                                              outake on a button press
