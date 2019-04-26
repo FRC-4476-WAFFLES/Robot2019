@@ -106,101 +106,103 @@ void ElevatorSubsystem::Periodic(){
 
   AutoDetectCurrentGamepiece();
 
-
-  if(t.Get() < 0.0 && frc::DriverStation::GetInstance().IsOperatorControl()){
-    elevatorMaster.Set(ControlMode::PercentOutput, 0.0);
-    // cargoIntakeExtend.Set(ControlMode::PercentOutput, 0.0);
-  }else if(elevator_state_machine_state == 0){
-    std::cout << "in state 0" << std::endl;
-  }else if(elevator_state_machine_state == 1){//pull the extend out
-    std::cout << "in state 1" << std::endl;
-    fudging = false;
-    has_moved_for_vision = false;
-    has_moved_up_for_vision = false;
-    has_moved_down_for_vision = false;
-    std::cout << fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) << std::endl;
-    elevatorMaster.Set(ControlMode::Position, position_when_seek_to_set);
-    pull_in_cargo_exend = false;
-    if(fabs(fabs(extend_position) - fabs(CARGO_EXTEND_CARGO)) < 40.0 && Robot::Intake.HasCargo()){
-      elevator_state_machine_state = 2;
-    }else if(fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) < 40.0 && Robot::Hatch.HasPannel()){
-      elevator_state_machine_state = 2;
-    }else if(fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) < 40.0){
-      elevator_state_machine_state = 2;
-    }
-  }else if(elevator_state_machine_state == 2){//move the elevator
-    std::cout << "in state 2" << std::endl;
-    fudging = false;
-    elevatorMaster.Set(ControlMode::Position, next_elevator_position);
-    pull_in_cargo_exend = false;
-    if(fabs(fabs(elevator_position) - fabs(next_elevator_position)) < 60.0){
-      elevator_state_machine_state = 3;
-    }
-
-  }else if(elevator_state_machine_state == 3){//pull the extend back in, unless we're fudging
-    std::cout << "in state 3" << std::endl;
-    elevatorMaster.Set(ControlMode::Position, next_elevator_position);
-    elevator_state_machine_state = 4;
-
-  }else if(elevator_state_machine_state == 4){
-    std::cout << "in state end state" << std::endl;
-    //Elevator Fudge
-    if(fabs(elevatorjoy) > 0.1){
-      next_elevator_position = elevator_position + elevatorjoy * 75.0;
-      fudging = true;
-    }
-    //set the motor to the fudge position using the encoder
-    elevatorMaster.Set(ControlMode::Position, next_elevator_position);
-    // elevatorMaster.Set(ControlMode::PercentOutput, elevatorjoy);
-    //if intaking, move the extend out
-    if(Robot::Intake.is_intaking){
+  if(!full_manual){
+    if(t.Get() < 0.0 && frc::DriverStation::GetInstance().IsOperatorControl()){
+      elevatorMaster.Set(ControlMode::PercentOutput, 0.0);
+      // cargoIntakeExtend.Set(ControlMode::PercentOutput, 0.0);
+    }else if(elevator_state_machine_state == 0){
+      std::cout << "in state 0" << std::endl;
+    }else if(elevator_state_machine_state == 1){//pull the extend out
+      std::cout << "in state 1" << std::endl;
+      fudging = false;
+      has_moved_for_vision = false;
+      has_moved_up_for_vision = false;
+      has_moved_down_for_vision = false;
+      std::cout << fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) << std::endl;
+      elevatorMaster.Set(ControlMode::Position, position_when_seek_to_set);
       pull_in_cargo_exend = false;
-      Robot::Hatch.UpdateHatch(Robot::Hatch.current_clamp_state, false);
-      next_elevator_position = GROUND_PICKUP_CARGO;
-    }else if(Robot::Intake.is_outtaking){
+      if(fabs(fabs(extend_position) - fabs(CARGO_EXTEND_CARGO)) < 40.0 && Robot::Intake.HasCargo()){
+        elevator_state_machine_state = 2;
+      }else if(fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) < 40.0 && Robot::Hatch.HasPannel()){
+        elevator_state_machine_state = 2;
+      }else if(fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) < 40.0){
+        elevator_state_machine_state = 2;
+      }
+    }else if(elevator_state_machine_state == 2){//move the elevator
+      std::cout << "in state 2" << std::endl;
+      fudging = false;
+      elevatorMaster.Set(ControlMode::Position, next_elevator_position);
       pull_in_cargo_exend = false;
-    }else if(elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE+100 && fudging){
-      std::cout << "Condition: fudge move extend" << std::endl;
-      // position_when_seek_to_set = elevator_position;
-      elevator_state_machine_state = 5;
-      pull_in_cargo_exend = false;
-    }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE /*&& !Robot::Drive.is_tracking_drive &&!Robot::Drive.is_turning_tracking*/){
-      std::cout << "Condition: move out extend to support hatch" << std::endl;
-      pull_in_cargo_exend = false;
-    }else if(!has_moved_down_for_vision && Robot::Drive.is_tracking_drive && (MIDDLE_CARGO_POSITION + 200) > next_elevator_position && next_elevator_position > LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && !has_moved_for_vision){
-      std::cout << "Condition: move Up for Vision under level 2" << std::endl;
-      next_elevator_position +=300;
-      has_moved_up_for_vision = true;
-      has_moved_for_vision = true;
-    }else if(Robot::Drive.is_tracking_drive && next_elevator_position > (MIDDLE_CARGO_POSITION + 200) && !has_moved_for_vision){
-      std::cout << "Condition: move up then down for vision" << std::endl;
-      next_elevator_position -= 100;
-      has_moved_for_vision = true;
-    }else{
-      pull_in_cargo_exend = true;
-    }
+      if(fabs(fabs(elevator_position) - fabs(next_elevator_position)) < 60.0){
+        elevator_state_machine_state = 3;
+      }
 
-    if(has_moved_up_for_vision && fabs(elevator_position - next_elevator_position) < 40 && !has_moved_down_for_vision){
-      next_elevator_position -=300;
-      has_moved_down_for_vision = true;
-      std::cout << "moving down for vision" << std::endl;
-    }
-    
-    // in manual mode, move the extend out of the way if neccessary
-  }else if(elevator_state_machine_state == 5){//for when fudging
-    std::cout << "in state 5" << std::endl;
-    std::cout << fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) << std::endl;
-    // elevatorMaster.Set(ControlMode::Position, position_when_seek_to_set);
-    pull_in_cargo_exend = false;
-    if(fabs(fabs(extend_position) - fabs(CARGO_EXTEND_CARGO)) < 40.0 && Robot::Intake.HasCargo()){
+    }else if(elevator_state_machine_state == 3){//pull the extend back in, unless we're fudging
+      std::cout << "in state 3" << std::endl;
+      elevatorMaster.Set(ControlMode::Position, next_elevator_position);
       elevator_state_machine_state = 4;
-    }else if(fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) < 40.0 && Robot::Hatch.HasPannel()){
-      elevator_state_machine_state = 4;
-    }else if(fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) < 40.0){
-      elevator_state_machine_state = 4;
+
+    }else if(elevator_state_machine_state == 4){
+      std::cout << "in state end state" << std::endl;
+      //Elevator Fudge
+      if(fabs(elevatorjoy) > 0.1){
+        next_elevator_position = elevator_position + elevatorjoy * 75.0;
+        fudging = true;
+      }
+      //set the motor to the fudge position using the encoder
+      elevatorMaster.Set(ControlMode::Position, next_elevator_position);
+      // elevatorMaster.Set(ControlMode::PercentOutput, elevatorjoy);
+      //if intaking, move the extend out
+      if(Robot::Intake.is_intaking){
+        pull_in_cargo_exend = false;
+        Robot::Hatch.UpdateHatch(Robot::Hatch.current_clamp_state, false);
+        next_elevator_position = GROUND_PICKUP_CARGO;
+      }else if(Robot::Intake.is_outtaking){
+        pull_in_cargo_exend = false;
+      }else if(elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE+100 && fudging){
+        std::cout << "Condition: fudge move extend" << std::endl;
+        // position_when_seek_to_set = elevator_position;
+        elevator_state_machine_state = 5;
+        pull_in_cargo_exend = false;
+      }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE /*&& !Robot::Drive.is_tracking_drive &&!Robot::Drive.is_turning_tracking*/){
+        std::cout << "Condition: move out extend to support hatch" << std::endl;
+        pull_in_cargo_exend = false;
+      }else if(!has_moved_down_for_vision && Robot::Drive.is_tracking_drive && (MIDDLE_CARGO_POSITION + 200) > next_elevator_position && next_elevator_position > LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && !has_moved_for_vision){
+        std::cout << "Condition: move Up for Vision under level 2" << std::endl;
+        next_elevator_position +=300;
+        has_moved_up_for_vision = true;
+        has_moved_for_vision = true;
+      }else if(Robot::Drive.is_tracking_drive && next_elevator_position > (MIDDLE_CARGO_POSITION + 200) && !has_moved_for_vision){
+        std::cout << "Condition: move up then down for vision" << std::endl;
+        next_elevator_position -= 100;
+        has_moved_for_vision = true;
+      }else{
+        pull_in_cargo_exend = true;
+      }
+
+      if(has_moved_up_for_vision && fabs(elevator_position - next_elevator_position) < 40 && !has_moved_down_for_vision){
+        next_elevator_position -=300;
+        has_moved_down_for_vision = true;
+        std::cout << "moving down for vision" << std::endl;
+      }
+      
+      // in manual mode, move the extend out of the way if neccessary
+    }else if(elevator_state_machine_state == 5){//for when fudging
+      std::cout << "in state 5" << std::endl;
+      std::cout << fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) << std::endl;
+      // elevatorMaster.Set(ControlMode::Position, position_when_seek_to_set);
+      pull_in_cargo_exend = false;
+      if(fabs(fabs(extend_position) - fabs(CARGO_EXTEND_CARGO)) < 40.0 && Robot::Intake.HasCargo()){
+        elevator_state_machine_state = 4;
+      }else if(fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) < 40.0 && Robot::Hatch.HasPannel()){
+        elevator_state_machine_state = 4;
+      }else if(fabs(fabs(extend_position) - fabs(CARGO_EXTEND_HATCH)) < 40.0){
+        elevator_state_machine_state = 4;
+      }
     }
+  }else{
+    elevatorMaster.Set(ControlMode::PercentOutput, Robot::oi.operate.GetRawAxis(1));
   }
-
 
 
 
@@ -281,9 +283,13 @@ float ElevatorSubsystem::ElevatorPosition(){
 }
 
 void ElevatorSubsystem::ExtendPeriodic(){
-  // if(!DriverStation::GetInstance().IsAutonomous()){
+  if(!full_manual){
     if(pull_in_cargo_exend){
       cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
+      //rezero on zero velocity
+      if(fabs(cargoIntakeExtend.GetSelectedSensorPosition())<50 && fabs(cargoIntakeExtend.GetSelectedSensorVelocity())<5){
+        ReZeroExtend();
+      }
     }else{
       if(Robot::Intake.is_intaking){
         cout << "intaking "<<endl;
@@ -301,7 +307,9 @@ void ElevatorSubsystem::ExtendPeriodic(){
         cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_HATCH);
       }
     }
-  // }
+  }else{
+    cargoIntakeExtend.Set(ControlMode::PercentOutput, Robot::oi.operate.GetRawAxis(5));
+  }
 }
 
 void ElevatorSubsystem::Prints(){
@@ -322,4 +330,12 @@ void ElevatorSubsystem::REZero(){
 
 float ElevatorSubsystem::GetNextPosition(){
   return next_elevator_position;
+}
+
+void ElevatorSubsystem::SetFullManual(){
+  full_manual = !full_manual;
+}
+
+void ElevatorSubsystem::ReZeroExtend(){
+  cargoIntakeExtend.SetSelectedSensorPosition(0);
 }

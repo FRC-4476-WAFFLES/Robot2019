@@ -31,6 +31,9 @@ class ElevatorSubsystem : public frc::Subsystem {
   void Prints();
   void REZero();
   float GetNextPosition();
+  void SetFullManual();
+  void ReZeroExtend();
+  
 
   //elevator
   //HATCH
@@ -89,4 +92,5 @@ class ElevatorSubsystem : public frc::Subsystem {
   Timer t;
   bool has_moved_up_for_vision{false};
   bool has_moved_down_for_vision{false};
+  bool full_manual{false};
 };

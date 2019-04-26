@@ -21,12 +21,12 @@ ElevatorManualGamepieceToggle::ElevatorManualGamepieceToggle():
 
 // Called just before this Command runs the first time
 void ElevatorManualGamepieceToggle::Initialize() {
-  if(Robot::Elevator.current_gamepiece == 1){
-    Robot::Elevator.SetCurrentGamepiece(2);
-  }else{
-    Robot::Elevator.SetCurrentGamepiece(1);
-  }
-  // Robot::Elevator.REZero();
+  // if(Robot::Elevator.current_gamepiece == 1){
+  //   Robot::Elevator.SetCurrentGamepiece(2);
+  // }else{
+  //   Robot::Elevator.SetCurrentGamepiece(1);
+  // }
+  Robot::Elevator.SetFullManual();
 }
 
 // Called repeatedly when this Command is scheduled to run
