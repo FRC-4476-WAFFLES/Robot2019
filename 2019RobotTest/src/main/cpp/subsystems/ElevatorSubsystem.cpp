@@ -283,32 +283,36 @@ float ElevatorSubsystem::ElevatorPosition(){
 }
 
 void ElevatorSubsystem::ExtendPeriodic(){
-  if(!full_manual){
-    if(pull_in_cargo_exend){
-      cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
-      //rezero on zero velocity
-      if(fabs(cargoIntakeExtend.GetSelectedSensorPosition())<50 && fabs(cargoIntakeExtend.GetSelectedSensorVelocity())<5){
-        ReZeroExtend();
+  if(!def_mode){
+    if(!full_manual){
+      if(pull_in_cargo_exend){
+        cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
+        //rezero on zero velocity
+        if(fabs(cargoIntakeExtend.GetSelectedSensorPosition())<50 && fabs(cargoIntakeExtend.GetSelectedSensorVelocity())<5){
+          ReZeroExtend();
+        }
+      }else{
+        if(Robot::Intake.is_intaking){
+          cout << "intaking "<<endl;
+          cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_INTAKE);
+        }else if(Robot::Intake.is_outtaking){
+          cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_HATCH);
+        }else if(Robot::Intake.HasCargo()){
+          cout << "has cargo "<<endl;
+          cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_CARGO);
+        }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && !Robot::Drive.is_tracking_drive &&!Robot::Drive.is_turning_tracking){
+          cout << "has hatch "<<endl;
+          cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_SUPPORT);
+        }else{
+          cout << "else "<<endl;
+          cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_HATCH);
+        }
       }
     }else{
-      if(Robot::Intake.is_intaking){
-        cout << "intaking "<<endl;
-        cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_INTAKE);
-      }else if(Robot::Intake.is_outtaking){
-        cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_HATCH);
-      }else if(Robot::Intake.HasCargo()){
-        cout << "has cargo "<<endl;
-        cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_CARGO);
-      }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && !Robot::Drive.is_tracking_drive &&!Robot::Drive.is_turning_tracking){
-        cout << "has hatch "<<endl;
-        cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_SUPPORT);
-      }else{
-        cout << "else "<<endl;
-        cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_HATCH);
-      }
+      cargoIntakeExtend.Set(ControlMode::PercentOutput, -1*Robot::oi.operate.GetRawAxis(5));
     }
   }else{
-    cargoIntakeExtend.Set(ControlMode::PercentOutput, Robot::oi.operate.GetRawAxis(5));
+    cargoIntakeExtend.Set(ControlMode::PercentOutput, -0.2);
   }
 }
 

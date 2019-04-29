@@ -33,7 +33,7 @@ class ElevatorSubsystem : public frc::Subsystem {
   float GetNextPosition();
   void SetFullManual();
   void ReZeroExtend();
-  
+
 
   //elevator
   //HATCH
@@ -52,11 +52,11 @@ class ElevatorSubsystem : public frc::Subsystem {
   constexpr static float LIMIT_OF_EFFECTED_BY_CARGO_INTAKE{800.0};
 
   //CARGO EXTEND OUT
-  constexpr static float CARGO_EXTEND_CARGO{1200.0};//1175
+  constexpr static float CARGO_EXTEND_CARGO{1190.0};//1175
   constexpr static float CARGO_EXTEND_IN{0.0};
-  constexpr static float CARGO_EXTEND_HATCH{682};
-  constexpr static float CARGO_EXTEND_INTAKE{1200};
-  constexpr static float CARGO_EXTEND_SUPPORT{1200};
+  constexpr static float CARGO_EXTEND_HATCH{611};
+  constexpr static float CARGO_EXTEND_INTAKE{1190};
+  constexpr static float CARGO_EXTEND_SUPPORT{1190};
 
   enum Positions {
     Top = 1,
@@ -83,6 +83,7 @@ class ElevatorSubsystem : public frc::Subsystem {
   int current_gamepiece{1};//default to Hatch
   bool fudging{false};
   bool has_moved_for_vision{false};
+  bool def_mode{false};
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities

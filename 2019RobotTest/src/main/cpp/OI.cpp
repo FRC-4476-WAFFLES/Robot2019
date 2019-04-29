@@ -35,7 +35,9 @@
 #include "commands/Climber/ClimberFullIn.h"//a
 #include "commands/Climber/ClimberHabLevel.h"//x
 #include "commands/Climber/ClimberToggleFoot.h"//lb
-
+//drive
+#include "commands/Drive/ALittleBitOfDefenceInmyLife.h"
+#include "commands/Drive/DefenceAintQuiteMyStyle.h"
 OI::OI() :
   left(0),
   right(1),
@@ -84,8 +86,15 @@ OI::OI() :
   Button* DriverClampyThingy = new JoystickButton(&left, 6);
   DriverClampyThingy->WhenReleased(new ToggleClamp());
 
-  // Button* DriverClampyThingyTheSecond = new JoystickButton(&left, 7);
-  // DriverClampyThingyTheSecond->WhenReleased(new ToggleClamp());
+  Button* Cause_its_deeeeeeeefennnnceee = new JoystickButton(&left, 1);
+  Cause_its_deeeeeeeefennnnceee->WhenReleased(new ALittleBitOfDefenceInmyLife());
+
+  Button* Cause_its_the_other_deeeeeeeefennnnceee = new JoystickButton(&right, 1);
+  Cause_its_the_other_deeeeeeeefennnnceee->WhenReleased(new ALittleBitOfDefenceInmyLife());  
+
+  Button* BackInControl = new JoystickButton(&operate, OperatorButton::RightJoystickCenterButton);
+  BackInControl->WhenReleased(new DefenceAintQuiteMyStyle());
+
 }
 
 float OI::ElevatorFudge(){
