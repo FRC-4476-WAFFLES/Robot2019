@@ -289,7 +289,7 @@ void ElevatorSubsystem::ExtendPeriodic(){
         cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
         //rezero on zero velocity
         if(fabs(cargoIntakeExtend.GetSelectedSensorPosition())<50 && fabs(cargoIntakeExtend.GetSelectedSensorVelocity())<5){
-          ReZeroExtend();
+          // ReZeroExtend();
         }
       }else{
         if(Robot::Intake.is_intaking){
