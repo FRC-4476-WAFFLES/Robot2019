@@ -83,7 +83,8 @@ void DriveSubsystem::WafflesDrive(float Left, float Right) {
 		velocity_time.Start();
 	}
 	velocity_encoder_segment = fabs( ( fabs(left_vel_segment) + fabs(right_vel_segment)) - velocity_encoder_segment);
-	Robot::Camera.SetCameraProcessingMode(1);
+	// Robot::Camera.SetCameraProcessingMode(1);
+	Robot::Camera.SetCameraProcessingMode(0);
 	left1.Set(ControlMode::PercentOutput, -Left);
 	right1.Set(ControlMode::PercentOutput, Right);
 
@@ -98,67 +99,58 @@ void DriveSubsystem::WafflesDrive(float Left, float Right) {
 }
 
 void DriveSubsystem::TrackingDrive(float Left, float Right){
-	if(velocity_time.Get()>0.1){
-		left_vel_segment = this->Left() - last_left_val;
-		right_vel_segment = this->Right() - last_right_val;
-		last_left_val = this->Left();
-		last_right_val = this->Right(); 
-		velocity_time.Reset();
-		velocity_time.Start();
-	}
-	cout << velocity_time.Get() << endl;
-	velocity_encoder_segment = fabs( ( fabs(left_vel_segment) + fabs(right_vel_segment)) - velocity_encoder_segment);
+	//Timekeeping
 	last_time.Reset();
 	last_time.Start();
 	double time = last_time.Get();
+	//Turn on Vision code
 	Robot::Camera.SetCameraProcessingMode(0);
+	//keep track of where we are in the vision prosses
 	is_tracking_drive = true;
 	is_turning_tracking = true;
+	//Get the PID values
 	double kp_turning = UpdateSinglePreference("camera turning p", -0.003);
 	double kd_turning = UpdateSinglePreference("camera turning d", -0.017);
 	double kp_driving = UpdateSinglePreference("camera driving p", -0.017);
 	double kp_forwards = UpdateSinglePreference("camera area coefficient", 0.35);
+	//Get values from the camera
 	double area = Robot::Camera.GetCameraTA();
 	double tx = Robot::Camera.GetCameraTX();
-	Left = Left*(1/(area*kp_forwards));
+	int tv = Robot::Camera.GetCameraTV();
+	double distance = GetHorizontalDistace();
+	//get the driving forewards speed
+	Left = kp_forwards*distance;
 	if(fabs(Left) <0.1){
 		Left = 0.1*(Left/fabs(Left));
 	}
-	Right = Right*(1/(area*kp_forwards));
+	Right = kp_forwards*distance;
 	if(fabs(Right) <0.1){
 		Right = 0.1*(Right/fabs(Right));
 	}
 
+	//calculate error for coarse and fine adjust 
 	double error = 0;
 	if(is_turning_tracking){
+		//coarse adjust error calculations
 		error = kp_turning*tx;
 	}else{
+		//fine adjust error calculations
 		error = kp_driving*tx;
 	}
 	
-	int tv = Robot::Camera.GetCameraTV();
 	if(tv == 0){
+		//check from missing target
 		Left = 0;
 		Right = 0;
 		missing_vision_target = true;
 	}else if(fabs(error) < acceptable_error){
-		// if(error > -MIN_TRACKING_ERROR && error < 0){
-		// 	Left+= -MIN_TRACKING_ERROR;
-		// 	Right-= -MIN_TRACKING_ERROR;
-		// 	missing_vision_target = false;
-		// 	is_turning_tracking = false;
-		// }else if(error < MIN_TRACKING_ERROR && error > 0){
-		// 	Left+= MIN_TRACKING_ERROR;
-		// 	Right-= MIN_TRACKING_ERROR;
-		// 	missing_vision_target = false;
-		// 	is_turning_tracking = false;
-		// }else{
-			Left+=error*10;
-			Right-=error*10;
-			missing_vision_target = false;
-			is_turning_tracking = false;
-		// }
+		//coarse adjust output to motors selected
+		Left+=error*10;
+		Right-=error*10;
+		missing_vision_target = false;
+		is_turning_tracking = false;
 	}else{
+		//fine adjust while driving foreward
 		double angle_error = target_angle - tx;//Gyro();
 		kd_turning = kd_turning * ((angle_error - last_angle_error) / time);
 		double angle_out = clamp(kd_turning + tx*kp_turning, -0.45, 0.45);
@@ -168,6 +160,7 @@ void DriveSubsystem::TrackingDrive(float Left, float Right){
 		angle_error = last_angle_error;
 	}
 	SmartDashboard::PutNumber("Drive/trackingError", error);
+	SmartDashboard::PutNumber("Drive/horizontalDistToTarget", GetHorizontalDistace());
 	left1.Set(ControlMode::PercentOutput, -Left);
 	right1.Set(ControlMode::PercentOutput, Right);
 }
@@ -203,6 +196,9 @@ void DriveSubsystem::Prints(){
 	SmartDashboard::PutNumber("Drive/AvgDriveOut", AvgDriveOut());
 	SmartDashboard::PutNumber("Drive/AvgVel", GetAvgVel());
 	SmartDashboard::PutNumber("Drive/encdif", velocity_encoder_segment);
+	SmartDashboard::PutNumber("Drive/horizontalDistToTarget", GetHorizontalDistace());
+	SmartDashboard::PutNumber("Drive/TanOutput", tan(CAMERA_ANGLE * (PI / 180.0)));
+	SmartDashboard::PutNumber("Drive/ty u lik this", Robot::Camera.GetCameraTY());
 }
 
 void DriveSubsystem::LoadPath(std::string name){
@@ -271,4 +267,9 @@ double DriveSubsystem::clamp(double value, double min, double max) {
 
 double DriveSubsystem::GetAvgVel(){
 	return velocity_encoder_segment;  
+}
+
+double DriveSubsystem::GetHorizontalDistace(){
+	CAMERA_ANGLE = UpdateSinglePreference("Camera Angle", CAMERA_ANGLE);
+	return ((CAMERA_HEIGHT - TARGET_HEIGHT) / tan((CAMERA_ANGLE - Robot::Camera.GetCameraTY()) * (PI / 180.0))) - HATCH_OFFSET_DIST;
 }

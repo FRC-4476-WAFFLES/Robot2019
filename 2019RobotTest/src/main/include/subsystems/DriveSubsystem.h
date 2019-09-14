@@ -40,6 +40,7 @@ class DriveSubsystem : public frc::Subsystem {
   double AvgDriveOut();
   double clamp(double value, double min, double max);
   double GetAvgVel();
+  double GetHorizontalDistace();
   
 
 
@@ -107,6 +108,13 @@ class DriveSubsystem : public frc::Subsystem {
 	int right_vel_segment{0};
 	int last_left_val{0};
 	int last_right_val{0};
+
+	//vision variables
+	constexpr static int TARGET_HEIGHT = 29;//IN
+	float CAMERA_ANGLE = 33.5;//DEG
+	constexpr static int CAMERA_HEIGHT = 43;//IN
+	constexpr static int HATCH_OFFSET_DIST = 26;//IN
+	// constexpr static double PI = 3.141592653589793116;
 
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities

@@ -28,6 +28,7 @@ class CameraSubsystem : public frc::Subsystem {
   double GetCameraTV();
   double GetCameraTS();
   double GetCameraTA();
+  double GetCameraTY();
   void SetCameraProcessingMode(int mode);
   void SetSnapshotMode(int mode);
   
