@@ -979,6 +979,17 @@
               "_source0": "network_table:///SmartDashboard/Drive/horizontalDistToTarget",
               "_title": "/SmartDashboard/Drive/horizontalDistToTarget"
             }
+          },
+          "14,8": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/ADXRS450_Gyro[0]/Value",
+              "_title": "/LiveWindow/Ungrouped/ADXRS450_Gyro[0]/Value"
+            }
           }
         }
       }
@@ -1035,6 +1046,28 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Drive/ty u lik this",
               "_title": "/SmartDashboard/Drive/ty u lik this"
+            }
+          },
+          "13,7": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive/LeftEncoder",
+              "_title": "/SmartDashboard/Drive/LeftEncoder"
+            }
+          },
+          "13,8": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive/RightEncoder",
+              "_title": "/SmartDashboard/Drive/RightEncoder"
             }
           }
         }

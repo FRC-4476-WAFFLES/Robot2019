@@ -287,12 +287,11 @@ void ElevatorSubsystem::ExtendPeriodic(){
     if(!full_manual){
       if(pull_in_cargo_exend){
         cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
-        //rezero on zero velocity
-        if(fabs(cargoIntakeExtend.GetSelectedSensorPosition())<50 && fabs(cargoIntakeExtend.GetSelectedSensorVelocity())<5){
-          // ReZeroExtend();
-        }
       }else{
-        if(Robot::Intake.is_intaking){
+        if(ElevatorPosition() > BOTTOM_CARGO_POSITION-100 && elevator_state_machine_state > 3){
+          //this is to keep the extend in so it doesn't knock lvl 1 hatches off
+          cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
+        }else if(Robot::Intake.is_intaking){
           cout << "intaking "<<endl;
           cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_INTAKE);
         }else if(Robot::Intake.is_outtaking){

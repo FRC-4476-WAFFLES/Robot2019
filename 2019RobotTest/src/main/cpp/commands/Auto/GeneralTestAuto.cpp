@@ -18,10 +18,11 @@
 GeneralTestAuto::GeneralTestAuto() :
  CommandGroup("GeneralTestAuto") 
 {
-  AddSequential(new ToggleClamp());
-  AddSequential(new OperatorTankDrive());
-  AddParallel(new ElevatorAutoManual());
-  AddParallel(new HatchAutoManual());
-  AddParallel(new IntakeAutoManual());
+  // AddSequential(new ToggleClamp());
+  // AddSequential(new OperatorTankDrive());
+  // AddParallel(new ElevatorAutoManual());
+  // AddParallel(new HatchAutoManual());
+  // AddParallel(new IntakeAutoManual());
+  AddSequential(new DriveAutoLines(0, 90));
   
 }
