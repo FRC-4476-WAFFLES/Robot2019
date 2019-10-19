@@ -60,13 +60,13 @@ void Robot::RobotPeriodic() {}
 void Robot::DisabledInit() {
   // oi.hid.SetRumble(frc::GenericHID::RumbleType::kLeftRumble, 0.0);
   // oi.hid.SetRumble(frc::GenericHID::RumbleType::kRightRumble, 0.0);
-  Camera.SetCameraProcessingMode(1);
+  Camera.SetCameraProcessingMode(Robot::Camera.ProcessingMode::Driver);
 }
 
 void Robot::DisabledPeriodic() { 
   frc::Scheduler::GetInstance()->Run();
   Camera.SetLedMode(Camera.CameraLEDMode::Off);
-  Camera.SetCameraProcessingMode(1);
+  Camera.SetCameraProcessingMode(Robot::Camera.ProcessingMode::Driver);
   oi.Prints();
 }
 
@@ -108,7 +108,7 @@ void Robot::TeleopInit() {
   // teleop starts running. If you want the autonomous to
   // continue until interrupted by another command, remove
   // this line or comment it out.
-  Camera.SetCameraProcessingMode(1);
+  Camera.SetCameraProcessingMode(Robot::Camera.ProcessingMode::Driver);
   // oi.hid.SetRumble(frc::GenericHID::RumbleType::kLeftRumble, 1.0);
   // oi.hid.SetRumble(frc::GenericHID::RumbleType::kRightRumble, 1.0);
 

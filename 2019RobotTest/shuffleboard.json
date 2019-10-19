@@ -976,19 +976,8 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Drive/horizontalDistToTarget",
-              "_title": "/SmartDashboard/Drive/horizontalDistToTarget"
-            }
-          },
-          "14,8": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///LiveWindow/Ungrouped/ADXRS450_Gyro[0]/Value",
-              "_title": "/LiveWindow/Ungrouped/ADXRS450_Gyro[0]/Value"
+              "_source0": "network_table:///SmartDashboard/Drive/trackingError",
+              "_title": "/SmartDashboard/Drive/trackingError"
             }
           }
         }
@@ -1075,8 +1064,8 @@
     }
   ],
   "windowGeometry": {
-    "x": 0.0,
-    "y": 0.0,
+    "x": 0.800000011920929,
+    "y": 96.80000305175781,
     "width": 1536.0,
     "height": 864.0
   }

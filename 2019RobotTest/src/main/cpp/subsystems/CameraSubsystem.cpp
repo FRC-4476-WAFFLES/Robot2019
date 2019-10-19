@@ -19,8 +19,7 @@ void CameraSubsystem::InitDefaultCommand() {
 // here. Call these from Commands.
 void CameraSubsystem::SetLedMode(int mode){
   //update the existing entry on the table to change what the Limelight leds are doing. list in .h->CameraLEDMode(enum).
-  // camera->PutNumber("ledMode", mode);
-  camera->PutNumber("ledMode", 3);
+  camera->PutNumber("ledMode", mode);
 }
 double CameraSubsystem::GetCameraTX(){
   //get the x distance between the center of the target and the center of the crosshairs.
@@ -49,7 +48,7 @@ double CameraSubsystem::GetCameraTY(){
 }
 void CameraSubsystem::SetCameraProcessingMode(int mode){
   //update the existing entry on the table to change what the Limelight is processing. list in .h->ProcessingMode(enum).
-  // camera->PutNumber("camMode", mode);
+  camera->PutNumber("camMode", mode);
 }
 void CameraSubsystem::SetSnapshotMode(int mode){
   //update the existing entry on the table to change whether the Limelight is taking snapshots?. list in .h->SnapshotMode(enum).

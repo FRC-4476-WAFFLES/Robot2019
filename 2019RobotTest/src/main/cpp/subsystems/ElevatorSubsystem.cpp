@@ -164,27 +164,13 @@ void ElevatorSubsystem::Periodic(){
         // position_when_seek_to_set = elevator_position;
         elevator_state_machine_state = 5;
         pull_in_cargo_exend = false;
-      }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE /*&& !Robot::Drive.is_tracking_drive &&!Robot::Drive.is_turning_tracking*/){
+      }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE){
         std::cout << "Condition: move out extend to support hatch" << std::endl;
         pull_in_cargo_exend = false;
-      }else if(!has_moved_down_for_vision && Robot::Drive.is_tracking_drive && (MIDDLE_CARGO_POSITION + 200) > next_elevator_position && next_elevator_position > LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && !has_moved_for_vision){
-        std::cout << "Condition: move Up for Vision under level 2" << std::endl;
-        next_elevator_position +=300;
-        has_moved_up_for_vision = true;
-        has_moved_for_vision = true;
-      }else if(Robot::Drive.is_tracking_drive && next_elevator_position > (MIDDLE_CARGO_POSITION + 200) && !has_moved_for_vision){
-        std::cout << "Condition: move up then down for vision" << std::endl;
-        next_elevator_position -= 100;
-        has_moved_for_vision = true;
       }else{
         pull_in_cargo_exend = true;
       }
 
-      if(has_moved_up_for_vision && fabs(elevator_position - next_elevator_position) < 40 && !has_moved_down_for_vision){
-        next_elevator_position -=300;
-        has_moved_down_for_vision = true;
-        std::cout << "moving down for vision" << std::endl;
-      }
       
       // in manual mode, move the extend out of the way if neccessary
     }else if(elevator_state_machine_state == 5){//for when fudging

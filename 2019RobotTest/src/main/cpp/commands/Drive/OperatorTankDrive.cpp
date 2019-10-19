@@ -27,14 +27,14 @@ void OperatorTankDrive::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void OperatorTankDrive::Execute() {
   //check if the driver is requesting vision assistance
-	if(Robot::oi.right.GetRawButton(10) || Robot::oi.right.GetRawButton(11)){
+	if(Robot::oi.right.GetRawButton(10) || Robot::oi.right.GetRawButton(11) || Robot::oi.right.GetRawButton(1)){
 		if(!has_set){
 			has_set = true;
 			Robot::Drive.target_angle = Robot::Camera.GetCameraTX() + Robot::Drive.Gyro();
 		}
 		Robot::Camera.SetSnapshotMode(Robot::Camera.SnapshotMode::SnapOn);
-		Robot::Drive.TrackingDrive(-0.25, -0.25);
-		// Robot::Drive.TrackingDrive(Robot::oi.left.GetY()*0.75, Robot::oi.left.GetY()*0.75);
+		// Robot::Drive.TrackingDrive(-0.25, -0.25);
+		Robot::Drive.TrackingDrive(Robot::Drive.clamp(Robot::oi.right.GetY()*0.75, -0.5, 0.5), Robot::Drive.clamp(Robot::oi.right.GetY()*0.75, -0.5, 0.5));
 	}else {
     //set the drive to the y axis of the joysticks
 		if(Robot::oi.left.GetRawButton(1) || Robot::oi.left.GetRawButton(2) || Robot::oi.left.GetRawButton(3) || Robot::oi.left.GetRawButton(4) || 
