@@ -86,7 +86,7 @@ class DriveSubsystem : public frc::Subsystem {
 	WPI_VictorSPX right3;
   	ADXRS450_Gyro gyro;
 	//for the turning in vision
-	constexpr static float acceptable_error{0.016};
+	constexpr static float acceptable_error{0.03};
 
 	//pathfinder stuff
 	Notifier* follower_notifier;

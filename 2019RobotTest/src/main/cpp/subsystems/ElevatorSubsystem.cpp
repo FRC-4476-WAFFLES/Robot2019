@@ -164,9 +164,9 @@ void ElevatorSubsystem::Periodic(){
         // position_when_seek_to_set = elevator_position;
         elevator_state_machine_state = 5;
         pull_in_cargo_exend = false;
-      }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE){
-        std::cout << "Condition: move out extend to support hatch" << std::endl;
-        pull_in_cargo_exend = false;
+      // }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE){
+      //   std::cout << "Condition: move out extend to support hatch" << std::endl;
+      //   pull_in_cargo_exend = false;
       }else{
         pull_in_cargo_exend = true;
       }
@@ -274,7 +274,7 @@ void ElevatorSubsystem::ExtendPeriodic(){
       if(pull_in_cargo_exend){
         cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
       }else{
-        if(ElevatorPosition() > BOTTOM_CARGO_POSITION-100 && elevator_state_machine_state > 3){
+        if(ElevatorPosition() > BOTTOM_CARGO_POSITION-100 && next_elevator_position>=BOTTOM_CARGO_POSITION-100/*&& elevator_state_machine_state > 3*/){
           //this is to keep the extend in so it doesn't knock lvl 1 hatches off
           cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_IN);
         }else if(Robot::Intake.is_intaking){
@@ -285,9 +285,9 @@ void ElevatorSubsystem::ExtendPeriodic(){
         }else if(Robot::Intake.HasCargo()){
           cout << "has cargo "<<endl;
           cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_CARGO);
-        }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && !Robot::Drive.is_tracking_drive &&!Robot::Drive.is_turning_tracking){
-          cout << "has hatch "<<endl;
-          cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_SUPPORT);
+        // }else if(!Robot::Hatch.current_clamp_state && Robot::Hatch.current_deploy_state && next_elevator_position < LIMIT_OF_EFFECTED_BY_CARGO_INTAKE && !Robot::Drive.is_tracking_drive &&!Robot::Drive.is_turning_tracking){
+        //   cout << "has hatch "<<endl;
+        //   cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_SUPPORT);
         }else{
           cout << "else "<<endl;
           cargoIntakeExtend.Set(ControlMode::Position, CARGO_EXTEND_HATCH);
