@@ -86,11 +86,11 @@ OI::OI() :
   Button* DriverClampyThingy = new JoystickButton(&left, 6);
   DriverClampyThingy->WhenReleased(new ToggleClamp());
 
-  // Button* Cause_its_deeeeeeeefennnnceee = new JoystickButton(&left, 1);
-  // Cause_its_deeeeeeeefennnnceee->WhenReleased(new ALittleBitOfDefenceInmyLife());
+  Button* Cause_its_deeeeeeeefennnnceee = new JoystickButton(&left, 2);
+  Cause_its_deeeeeeeefennnnceee->WhenReleased(new ALittleBitOfDefenceInmyLife());
 
-  // Button* Cause_its_the_other_deeeeeeeefennnnceee = new JoystickButton(&right, 1);
-  // Cause_its_the_other_deeeeeeeefennnnceee->WhenReleased(new ALittleBitOfDefenceInmyLife());  
+  Button* Cause_its_the_other_deeeeeeeefennnnceee = new JoystickButton(&right, 2);
+  Cause_its_the_other_deeeeeeeefennnnceee->WhenReleased(new ALittleBitOfDefenceInmyLife());  
 
   Button* BackInControl = new JoystickButton(&operate, OperatorButton::RightJoystickCenterButton);
   BackInControl->WhenReleased(new DefenceAintQuiteMyStyle());

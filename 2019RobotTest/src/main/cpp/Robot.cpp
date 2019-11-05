@@ -89,6 +89,7 @@ void Robot::AutonomousInit() {
   // } else {
   //   m_autonomousCommand = &m_defaultAuto;
   // }
+  Camera.SetCameraProcessingMode(Robot::Camera.ProcessingMode::Driver);
 
   autonomousCommand = AutonomousChooser.GetSelected();
 

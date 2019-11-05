@@ -83,8 +83,8 @@ void DriveSubsystem::WafflesDrive(float Left, float Right) {
 		velocity_time.Start();
 	}
 	velocity_encoder_segment = fabs( ( fabs(left_vel_segment) + fabs(right_vel_segment)) - velocity_encoder_segment);
-	// Robot::Camera.SetCameraProcessingMode(Robot::Camera.ProcessingMode::Driver);
-	Robot::Camera.SetCameraProcessingMode(Robot::Camera.ProcessingMode::Vision);
+	Robot::Camera.SetCameraProcessingMode(Robot::Camera.ProcessingMode::Driver);
+	// Robot::Camera.SetCameraProcessingMode(Robot::Camera.ProcessingMode::Vision);
 	left1.Set(ControlMode::PercentOutput, -Left);
 	right1.Set(ControlMode::PercentOutput, Right);
 
