@@ -554,6 +554,72 @@
               "_source0": "network_table:///SmartDashboard/Drive/ty u lik this",
               "_title": "Drive/ty u lik this"
             }
+          },
+          "0,8": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive/length ultras",
+              "_title": "Drive/length ultras"
+            }
+          },
+          "2,8": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive/ultarsonic value",
+              "_title": "Drive/ultarsonic value"
+            }
+          },
+          "4,8": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Auto mode",
+              "_title": "Auto mode"
+            }
+          },
+          "6,8": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/PDP/Temp",
+              "_title": "PDP/Temp"
+            }
+          },
+          "8,8": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/PDP/Tot Current",
+              "_title": "PDP/Tot Current"
+            }
+          },
+          "10,8": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/PDP/shooter Current",
+              "_title": "PDP/shooter Current"
+            }
           }
         }
       }
@@ -619,7 +685,8 @@
                   "_title": "ADXRS450_Gyro[0]",
                   "Visuals/Major tick spacing": 45.0,
                   "Visuals/Starting angle": 180.0,
-                  "Visuals/Show tick mark ring": true
+                  "Visuals/Show tick mark ring": true,
+                  "Visuals/Counter clockwise": false
                 },
                 {
                   "_type": "Speed Controller",
@@ -765,6 +832,54 @@
                   "_source0": "network_table:///LiveWindow/Ungrouped/Talon[0]",
                   "_title": "Talon[0]",
                   "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Victor[7]",
+                  "_title": "Victor[7]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Victor[1]",
+                  "_title": "Victor[1]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Victor[3]",
+                  "_title": "Victor[3]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Victor[9]",
+                  "_title": "Victor[9]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Victor[2]",
+                  "_title": "Victor[2]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Victor[0]",
+                  "_title": "Victor[0]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Victor[8]",
+                  "_title": "Victor[8]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/VictorSP[4]",
+                  "_title": "VictorSP[4]",
+                  "Visuals/Orientation": "HORIZONTAL"
                 }
               ]
             }
@@ -819,6 +934,17 @@
               "_title": "ExampleSubsystem",
               "Layout/Label position": "BOTTOM",
               "_children": []
+            }
+          },
+          "0,7": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///LiveWindow/ShooterSubsystem",
+              "_title": "ShooterSubsystem"
             }
           }
         }
@@ -1057,6 +1183,102 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Drive/RightEncoder",
               "_title": "/SmartDashboard/Drive/RightEncoder"
+            }
+          },
+          "12,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive/length ultras",
+              "_title": "/SmartDashboard/Drive/length ultras"
+            }
+          },
+          "12,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive/ultarsonic value",
+              "_title": "/SmartDashboard/Drive/ultarsonic value"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Tab 6",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 60.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "12,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/PDP/Temp",
+              "_title": "/SmartDashboard/PDP/Temp"
+            }
+          },
+          "12,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/PDP/Tot Current",
+              "_title": "/SmartDashboard/PDP/Tot Current"
+            }
+          },
+          "1,4": {
+            "size": [
+              18,
+              3
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/PDP/shooter Current",
+              "_title": "/SmartDashboard/PDP/shooter Current",
+              "Graph/Visible time": 30.0,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Visible data/SmartDashboard/PDP/shooter Current": true
+            }
+          },
+          "7,0": {
+            "size": [
+              4,
+              3
+            ],
+            "content": {
+              "_type": "Robot Preferences",
+              "_source0": "network_table:///Preferences",
+              "_title": "/Preferences",
+              "Miscellaneous/Show search box": true
+            }
+          },
+          "12,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/PDP/shooter Current",
+              "_title": "/SmartDashboard/PDP/shooter Current"
             }
           }
         }
