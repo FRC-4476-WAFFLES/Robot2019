@@ -1254,8 +1254,7 @@
               "Graph/Visible time": 30.0,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0,
-              "Visible data/SmartDashboard/PDP/shooter Current": true
+              "Y-axis/Lower bound": -1.0
             }
           },
           "7,0": {
